@@ -5,6 +5,7 @@ const app = express();
 app.use(express.json());
 
 const db = require('./db');
+const client = require('./db-conn');
 
 app.get('/', (req, res) => {
     res.send('Hello World!');
@@ -20,8 +21,7 @@ app.get('/api/admin/:id', (req, res) => {
     db.getAdminID(req, res);
 });
 
-
-
+app.use("/api/auth", require("./routes/jwtAuth"));
 
 
 
