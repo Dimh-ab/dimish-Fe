@@ -1,30 +1,29 @@
 <script>
+import { onMount } from "svelte";
+import axios from "axios";
+const PROJECTS_ENDPOINT = "http://localhost:4000/api/projects";
 
+let projects = [];
+
+onMount(async () => {
+	try {
+	const response = await axios.get(PROJECTS_ENDPOINT);
+  		console.log(response.data);	
+		projects = response.data;
+	} catch (error) {
+		console.log(error);
+	}
+});
 </script>
 
 <main>
-	<h1>Welcome to the mysterious library!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
+	{#each projects as project}
+		<div class="project">
+			<h2>{project.title}</h2>
+			<p>{project.description}</p>
+		</div>
+	{/each}
 </main>
 
 <style>
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
-	}
-
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
-	}
 </style>
