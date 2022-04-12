@@ -8,6 +8,8 @@ app.get('/', (req, res) => {
     res.send('Hello World!');
 });
 
+app.use('/api/projects', require('./routes/projects'));
+
 app.use("/api/auth", require("./routes/jwtAuth"));
 
 app.use("/api/dashboard", require("./routes/dashboard"));
