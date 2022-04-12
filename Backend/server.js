@@ -23,7 +23,7 @@ app.get('/api/admin/:id', (req, res) => {
 
 app.use("/api/auth", require("./routes/jwtAuth"));
 
-
+app.use("/api/dashboard", require("./routes/dashboard"));
 
 //port running on ...
 app.listen(PORT, () => {
