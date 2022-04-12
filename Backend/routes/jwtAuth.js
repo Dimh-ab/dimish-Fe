@@ -3,6 +3,7 @@ const client = require('../db-conn');
 const bcrypt = require('bcrypt');
 const jwtGenerator = require('../utils/jwtGenerator');
 const validInfo = require('../middleware/validInfo');
+const authorize = require('../middleware/authorization');
 
 
 //register route
@@ -59,7 +60,7 @@ router.post("/login", validInfo, async (req, res) => {
 
         const token = jwtGenerator(admin.rows[0].id);
 
-        res.json({token});
+        res.json({ token });
 
     } catch (error) {
         console.error(error.message);
@@ -67,7 +68,15 @@ router.post("/login", validInfo, async (req, res) => {
     }
 });
 
+router.get("/verify", authorize, async (req, res) => {
+    try {
+        res.json(true);
 
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server error");
+    }
+});
 
 
 
