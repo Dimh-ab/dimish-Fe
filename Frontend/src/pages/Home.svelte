@@ -1,7 +1,7 @@
 <script>
-import Projects from ".././components/Projects.svelte";
+
 </script>
 
 <div>
-    <Projects/>
+    <h1>Welcome to the library</h1>
 </div>

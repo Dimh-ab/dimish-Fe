@@ -1,24 +1,29 @@
 <script>
-import { Router, Route, Link } from "svelte-routing";
-import Login from "./components/Login.svelte";
-import Home from "./pages/Home.svelte";
+	import { Router, Route, Link } from "svelte-routing";
+	import Login from "./components/Login.svelte";
+	import Projects from "./components/Projects.svelte";
+	import Home from "./pages/Home.svelte";
 
-export let url="";
+	export let url = "";
 </script>
 
-<Router url="{url}">
-<nav>
-	<Link to="/">Home</Link>
-	<Link to="login">Login</Link>
-</nav>
-  <Route path="/">
-	<Home />
-  </Route>
+<Router {url}>
+	<nav>
+		<Link to="/">Home</Link>
+		<Link to="login">Login</Link>
+		<Link to="projects">Projects</Link>
+	</nav>
+	<Route path="/">
+		<Home />
+	</Route>
 
-  <Route path="login" component={Login}>
-	<Login />
-  </Route>
+	<Route path="login" >
+		<Login />
+	</Route>
 
+	<Route path="projects" >
+		<Projects />
+	</Route>
 </Router>
 
 <style>
