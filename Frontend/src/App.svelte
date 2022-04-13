@@ -1,32 +1,25 @@
 <script>
-import { onMount } from "svelte";
-import axios from "axios";
+import { Router, Route, Link } from "svelte-routing";
 import Login from "./components/Login.svelte";
+import Home from "./pages/Home.svelte";
 
-const PROJECTS_ENDPOINT = "http://localhost:4000/api/projects";
-
-let projects = [];
-
-onMount(async () => {
-	try {
-	const response = await axios.get(PROJECTS_ENDPOINT);
-  		console.log(response.data);	
-		projects = response.data;
-	} catch (error) {
-		console.log(error);
-	}
-});
+export let url="";
 </script>
 
-<main>
-	<Login/>
-	{#each projects as project}
-		<div class="project">
-			<h2>{project.title}</h2>
-			<p>{project.description}</p>
-		</div>
-	{/each}
-</main>
+<Router url="{url}">
+<nav>
+	<Link to="/">Home</Link>
+	<Link to="login">Login</Link>
+</nav>
+  <Route path="/">
+	<Home />
+  </Route>
+
+  <Route path="login" component={Login}>
+	<Login />
+  </Route>
+
+</Router>
 
 <style>
 </style>
