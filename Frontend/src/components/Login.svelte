@@ -1,22 +1,29 @@
 <script>
 import axios from "axios";
+import {navigate} from "svelte-routing";
+import { token } from '../stores.js';
 let username;
 let password;
 
 const handleSubmit = (e) => {
-  axios
-    .post("http://localhost:4000/api/auth/login", {
+  axios.post("http://localhost:4000/api/auth/login", {
       username: username,
       password: password
     })
     .then(response => {
-      console.log(response);
+      console.log('status', response.status);
+
       if (response.status === 200) {
         console.log('success');
-      } else if (response.status === 204) {
+        localStorage.setItem('token', response.data.token);
+        token.set(localStorage.getItem('token'));
+        navigate('/dashboard', { replace: true });
+      } 
+      else if (response.status === 400) {
         console.log("Invalid username or password");
-      } else if (response.status === 400) {
-        console.log("Something went wrong");
+      } 
+      else if (response.status === 401) {
+        console.log("Invalid Credentials");
       }
     })
     .catch(error => {
