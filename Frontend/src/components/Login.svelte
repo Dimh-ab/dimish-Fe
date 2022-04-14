@@ -4,8 +4,15 @@ import {navigate} from "svelte-routing";
 import { token } from '../stores.js';
 let username;
 let password;
+let validation;
+let validationCSS
 
-const handleSubmit = (e) => {
+$: if (username || password) {
+    validation = null;
+    validationCSS = "";
+} 
+
+const handleLogin = (e) => {
   axios.post("http://localhost:4000/api/auth/login", {
       username: username,
       password: password
@@ -18,31 +25,39 @@ const handleSubmit = (e) => {
         localStorage.setItem('token', response.data.token);
         token.set(localStorage.getItem('token'));
         navigate('/dashboard', { replace: true });
-      } 
-      else if (response.status === 400) {
-        console.log("Invalid username or password");
-      } 
-      else if (response.status === 401) {
-        console.log("Invalid Credentials");
+      } else {
+        validation = "Invalid username or password";
+        validationCSS = "validation";
       }
     })
     .catch(error => {
       console.log(error);
+      if(error.response.status === 401){
+        validation = "Invalid username or password"
+      } else if (error.response.status === 400) {
+        validation = "Invalid credentials";
+        validationCSS = "validation";
+      }
     });
 };
 
 </script>
 
-
 <main>
-<form on:submit|preventDefault={handleSubmit}>
-<input type="text" name="username" bind:value={username} placeholder="username">
-<input type="password" name="password" bind:value={password} placeholder="password">
-<button type="submit">LOGIN</button>
+<form on:submit|preventDefault={handleLogin}>
+    <input class={validationCSS} type="text" name="username" bind:value={username} placeholder="username" required>
+    <input class={validationCSS} type="password" name="password" bind:value={password} placeholder="password" required>
+    <button type="submit">LOGIN</button>
 </form>
+    {#if validation}
+    <p class="color: red">{validation}</p>
+    {/if}
 </main>
 
 
 <style>
-
+.validation {
+  border: 1px solid red;
+  color: red;
+}
 </style>
