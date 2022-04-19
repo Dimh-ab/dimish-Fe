@@ -5,6 +5,8 @@ import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import css from 'rollup-plugin-css-only';
 
+
+
 const production = !process.env.ROLLUP_WATCH;
 
 function serve() {
@@ -39,6 +41,7 @@ export default {
 	plugins: [
 
 		svelte({
+			
 			compilerOptions: {
 				hydratable: true,
 				// enable run-time checks when not in production

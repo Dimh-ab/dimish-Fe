@@ -2,28 +2,25 @@ const router = require('express').Router();
 const client = require('../db-conn');
 const authorize = require('../middleware/authorization');
 
-//CREATE/POST A PROJECT
-router.post('/', authorize, async (req, res) => {
-    try {
-        const { title, description, picture, category } = req.body;
-
-        const project = await client.query("INSERT INTO projects (title, description, picture, category) VALUES ($1, $2, $3, $4) RETURNING *", [title, description, picture, category]);
-
-        res.json(project.rows[0]);
-        
-    } catch (error) {
-        console.error(error.message);
-        res.status(500).send("Server Error");
-    }}
-)
 
 
 //GET ALL PROJECTS
 router.get('/', async (req, res) => {
     try {
-        const project = await client.query("SELECT title, description, picture, category FROM projects");
+        const project = await client.query("SELECT title, description, ENCODE(picture::bytea, 'base64'), category FROM projects")
 
+        // .then (project => {
+        //     Object.keys(project).map(projects => {
+        //         const image = projects.picture?.toString('base64');
+        //         console.log(image);
+        //         console.log("testtt");
+        //         projects['picture'] = image;
+        //     });
+        // });
+        
+                                    
         res.json(project.rows);
+        
 
     } catch (error) {
         console.error(error.message);
@@ -43,6 +40,22 @@ router.get('/:id', async (req, res) => {
         res.status(500).send("Server Error");
     }})
 
+    
+//CREATE/POST A PROJECT
+router.post('/', authorize, async (req, res) => {
+    try {
+        const { title, description, picture, category } = req.body;
+
+        const project = await client.query("INSERT INTO projects (title, description, picture , category) VALUES ($1, $2, $3, $4) RETURNING *", [title, description, picture, category]);
+
+        res.json(project.rows[0]);
+        
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Server Error");
+    }
+})
+
 //DELETE PROJECTS
 router.delete('/:id', authorize, async (req, res) => {
     try {
@@ -54,7 +67,8 @@ router.delete('/:id', authorize, async (req, res) => {
     } catch (error) {
         console.error(error.message);
         res.status(500).send("Server Error");
-    }})
+    }
+})
 
 //UPDATE PROJECTS
 router.put('/:id', authorize, async (req, res) => {
@@ -69,7 +83,8 @@ router.put('/:id', authorize, async (req, res) => {
     } catch (error) {
         console.error(error.message);
         res.status(500).send("Server Error");
-    }})
+    }
+})
 
 
 module.exports = router;
