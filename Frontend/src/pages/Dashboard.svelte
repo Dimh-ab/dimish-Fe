@@ -1,4 +1,6 @@
 <script>
+import Projects from '../components/Projects.svelte';
+import CreateForm from '../components/CreateForm.svelte';
 import {Link} from 'svelte-routing';
 import axios from 'axios';
 import {token} from '../stores.js';
@@ -42,8 +44,10 @@ const handleLogout = () => {
 
 
 <main>
-    <h1>Logged in as admin</h1>
     <button>
         <Link to="/" on:click={handleLogout}>Logout</Link>
     </button>
+    <h1>Logged in as admin</h1>
+    <Projects />
+    <CreateForm />
 </main>
