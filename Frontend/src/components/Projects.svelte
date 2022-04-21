@@ -1,23 +1,33 @@
 <script>
-	import { onMount } from "svelte";
+	import { onMount, setContext } from "svelte";
 	import axios from "axios";
+	// import {writable} from "svelte/store";
 
 	const PROJECTS_ENDPOINT = "http://localhost:4000/api/projects";
-
 	let projects = [];
+	let showProject = [];
+
+	// const addProjects = (newProject) => {
+    //         const newArray = [...projects, newProject]
+    //         console.log(newArray)
+    //         projects = newArray
+    // }
+
+	// setContext( 'addProjectContext', projects )
+
+
+	// export const projectsStore = writable(projects);
 
 	onMount(async () => {
 		try {
 			const response = await axios.get(PROJECTS_ENDPOINT);
 			console.log(response.data);
 			projects = response.data;
+			// projectsStore.set(projects);
 		} catch (error) {
 			console.log(error);
 		}
 	});
-
-
-	let showProject = [];
 
 
 </script>
@@ -39,8 +49,9 @@
 				<h2>{project.title}</h2>
 
 				<img
-					src="data:image/jpeg;base64,{project.encode}"
+					src="data:image/jpg;base64,{project.encode}"
 					alt={project.title}
+					name="picture"
 				/>
 
 				<p>Picture : {project.encode}</p>
