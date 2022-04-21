@@ -1,52 +1,36 @@
 const router = require('express').Router();
 const client = require('../db-conn');
 const authorize = require('../middleware/authorization');
-const multer = require("multer");
-const path = require('path');
+// const multer = require("multer");
+// const path = require('path');
 
-const storage = multer.diskStorage({
-    destination: './images',
-    filename: (req, file, cb) => {
-        return cb(null, `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`)
-    }
-  })
+// const storage = multer.diskStorage({
+//     destination: './images',
+//     filename: (req, file, cb) => {
+//         return cb(null, `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`)
+//     }
+//   })
   
-  const upload = multer({
-    storage: storage,
-    limits: {
-        fileSize: 1024*1024*10
-    }
-  })
+//   const upload = multer({
+//     storage: storage,
+//     limits: {
+//         fileSize: 1024*1024*10
+//     }
+//   })
 
-//   const getAllProjects = async (req, res) => {
-//     try {
-//      const projects = await Project.findAll({
-//      include: [
-//       {
-//        model: User,
-//        as: "createdBy",
-//        },
-//       ],
-//      })
-//    .then(projects => {
-//     projects.map(project => {
-//        const projectImage = project.imageData.toString('base64')
-//        project['imageData'] = projectImage
-//       });
-//      return projects;
-//     })
-//     .then(projects => {
-//     return res.status(200).json({projects: projects})
-//    })
-//    } catch (error) {
-//     return res.status(500).send(error.mesage);
-//    }
-//    };
 
 //GET ALL PROJECTS
 router.get('/', async (req, res) => {
     try {
-        const project = await client.query("SELECT title, description, encode(picture::bytea, 'base64'), category FROM projects")
+        const project = await client.query("SELECT title, description, picture, category, image_url FROM projects")
+       
+            // project.rows.map(p => {
+            //     if( Buffer.isBuffer(p.picture)) {
+            //         const b64 = Buffer.from(p.picture).toString('base64');
+            //         p.picture = b64
+            //     }
+            // })
+        
                                     
         res.json(project.rows);
 
@@ -59,7 +43,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        const project = await client.query("SELECT title, description, picture, category FROM projects WHERE id = $1", [id]);
+        const project = await client.query("SELECT title, description, picture, category, FROM projects WHERE id = $1", [id]);
 
         res.json(project.rows[0]);
 
@@ -70,18 +54,21 @@ router.get('/:id', async (req, res) => {
 
     
 //CREATE/POST A PROJECT
-router.post('/', authorize, upload.single('picture'), async (req, res) => {
+router.post('/', authorize, async (req, res) => {
     try {
+        // console.log(req.body.encode);
+        // console.log(req.file.filename);
         const data = {
             title: req.body.title,
             description: req.body.description,
-            picture: req.file.filename,
-            category: req.body.category
+            picture: req.body.encode,
+            category: req.body.category,
+            image_url: req.body.image_url
         }
         // const { title, description, category } = req.body;
         // const picture = req.file.filename;
 
-        const project = await client.query("INSERT INTO projects (title, description, picture, category) VALUES ($1, $2, $3, $4) RETURNING *", [data.title, data.description, data.picture, data.category]);
+        const project = await client.query("INSERT INTO projects (title, description, picture, category, image_url) VALUES ($1, $2, $3, $4, $5) RETURNING *", [data.title, data.description, data.picture, data.category, data.image_url]);
 
         res.json(project.rows[0]);
         

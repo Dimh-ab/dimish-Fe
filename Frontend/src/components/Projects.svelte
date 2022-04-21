@@ -23,38 +23,35 @@
 			const response = await axios.get(PROJECTS_ENDPOINT);
 			console.log(response.data);
 			projects = response.data;
-			// projectsStore.set(projects);
 		} catch (error) {
 			console.log(error);
 		}
 	});
 
+	// const url = URL.createObjectURL()
 
 </script>
 
 <main>
-	<!-- <img
-		src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4
-	//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=="
-		alt="Red dot"
-	/> -->
 
 	{#each projects as project, i (project)}
-		<button on:click={() => (showProject[i] = !showProject[i])}
-			>{project.title}</button
-		>
+		<button 
+		on:click={() => (showProject[i] = !showProject[i])}>
+			{project.title}
+		</button>
 
 		{#if showProject[i]}
 			<div class="project">
 				<h2>{project.title}</h2>
 
 				<img
-					src="data:image/jpg;base64,{project.encode}"
+					src={project.image_url}
 					alt={project.title}
 					name="picture"
+					height="200px"
 				/>
 
-				<p>Picture : {project.encode}</p>
+				<!-- <p>Picture : {project.picture}</p> -->
 				<p>{project.description}</p>
 			</div>
 		{:else}

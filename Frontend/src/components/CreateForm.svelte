@@ -10,10 +10,9 @@ const newProject = {
     title: "",
     encode: "",
     description: "",
-    category: ""
+    category: "",
+    image_url: "",
 }
-
-let imgURL = "";
 
 const submitProject = () => {
     axios.post("http://localhost:4000/api/projects", newProject, {
@@ -25,7 +24,9 @@ const submitProject = () => {
             console.log('status', response.status);
             if (response.status !== 200) {
                 console.log('unauthorized');
-            } else { //413 image is too big
+            } else {
+                // const buffer = new ArrayBuffer(response.data.picture, 'base64');
+                // console.log(buffer)
                 console.log(response.data);
                 // const newProjectArray = [...addProject, newProject];
                 // // addProject(newProject);
@@ -42,12 +43,8 @@ const submitProject = () => {
         const reader = new FileReader();
         reader.readAsDataURL(image);
         reader.onload = (e) => {
-            newProject.encode = e.target.result //.split(',')[1];
-            // const encode = btoa(newProject.encode);
-            // const buffer = new ArrayBuffer(newProject.encode, 'base64');
-            // console.log(buffer)
-            console.log(newProject.encode);
-            imgURL = e.target.result;
+            newProject.image_url = e.target.result
+            console.log('uploaded image --->', newProject.image_url);
         }
     }
 
@@ -63,9 +60,9 @@ const submitProject = () => {
 
     <label for="picture">
         Picture
-        <input type="file" accept=".jpg, .jpeg, .png" name="picture" placeholder="picture" bind:value={newProject.encode} on:change={(e) => uploadImage(e)}>
+        <input type="file" accept=".jpg, .jpeg, .png" name="picture" placeholder="picture" bind:value={newProject.image_url} on:change={(e) => uploadImage(e)}>
     </label>
-    <img src={imgURL} alt="" height="200px">
+    <img src={newProject.image_url} alt="" height="200px">
 
     <label for="description">
         description
