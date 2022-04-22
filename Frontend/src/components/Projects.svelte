@@ -28,31 +28,26 @@
 		}
 	});
 
-	// const url = URL.createObjectURL()
-
 </script>
 
 <main>
 
 	{#each projects as project, i (project)}
-		<button 
-		on:click={() => (showProject[i] = !showProject[i])}>
+		<button on:click={() => (showProject[i] = !showProject[i])}>
 			{project.title}
 		</button>
 
 		{#if showProject[i]}
 			<div class="project">
 				<h2>{project.title}</h2>
-
 				<img
 					src={project.image_url}
 					alt={project.title}
 					name="picture"
 					height="200px"
 				/>
-
-				<!-- <p>Picture : {project.picture}</p> -->
 				<p>{project.description}</p>
+				<p>{project.category}</p>
 			</div>
 		{:else}
 			<div />

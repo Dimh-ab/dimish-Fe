@@ -43,11 +43,11 @@ const handleLogout = () => {
 </script>
 
 
+<button>
+    <Link to="/" on:click={handleLogout}>Logout</Link>
+</button>
 <main>
-    <button>
-        <Link to="/" on:click={handleLogout}>Logout</Link>
-    </button>
-    <h1>Logged in as admin</h1>
-    <Projects />
     <CreateForm />
+    <h2>Projects</h2>
+    <Projects />
 </main>
