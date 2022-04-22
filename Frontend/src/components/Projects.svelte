@@ -1,28 +1,16 @@
 <script>
-	import { onMount, setContext } from "svelte";
+	import { onMount } from "svelte";
 	import axios from "axios";
-	// import {writable} from "svelte/store";
+	import { amountOfProjects } from "../stores.js";
 
 	const PROJECTS_ENDPOINT = "http://localhost:4000/api/projects";
-	let projects = [];
 	let showProject = [];
-
-	// const addProjects = (newProject) => {
-    //         const newArray = [...projects, newProject]
-    //         console.log(newArray)
-    //         projects = newArray
-    // }
-
-	// setContext( 'addProjectContext', projects )
-
-
-	// export const projectsStore = writable(projects);
 
 	onMount(async () => {
 		try {
 			const response = await axios.get(PROJECTS_ENDPOINT);
-			console.log(response.data);
-			projects = response.data;
+			$amountOfProjects = response.data
+			console.log($amountOfProjects)
 		} catch (error) {
 			console.log(error);
 		}
@@ -32,7 +20,7 @@
 
 <main>
 
-	{#each projects as project, i (project)}
+	{#each $amountOfProjects as project, i (project)}
 		<button on:click={() => (showProject[i] = !showProject[i])}>
 			{project.title}
 		</button>

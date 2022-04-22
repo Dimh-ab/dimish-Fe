@@ -1,10 +1,6 @@
 <script>
 import axios from 'axios';
-// import { getContext } from 'svelte';
-// import { projectsStore } from './Projects.svelte'
-
-// let addProject = getContext('addProjectContext');
-// console.log(addProject);
+import { amountOfProjects } from '../stores.js';
 let showForm = null;
 let validationMessage = "";
 let validationCSS = "";
@@ -33,13 +29,9 @@ const submitProject = () => {
                 console.log('unauthorized');
             } else {
                 console.log(response.data);
+                let addNewProject = response.data
+                amountOfProjects.update(projects => [...projects, addNewProject]);
                 afterSubmit();
-                // const buffer = new ArrayBuffer(response.data.picture, 'base64');
-                // console.log(buffer)
-                // console.log(response.data);
-                // const newProjectArray = [...addProject, newProject];
-                // // addProject(newProject);
-                // console.log('new array', newProjectArray)
             }
         })
         .catch(err => {
