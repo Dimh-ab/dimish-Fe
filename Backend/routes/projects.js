@@ -22,7 +22,7 @@ const authorize = require('../middleware/authorization');
 //GET ALL PROJECTS
 router.get('/', async (req, res) => {
     try {
-        const project = await client.query("SELECT title, description, picture, category, image_url FROM projects")
+        const project = await client.query("SELECT title, description, picture, category, image_url, id FROM projects")
        
             // project.rows.map(p => {
             //     if( Buffer.isBuffer(p.picture)) {
@@ -43,7 +43,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        const project = await client.query("SELECT title, description, picture, category, FROM projects WHERE id = $1", [id]);
+        const project = await client.query("SELECT title, description, picture, category, id, image_url FROM projects WHERE id = $1", [id]);
 
         res.json(project.rows[0]);
 
