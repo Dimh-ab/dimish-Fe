@@ -1,8 +1,9 @@
 <script>
 	import { onMount } from "svelte";
 	import axios from "axios";
-	import { amountOfProjects } from "../stores.js";
+	import { amountOfProjects, isEditing } from "../stores.js";
 	import DeleteBtn from "./DeleteBtn.svelte";
+	import EditBtn from "./EditBtn.svelte";
 
 	const PROJECTS_ENDPOINT = "http://localhost:4000/api/projects";
 
@@ -16,12 +17,18 @@
 		}
 	});
 
+	console.log($isEditing)
+
 </script>
 
 <main>
 
-	{#each $amountOfProjects as project, i (project)}
+	{#each $amountOfProjects as project}
 			<div class="project">
+				<EditBtn id={project.id} />
+				{#if $isEditing}
+					<div/>
+				{:else}
 				<h2>{project.title}</h2>
 				<img
 					src={project.image_url}
@@ -31,6 +38,7 @@
 				/>
 				<p>{project.description}</p>
 				<p>category: {project.category}</p>
+				{/if}
 				<DeleteBtn id={project.id}/>
 			</div>
 	{/each}
