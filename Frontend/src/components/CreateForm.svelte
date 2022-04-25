@@ -51,9 +51,14 @@ const uploadImage = (e) => {
     const image = e.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(image);
-    reader.onload = (e) => {
-        newProject.image_url = e.target.result
-        console.log('uploaded image --->', newProject.image_url);
+    let allowedFiles = ["image/png", "image/jpeg", "image/jpg"];
+    if(allowedFiles.includes(image.type)){
+        reader.onload = (e) => {
+            newProject.image_url = e.target.result;
+        }
+    } else {
+        validationMessage = "Please upload a valid image file";
+        validationCSS = "error";
     }
 }
 
@@ -67,12 +72,12 @@ const uploadImage = (e) => {
     <div>
         <label for="title">
             Title
-            <input type="text" name="title" placeholder="title" bind:value={newProject.title} required>
+            <input type="text" accept=".jpg, .jpeg, .png" name="title" placeholder="title" bind:value={newProject.title} required>
         </label>
     
         <label for="picture">
             Picture
-            <input type="file" accept=".jpg, .jpeg, .png" name="picture" placeholder="picture" bind:value={newProject.image_url} on:change={(e) => uploadImage(e)} required>
+            <input type="file" name="picture" placeholder="picture" bind:value={newProject.image_url} on:change={(e) => uploadImage(e)} required>
         </label>
         <!-- <img src={newProject.image_url} alt="" height="100px"> -->
     
@@ -89,7 +94,7 @@ const uploadImage = (e) => {
         {/each}
         </select>
         </label>
-
+        <p class={validationCSS}>{validationMessage}</p>
         <button type="submit" value="submit" class="submit">submit</button>
     </div>
 
@@ -98,6 +103,9 @@ const uploadImage = (e) => {
 {/if}
 
 <style>
+    .error{
+        color: red;
+    }
     .new-project, .submit{
         background: #fafafa;
         border: 1px solid #ccc;

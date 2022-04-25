@@ -2,6 +2,8 @@
 import axios from 'axios';
 import { amountOfProjects } from '../stores';
 export let id
+let confirm = false
+let message = ''
 
     const deleteProject = (id) => {
         axios.delete(`http://localhost:4000/api/projects/${id}`, {
@@ -15,7 +17,7 @@ export let id
                 console.log('unauthorized');
             } else {
                 console.log('deleted project');
-               $amountOfProjects = $amountOfProjects.filter(function(value, index, arr){
+               $amountOfProjects = $amountOfProjects.filter(function(value){
                    if(value.id !== id){
                       return value
                    }
@@ -27,9 +29,27 @@ export let id
         })
     };
 
+    const confirmed = () => {
+        confirm = true
+        console.log(confirm)
+        confirmDelete()
+    }
+
+    const confirmDelete = () => {
+        message = "Are you sure you want to delete this project?"
+        if(confirm === true){
+            deleteProject(id)
+        }
+    }
+
 </script>
 
-<button on:click={deleteProject(id)}>delete</button>
+<button on:click={confirmDelete}>delete</button>
+<strong>{message}</strong>
+{#if message !== ''}
+<button on:click={confirmed}>yes</button>
+<button on:click={() => (message = '')}>no</button>
+{/if}
 
 <style>
     button {
