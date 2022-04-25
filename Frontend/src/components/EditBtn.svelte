@@ -41,10 +41,8 @@
         })
         .then(response => {
             console.log('status', response.status);
-            if (response.status !== 200) {
-                console.log('unauthorized');
-            } else {
-                $amountOfProjects = $amountOfProjects.map(c => c.id === id ? project : c)
+            if (response.status === 200) {
+                $amountOfProjects = $amountOfProjects.map(p => p.id === id ? project : p)
                 console.log(response.data);
             }
         })
@@ -53,7 +51,8 @@
         })
     }
 
-    const toEdit = () => {
+    const toEdit = (id) => {
+        $amountOfProjects.find(p => p.id === id)
         $isEditing = true
         getProjectById(id)
         console.log('editing', isEditing)
@@ -64,12 +63,24 @@
         $isEditing = false
     }
 
+    const uploadImage = (e) => {
+    const image = e.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(image);
+    let allowedFiles = ["image/png", "image/jpeg", "image/jpg"];
+    if(allowedFiles.includes(image.type)){
+        reader.onload = (e) => {
+            project.image_url = e.target.result;
+        }
+    } 
+}
+
 </script>
 
-<button class="edit" on:click={toEdit}>🖌</button>
+<button class="edit" on:click={toEdit(id)}>🖌</button>
 {#if $isEditing}
     <input type="text" bind:value={project.title}>
-	<input type="file" bind:value={project.image_url}>
+	<input type="file" bind:value={project.image_url} on:change={(e) => uploadImage(e)}>
 	<input type="text" bind:value={project.description}>
 	<select bind:value={project.category}>
 		<option>Web</option>
