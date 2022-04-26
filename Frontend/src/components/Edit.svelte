@@ -53,9 +53,6 @@
     }
 
     const toEdit = (id, i) => {
-        console.log(i)
-        // $amountOfProjects.find(p => p.id === id)
-        // console.log( id)
         $show[i] = !$show[i]
         $isEditing = true
         getProjectById(id)
@@ -76,7 +73,9 @@
         reader.onload = (e) => {
             project.image_url = e.target.result;
         }
-    } 
+    } else {
+        e.target.value = "";
+    }
 }
 
 </script>
