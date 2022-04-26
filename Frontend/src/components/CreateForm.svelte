@@ -1,7 +1,6 @@
 <script>
 import axios from 'axios';
 import { amountOfProjects } from '../stores.js';
-let showForm = null;
 let validationMessage = "";
 let validationCSS = "";
 
@@ -44,7 +43,6 @@ const afterSubmit = () => {
     newProject.description = "";
     newProject.category = "";
     newProject.image_url = "";
-    // showForm = !showForm
 }
 
 const uploadImage = (e) => {
@@ -55,16 +53,19 @@ const uploadImage = (e) => {
     if(allowedFiles.includes(image.type)){
         reader.onload = (e) => {
             newProject.image_url = e.target.result;
+            validationMessage = "";
         }
     } else {
         validationMessage = "Please upload a valid image file";
         validationCSS = "error";
+        e.target.value = "";
     }
 }
 
+
 </script>
 
-<form on:submit|preventDefault={submitProject} enctype="multipart/form-data">
+<form on:submit|preventDefault={(submitProject)} enctype="multipart/form-data">
         <label for="title">
             Title
             <input type="text" accept=".jpg, .jpeg, .png" name="title" placeholder="title" bind:value={newProject.title} required>
@@ -97,7 +98,8 @@ const uploadImage = (e) => {
     .error{
         color: red;
     }
-    .new-project, .submit{
+    
+    .submit{
         background: #fafafa;
         border: 1px solid #ccc;
         border-radius: 5px;
