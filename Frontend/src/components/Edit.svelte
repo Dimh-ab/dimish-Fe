@@ -1,7 +1,8 @@
 <script>
     import axios from 'axios'; 
-    import { isEditing, amountOfProjects } from '../stores';
+    import { isEditing, amountOfProjects, show } from '../stores';
     export let id
+    export let i
 
     const project = {
     title: "",
@@ -51,8 +52,11 @@
         })
     }
 
-    const toEdit = (id) => {
-        $amountOfProjects.find(p => p.id === id)
+    const toEdit = (id, i) => {
+        console.log(i)
+        // $amountOfProjects.find(p => p.id === id)
+        // console.log( id)
+        $show[i] = !$show[i]
         $isEditing = true
         getProjectById(id)
         console.log('editing', isEditing)
@@ -77,10 +81,11 @@
 
 </script>
 
-<button class="edit" on:click={toEdit(id)}>🖌</button>
-{#if $isEditing}
+<button class="edit" on:click={toEdit(id, i)}>🖌</button>
+{#if $isEditing && $show[i]}
     <input type="text" bind:value={project.title}>
 	<input type="file" bind:value={project.image_url} on:change={(e) => uploadImage(e)}>
+    <img src={project.image_url} alt="" height="150px">
 	<input type="text" bind:value={project.description}>
 	<select bind:value={project.category}>
 		<option>Web</option>
