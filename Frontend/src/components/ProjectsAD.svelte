@@ -17,8 +17,6 @@
 		}
 	});
 
-	console.log($isEditing)
-
 </script>
 
 <main>
