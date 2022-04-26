@@ -37,16 +37,17 @@ export let id
 
 </script>
 
-    <button on:click={() => confirm()}>delete</button>
+    <button on:click={() => confirm()}>X</button>
 
 <style>
     button {
-        background: red;
-        color: white;
-        border: none;
-        padding: 10px 15px;
-        border-radius: 4px;
+        background: white;
+        color: black;
+        border: 1px solid black;
+        padding: 8px 15px;
+        border-radius: 90px;
         cursor: pointer;
-        float: right;
+        font-weight: 600;
+        font-size: 1.3em;
     }
 </style>

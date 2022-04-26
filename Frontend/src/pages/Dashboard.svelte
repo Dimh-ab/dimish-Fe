@@ -7,6 +7,7 @@ import axios from 'axios';
 import {token} from '../stores.js';
 import { onMount } from 'svelte';
 import {navigate} from "svelte-routing";
+import OpenFormBtn from '../components/OpenFormBtn.svelte';
 
 //Checks if existing token is still valid
 onMount(async () => {
@@ -48,6 +49,7 @@ const handleLogout = () => {
     <Link to="/" on:click={handleLogout}>Logout</Link>
 </button>
 <main>
-    <CreateForm />
+    <!-- <CreateForm /> -->
+    <OpenFormBtn />
     <ProjectsAD />
 </main>

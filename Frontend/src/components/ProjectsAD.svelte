@@ -19,11 +19,13 @@
 
 </script>
 
-<main>
-
+<section>
 	{#each $amountOfProjects as project, i}
-			<div class="project">
-				<Edit id={project.id} i={i}/>
+			<article class="project">
+				<div class="edit-delete-buttons">
+					<DeleteBtn id={project.id}/>
+					<Edit id={project.id} i={i}/>
+				</div>
 
 				{#if $isEditing && $show[i]}
 					<div/>
@@ -38,14 +40,12 @@
 				<p>{project.description}</p>
 				<p>category: {project.category}</p>
 				{/if}
-				
-				<DeleteBtn id={project.id}/>
-			</div>
+			</article>
 	{/each}
-</main>
+</section>
 
 <style>
-	main{
+	section{
 		display: flex;
 		flex-wrap: wrap;
 		flex-direction: row;

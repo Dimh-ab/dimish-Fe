@@ -44,7 +44,7 @@ const afterSubmit = () => {
     newProject.description = "";
     newProject.category = "";
     newProject.image_url = "";
-    showForm = !showForm
+    // showForm = !showForm
 }
 
 const uploadImage = (e) => {
@@ -64,12 +64,7 @@ const uploadImage = (e) => {
 
 </script>
 
-
-<button on:click={() => (showForm = !showForm)} class="new-project">New Project</button>
-
-{#if showForm}
 <form on:submit|preventDefault={submitProject} enctype="multipart/form-data">
-    <div>
         <label for="title">
             Title
             <input type="text" accept=".jpg, .jpeg, .png" name="title" placeholder="title" bind:value={newProject.title} required>
@@ -96,11 +91,7 @@ const uploadImage = (e) => {
         </label>
         <p class={validationCSS}>{validationMessage}</p>
         <button type="submit" value="submit" class="submit">submit</button>
-    </div>
-
-
 </form>
-{/if}
 
 <style>
     .error{
@@ -114,18 +105,8 @@ const uploadImage = (e) => {
         margin: 10px;
         cursor: pointer;
     }
-    
-    form{
-        position: fixed;
-        background-color: #fafafa;
-    }
 
-    div{
-        border: 1px solid black;
-        border-radius: 1%;
-    }
     label{
-        width: 300px;
         display: flex;
         flex-direction: column;
         margin: 10px;
