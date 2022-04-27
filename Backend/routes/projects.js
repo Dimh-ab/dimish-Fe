@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const client = require('../db-conn');
 const authorize = require('../middleware/authorization');
+const validInfo = require('../middleware/validInfo');
 
 
 //GET ALL PROJECTS
@@ -30,7 +31,7 @@ router.get('/:id', async (req, res) => {
 
     
 //CREATE/POST A PROJECT
-router.post('/', authorize, async (req, res) => {
+router.post('/', authorize, validInfo, async (req, res) => {
     try {
         const data = {
             title: req.body.title,
