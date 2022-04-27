@@ -22,24 +22,25 @@
 <section>
 	{#each $amountOfProjects as project, i}
 			<article class="project">
-				<div class="edit-delete-buttons">
-					<DeleteBtn id={project.id}/>
-					<Edit id={project.id} i={i}/>
-				</div>
 
 				{#if $isEditing && $show[i]}
 					<div/>
 				{:else}
-				<h2>{project.title}</h2>
 				<img
 					src={project.image_url}
 					alt={project.title}
 					name="picture"
-					height="200px"
+					height="250px"
 				/>
-				<p>{project.description}</p>
+				<h2>{project.title}</h2>
+				<p class="description">{project.description}</p>
 				<p>category: {project.category}</p>
 				{/if}
+
+				<div class="edit-delete-buttons">
+					<DeleteBtn id={project.id}/>
+					<Edit id={project.id} i={i}/>
+				</div>
 			</article>
 	{/each}
 </section>
@@ -52,16 +53,27 @@
 
 	}
 	.project{
-		width: 300px;
+		width: 350px;
+		max-height: 550px;
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
 		align-items: center;
 		margin: 20px;
-		padding: 20px;
-		border: 1px solid black;
+		border: 2px solid #c0c0c0;
 		border-radius: 10px;
 		background-color: #f5f5f5;
 	}
+
+	img{
+		width: 100%;
+		height: auto;
+		border-radius: 10px 10px 0 0;
+	}
+
+	p{
+		margin: 5px 20px;
+	}
+	
    
 </style>

@@ -1,6 +1,6 @@
 <script>
     import axios from 'axios'; 
-    import { isEditing, amountOfProjects, show } from '../stores';
+    import { isEditing, amountOfProjects, show, categories } from '../stores';
     export let id
     export let i
 
@@ -80,24 +80,51 @@
 
 </script>
 
-<button class="edit" on:click={toEdit(id, i)}>🖌</button>
+<button class="edit-btn" on:click={toEdit(id, i)}>🖌</button>
 {#if $isEditing && $show[i]}
-    <input type="text" bind:value={project.title}>
-	<input type="file" bind:value={project.image_url} on:change={(e) => uploadImage(e)}>
+<form>
+    <input class="inputs" type="text" bind:value={project.title}>
+	<input class="inputs" type="file" bind:value={project.image_url} on:change={(e) => uploadImage(e)}>
     <img src={project.image_url} alt="" height="150px">
-	<input type="text" bind:value={project.description}>
-	<select bind:value={project.category}>
-		<option>Web</option>
-		<option>Mobile</option>
-		<option>Desktop</option>
+	<input class="inputs" type="text" bind:value={project.description}>
+	<select class="inputs" bind:value={project.category}>
+        {#each $categories as category}
+        <option value={category}>{category}</option>
+        {/each}
 	</select>
-<button on:click={saveProject}>SAVE</button>
+<button class="save-btn" on:click={saveProject}>SAVE</button>
+</form>
 {/if}
 
 <style>
-    .edit{
+    .save-btn{
+        background-color: rgb(94, 166, 255);
+        color: white;
+        font-weight: 600;
+        border: none;
+        border-radius: 90px;
+        padding: 10px 15px;
+        margin: 10px;
+        cursor: pointer;
+    }
+    .edit-btn{
         font-size: 2em;
         border: none;
         background: transparent;
+        cursor: pointer;
+    }
+
+    form{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .inputs{
+        width: 300px;
+        height: 40px;
+        margin: 10px;
+        border: none;
+        border-bottom: 1px solid black;
     }
 </style>

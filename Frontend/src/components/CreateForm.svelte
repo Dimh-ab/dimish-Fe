@@ -1,11 +1,8 @@
 <script>
 import axios from 'axios';
-import { amountOfProjects } from '../stores.js';
+import { amountOfProjects, categories } from '../stores.js';
 let validationMessage = "";
 let validationCSS = "";
-
-
-const categories = ['Random category', 'Another category', 'Third category', 'Fourth category', 'Fifth category'];
 
 
 const newProject = {
@@ -85,7 +82,7 @@ const uploadImage = (e) => {
         <label for="category">
             choose a category
         <select bind:value={newProject.category} required>
-        {#each categories as category}
+        {#each $categories as category}
             <option value={category}>{category}</option>
         {/each}
         </select>
