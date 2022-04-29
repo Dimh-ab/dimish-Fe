@@ -5,6 +5,7 @@
 
 	const PROJECTS_ENDPOINT = "http://localhost:4000/api/projects";
 	let showProject = [];
+	let wasClicked = false
 
 	onMount(async () => {
 		try {
@@ -16,6 +17,12 @@
 		}
 	});
 
+	const openBook = (i) => {
+		showProject[i] = !showProject[i]
+		wasClicked = !wasClicked
+	}
+
+
 </script>
 
 	{#each $amountOfProjects as project, i (project)}
@@ -25,7 +32,8 @@
 		</button>
 
 		{#if showProject[i]}
-			<div class="book">
+		<!-- <button>back</button> -->
+			<div class={"book " + (wasClicked ? 'wasClicked' : '')} on:click={() => (wasClicked = !wasClicked)}>
 				<div class="cover"></div>
 				<div class="page"></div>
 				<div class="page"></div>
@@ -43,8 +51,11 @@
 				<p>{project.description}</p>
 				<p>{project.category}</p>
 				</div>
+				<div class="after-last-page"></div>
+				<div class="after-last-page"></div>
 				<div class="back-cover"></div>
 			</div>
+			<!-- <button>next</button> -->
 		{:else}
 			<div />
 		{/if}
@@ -72,14 +83,16 @@
 		cursor: pointer;
 	}
 
-	.book:hover .cover{
+
+	.book.wasClicked .cover{
 		transform: rotateX(10deg) rotateY(180deg);
 	}
 
-	.book:hover .page{
+	.book.wasClicked .page{
 		transform: rotateX(10deg) rotateY(180deg);
 		z-index: 4;
 	}
+
 
 	.cover{
 		z-index: 4;
@@ -88,8 +101,8 @@
 	}
 
 	.cover, .back-cover{
-		height: 400px;
-		width: 360px;
+		height: 380px;
+		width: 340px;
 		background-color: #653e27;
 		border-radius: 2px 20px 20px 2px;
 		position: absolute;
@@ -103,8 +116,8 @@
 	}
 
 	.page, .last-page{
-		height: 380px;
-		width: 350px;
+		height: 360px;
+		width: 330px;
 		background: white;
 		position: absolute;
 		border-radius: 2px 10px 10px 2px;
@@ -135,21 +148,22 @@
 		z-index: 3;
 	}
 
-	.book:hover .page:nth-child(2){
+	.book.wasClicked .page:nth-child(2){
 		transition-duration: 6s;
 	}
-	.book:hover .page:nth-child(3){
+	.book.wasClicked .page:nth-child(3){
 		transition-duration: 5.6s;
 	}
-	.book:hover .page:nth-child(4){
+	.book.wasClicked .page:nth-child(4){
 		transition-duration: 5.2s;
 	}
-	.book:hover .page:nth-child(5){
+	.book.wasClicked .page:nth-child(5){
 		transition-duration: 4.8s;
 	}
-	.book:hover .page:nth-child(6){
+	.book.wasClicked .page:nth-child(6){
 		transition-duration: 4.4s;
 	}
+
 
 	.last-page{
 		position: relative;
