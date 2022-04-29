@@ -4,8 +4,7 @@
 	import { amountOfProjects } from "../stores.js";
 
 	const PROJECTS_ENDPOINT = "http://localhost:4000/api/projects";
-	let showProject = [];
-	let wasClicked = false
+	let wasClicked = -1
 
 	onMount(async () => {
 		try {
@@ -18,35 +17,30 @@
 	});
 
 	const openBook = (i) => {
-		showProject[i] = !showProject[i]
-		wasClicked = !wasClicked
+		wasClicked = wasClicked === i ? -1 : i 
 	}
 
 
 </script>
 
-	{#each $amountOfProjects as project, i (project)}
+	{#each $amountOfProjects as project, i}
 	<main>
-		<button on:click={() => (showProject[i] = !showProject[i])}>
-			{project.title}
-		</button>
-
-		{#if showProject[i]}
-		<!-- <button>back</button> -->
-			<div class={"book " + (wasClicked ? 'wasClicked' : '')} on:click={() => (wasClicked = !wasClicked)}>
+			<div class={"book " + (i === wasClicked ? 'wasClicked' : '')} on:click={() => openBook(i)}>
 				<div class="cover"></div>
 				<div class="page"></div>
 				<div class="page"></div>
 				<div class="page"></div>
 				<div class="page"></div>
-				<div class="page"></div>
+				<div class="page">
+				</div>
 				<div class="last-page">	
 					<h2>{project.title}</h2>
-				<img
+			
+					<img
 					src={project.image_url}
 					alt={project.title}
 					name="picture"
-					height="150px"
+					height="50px"
 				/>
 				<p>{project.description}</p>
 				<p>{project.category}</p>
@@ -55,10 +49,6 @@
 				<div class="after-last-page"></div>
 				<div class="back-cover"></div>
 			</div>
-			<!-- <button>next</button> -->
-		{:else}
-			<div />
-		{/if}
 		</main>
 	{/each}
 
@@ -67,6 +57,24 @@
 		margin: 0;
 		padding: 0;
 		font-family: sans-serif;
+	}
+
+	p{
+		font-size: 0.5em;
+	}
+
+	h2{
+		font-size: 0.7em;
+	}
+
+	.small-book{
+		cursor: pointer;
+		background-color: #653e27;
+		width: 100px;
+		height: 140px;
+		color: white;
+		border: none;
+		border-radius: 2px 10px 10px 2px;
 	}
 
 	main{
@@ -85,12 +93,24 @@
 
 
 	.book.wasClicked .cover{
-		transform: rotateX(10deg) rotateY(180deg);
+		transform: rotateX(10deg) rotateY(180deg) scale(2.2);
+		transition-duration: 3s;
 	}
 
 	.book.wasClicked .page{
-		transform: rotateX(10deg) rotateY(180deg);
+		transform: rotateX(10deg) rotateY(180deg) scale(2.2);
+		transition-duration: 3s;
 		z-index: 4;
+	}
+
+	.book.wasClicked .back-cover{
+		transform: scale(2.2);
+		transition-duration: 3s;
+	}
+
+	.book.wasClicked .last-page{
+		transform: scale(2.2);
+		transition-duration: 3s;
 	}
 
 
@@ -101,14 +121,15 @@
 	}
 
 	.cover, .back-cover{
-		height: 380px;
-		width: 340px;
+		height: 180px;
+		width: 140px;
 		background-color: #653e27;
 		border-radius: 2px 20px 20px 2px;
 		position: absolute;
 		box-shadow: 1px 1px 10px gray;
 		transform: perspective(1000px) rotateX(10deg);
 		transform-origin: center left;
+		transition-duration: 3s;
 	}
 
 	.back-cover{
@@ -116,8 +137,8 @@
 	}
 
 	.page, .last-page{
-		height: 360px;
-		width: 330px;
+		height: 160px;
+		width: 130px;
 		background: white;
 		position: absolute;
 		border-radius: 2px 10px 10px 2px;
@@ -169,6 +190,7 @@
 		position: relative;
 		text-align: center;
 		font-size: 1.5em;
+		transition-duration: 3s;
 	}
 
 
