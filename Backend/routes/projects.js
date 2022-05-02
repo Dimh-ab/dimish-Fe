@@ -1,13 +1,13 @@
 const router = require('express').Router();
 const client = require('../db-conn');
 const authorize = require('../middleware/authorization');
-const validInfo = require('../middleware/validInfo');
+const validForm = require('../middleware/validForm');
 
 
 //GET ALL PROJECTS
 router.get('/', async (req, res) => {
     try {
-        const project = await client.query("SELECT title, description, picture, category, image_url, id FROM projects") 
+        const project = await client.query("SELECT title, description, category, image_url, id FROM projects") 
                                     
         res.json(project.rows);
 
@@ -20,7 +20,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        const project = await client.query("SELECT title, description, picture, category, id, image_url FROM projects WHERE id = $1", [id]);
+        const project = await client.query("SELECT title, description, category, id, image_url FROM projects WHERE id = $1", [id]);
 
         res.json(project.rows[0]);
 
@@ -31,17 +31,16 @@ router.get('/:id', async (req, res) => {
 
     
 //CREATE/POST A PROJECT
-router.post('/', authorize, validInfo, async (req, res) => {
+router.post('/', authorize, validForm, async (req, res) => {
     try {
         const data = {
             title: req.body.title,
             description: req.body.description,
-            picture: req.body.encode,
             category: req.body.category,
             image_url: req.body.image_url
         }
 
-        const project = await client.query("INSERT INTO projects (title, description, picture, category, image_url) VALUES ($1, $2, $3, $4, $5) RETURNING *", [data.title, data.description, data.picture, data.category, data.image_url]);
+        const project = await client.query("INSERT INTO projects (title, description, category, image_url) VALUES ($1, $2, $3, $4) RETURNING *", [data.title, data.description, data.category, data.image_url]);
 
         res.json(project.rows[0]);
         
@@ -66,12 +65,17 @@ router.delete('/:id', authorize, async (req, res) => {
 })
 
 //UPDATE PROJECTS
-router.put('/:id', authorize, async (req, res) => {
+router.put('/:id', authorize, validForm, async (req, res) => {
     try {
-        const { id } = req.params;
-        const { title, description, picture, image_url, category } = req.body;
+        const data = {
+            title: req.body.title,
+            description: req.body.description,
+            category: req.body.category,
+            image_url: req.body.image_url,
+            id: req.params.id
+        }
 
-        const project = await client.query("UPDATE projects SET title = $1, description = $2, picture = $3, image_url = $4, category = $5 WHERE id = $6 RETURNING *", [title, description, picture, image_url, category, id]);
+        const project = await client.query("UPDATE projects SET title = $1, description = $2, image_url = $3, category = $4 WHERE id = $5 RETURNING *", [data.title, data.description, data.category, data.image_url, data.id]);
 
         res.json(project.rows[0]);
         
