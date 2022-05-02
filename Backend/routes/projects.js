@@ -75,7 +75,7 @@ router.put('/:id', authorize, validForm, async (req, res) => {
             id: req.params.id
         }
 
-        const project = await client.query("UPDATE projects SET title = $1, description = $2, image_url = $3, category = $4 WHERE id = $5 RETURNING *", [data.title, data.description, data.category, data.image_url, data.id]);
+        const project = await client.query("UPDATE projects SET title = $1, description = $2, image_url = $3, category = $4 WHERE id = $5 RETURNING *", [data.title, data.description, data.image_url, data.category, data.id]);
 
         res.json(project.rows[0]);
         
