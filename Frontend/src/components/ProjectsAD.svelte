@@ -74,6 +74,10 @@
 	p{
 		margin: 5px 20px;
 	}
+
+	.description{
+		overflow-y: scroll;
+	}
 	
    
 </style>

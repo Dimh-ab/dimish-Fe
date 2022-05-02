@@ -7,7 +7,6 @@ let validationCSS = "";
 
 const newProject = {
     title: "",
-    encode: "",
     description: "",
     category: "",
     image_url: "",
@@ -22,7 +21,7 @@ const submitProject = () => {
         .then(response => {
             console.log('status', response.status);
             if (response.status !== 200) {
-                console.log('unauthorized');
+                console.log('something went wrong');
             } else {
                 console.log(response.data);
                 let addNewProject = response.data
@@ -52,7 +51,8 @@ const uploadImage = (e) => {
             newProject.image_url = e.target.result;
             validationMessage = "";
         }
-    } else {
+    } 
+    else {
         validationMessage = "Please upload a valid image file";
         validationCSS = "error";
         e.target.value = "";

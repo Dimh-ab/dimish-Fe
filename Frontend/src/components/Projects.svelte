@@ -10,11 +10,19 @@
 		try {
 			const response = await axios.get(PROJECTS_ENDPOINT);
 			$amountOfProjects = response.data
-			console.log($amountOfProjects)
+			// checkDescriptionLength()
 		} catch (error) {
 			console.log(error);
 		}
 	});
+
+	const checkDescriptionLength = () => {
+		for (let i = 0; i < $amountOfProjects.length; i++) {
+			if ($amountOfProjects[i].description.length > 400) {
+				$amountOfProjects[i].description = $amountOfProjects[i].description.slice(0, 400) + "..."
+			}
+		}
+	}
 
 	const openBook = (i) => {
 		wasClicked = wasClicked === i ? -1 : i 
@@ -26,27 +34,31 @@
 	{#each $amountOfProjects as project, i}
 	<main>
 			<div class={"book " + (i === wasClicked ? 'wasClicked' : '')} on:click={() => openBook(i)}>
-				<div class="cover"></div>
+				<div class="cover">{project.title}</div>
+				<!-- <div class="cover2"></div> -->
 				<div class="page"></div>
 				<div class="page"></div>
 				<div class="page"></div>
 				<div class="page"></div>
-				<div class="page">
-				</div>
-				<div class="last-page">	
-					<h2>{project.title}</h2>
+				<div class="page"></div>
+				<div class="page"></div>
+				<div class="page pageWithContent">
+					<h2 class="title">{project.title}</h2>
 			
 					<img
 					src={project.image_url}
 					alt={project.title}
 					name="picture"
 					height="50px"
+					class="picture"
 				/>
-				<p>{project.description}</p>
-				<p>{project.category}</p>
+					<p class="category">{project.category}</p>
 				</div>
-				<div class="after-last-page"></div>
-				<div class="after-last-page"></div>
+
+				<div class="last-page">	
+				<p class="description">{project.description}</p>
+				</div>
+
 				<div class="back-cover"></div>
 			</div>
 		</main>
@@ -67,16 +79,6 @@
 		font-size: 0.7em;
 	}
 
-	.small-book{
-		cursor: pointer;
-		background-color: #653e27;
-		width: 100px;
-		height: 140px;
-		color: white;
-		border: none;
-		border-radius: 2px 10px 10px 2px;
-	}
-
 	main{
 		height: 60vh;
 		display: flex;
@@ -93,23 +95,29 @@
 
 
 	.book.wasClicked .cover{
-		transform: rotateX(10deg) rotateY(180deg) scale(2.2);
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(3);
 		transition-duration: 3s;
 	}
 
+	/* .book.wasClicked .cover2{
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(2.2);
+		transition-duration: 3s;
+		z-index: 4;
+	} */
+
 	.book.wasClicked .page{
-		transform: rotateX(10deg) rotateY(180deg) scale(2.2);
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(3);
 		transition-duration: 3s;
 		z-index: 4;
 	}
 
 	.book.wasClicked .back-cover{
-		transform: scale(2.2);
+		transform: perspective(1000px) rotateX(10deg) scale(3);
 		transition-duration: 3s;
 	}
 
 	.book.wasClicked .last-page{
-		transform: scale(2.2);
+		transform: perspective(1000px) rotateX(10deg) scale(3);
 		transition-duration: 3s;
 	}
 
@@ -118,6 +126,8 @@
 		z-index: 4;
 		transition: all 3s;
 		transform-origin: center left;
+		color: white;
+		text-align: center;
 	}
 
 	.cover, .back-cover{
@@ -133,6 +143,7 @@
 	}
 
 	.back-cover{
+		transform: perspective(1000px) rotateX(10deg);
 		z-index: 1;
 	}
 
@@ -148,11 +159,28 @@
 		z-index: 2;
 	}
 
-	.page:nth-child(2){
+	.picture, .title, .category{
+		transform: rotateY(180deg);
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		margin: 1em;
+	}
+
+	.page:nth-child(8){
 		transition-duration: 3s;
 		z-index: 3;
 	}
-	.page:nth-child(3){
+	.page:nth-child(7){
+		transition-duration: 3s;
+		z-index: 3;
+	}
+	.page:nth-child(6){
+		transition-duration: 3s;
+		z-index: 3;
+	}
+	.page:nth-child(5){
 		transition-duration: 2.6s;
 		z-index: 3;
 	}
@@ -160,37 +188,66 @@
 		transition-duration: 2.2s;
 		z-index: 3;
 	}
-	.page:nth-child(5){
+	.page:nth-child(3){
 		transition-duration: 1.8s;
 		z-index: 3;
 	}
-	.page:nth-child(6){
+	.page:nth-child(2){
 		transition-duration: 1.4s;
 		z-index: 3;
 	}
 
-	.book.wasClicked .page:nth-child(2){
-		transition-duration: 6s;
+	.book.wasClicked .page:nth-child(8){
+		transition-duration: 5.8s;
+		border-radius: 7px 10px 10px 2px;
 	}
-	.book.wasClicked .page:nth-child(3){
-		transition-duration: 5.6s;
-	}
-	.book.wasClicked .page:nth-child(4){
-		transition-duration: 5.2s;
-	}
-	.book.wasClicked .page:nth-child(5){
-		transition-duration: 4.8s;
+	.book.wasClicked .page:nth-child(7){
+		transition-duration: 5.4s;
+		border-radius: 7px 10px 10px 2px;
 	}
 	.book.wasClicked .page:nth-child(6){
-		transition-duration: 4.4s;
+		transition-duration: 5s;
+		border-radius: 7px 10px 10px 2px;
+	}
+	.book.wasClicked .page:nth-child(5){
+		transition-duration: 4.6s;
+		border-radius: 6px 10px 10px 2px;
+	}
+	.book.wasClicked .page:nth-child(4){
+		transition-duration: 4.2s;
+		border-radius: 5px 10px 10px 2px;
+	}
+	.book.wasClicked .page:nth-child(3){
+		transition-duration: 3.8s;
+		border-radius: 4px 10px 10px 2px;
+	}
+	.book.wasClicked .page:nth-child(2){
+		transition-duration: 3.4s;
+		border-radius: 3px 10px 10px 2px;
 	}
 
 
 	.last-page{
 		position: relative;
 		text-align: center;
-		font-size: 1.5em;
+		font-size: 1em;
 		transition-duration: 3s;
+		line-height: 0.8em;
+		overflow: hidden;
+	}
+
+	.last-page .description{
+		position: absolute;
+		transform: translateY(0);
+		transition-duration: 95s;
+		text-align: left;
+		margin: 1em;
+	}
+
+	/* description becomes blurry on hover because of the scaling */
+	/* will need something different for phone view so might be easier to break description into 2 sections if longer than 500 char */
+	.last-page:hover .description{
+		transform: translateY(calc(-100%));
 	}
 
 
