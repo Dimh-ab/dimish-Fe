@@ -35,14 +35,15 @@
 	<main>
 			<div class={"book " + (i === wasClicked ? 'wasClicked' : '')} on:click={() => openBook(i)}>
 				<div class="cover">{project.title}</div>
-				<!-- <div class="cover2"></div> -->
-				<div class="page"></div>
-				<div class="page"></div>
-				<div class="page"></div>
-				<div class="page"></div>
-				<div class="page"></div>
-				<div class="page"></div>
-				<div class="page pageWithContent">
+				<div class="coverInside"></div>
+
+				<div class="pages"></div>
+				<div class="pages"></div>
+				<div class="pages"></div>
+				<div class="pages"></div>
+				<div class="pages"></div>
+				<div class="coverPage"></div>
+				<div class="page">
 					<h2 class="title">{project.title}</h2>
 			
 					<img
@@ -54,7 +55,6 @@
 				/>
 					<p class="category">{project.category}</p>
 				</div>
-
 				<div class="last-page">	
 				<p class="description">{project.description}</p>
 				</div>
@@ -80,11 +80,12 @@
 	}
 
 	main{
-		height: 60vh;
+		height: 80vh;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		background-color: #e0e4ee;
+		z-index: -999;
 	}
 
 	.book{
@@ -96,34 +97,46 @@
 
 	.book.wasClicked .cover{
 		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(3);
-		transition-duration: 3s;
+		transition-duration: 2s;
 	}
 
-	/* .book.wasClicked .cover2{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(2.2);
-		transition-duration: 3s;
-		z-index: 4;
-	} */
+	.book.wasClicked .coverInside{
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(3);
+		transition-duration: 2s;
+		z-index: 6;
+	}
+
+	.book.wasClicked .coverPage{
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(3);
+		transition-duration: 2s;
+		z-index: 7;
+	}
 
 	.book.wasClicked .page{
+		/* opacity: 1; */
 		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(3);
-		transition-duration: 3s;
-		z-index: 4;
+		transition-duration: 2s;
+		z-index: 9;
+	}
+	.book.wasClicked .pages{
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(3);
+		transition-duration: 2s;
+		z-index: 6;
 	}
 
 	.book.wasClicked .back-cover{
 		transform: perspective(1000px) rotateX(10deg) scale(3);
-		transition-duration: 3s;
+		transition-duration: 2s;
 	}
 
 	.book.wasClicked .last-page{
 		transform: perspective(1000px) rotateX(10deg) scale(3);
-		transition-duration: 3s;
+		transition-duration: 2s;
 	}
 
 
 	.cover{
-		z-index: 4;
+		z-index: 6;
 		transition: all 3s;
 		transform-origin: center left;
 		color: white;
@@ -142,12 +155,28 @@
 		transition-duration: 3s;
 	}
 
+	/* covers the top cover on the inside so text etc is not visible when opened */
+	.coverInside{
+		z-index: 5;
+		height: 180px;
+		width: 140px;
+		background-color: #653e27;
+		border-radius: 2px 20px 20px 2px;
+		position: absolute;
+		box-shadow: 1px 1px 10px gray;
+		transform: perspective(1000px) rotateX(10deg);
+		transform-origin: center left;
+		transition-duration: 3s;
+	}
+
+
+
 	.back-cover{
 		transform: perspective(1000px) rotateX(10deg);
 		z-index: 1;
 	}
 
-	.page, .last-page{
+	.last-page{
 		height: 160px;
 		width: 130px;
 		background: white;
@@ -159,6 +188,44 @@
 		z-index: 2;
 	}
 
+	.page{
+		height: 160px;
+		width: 130px;
+		background: white;
+		position: absolute;
+		border-radius: 2px 10px 10px 2px;
+		border: 1px solid #e0e4ee;
+		transform: perspective(1000px) rotateX(10deg);
+		transform-origin: center left;
+		z-index: 2;
+		transition-duration: 2s;
+	}
+	.pages{
+		height: 160px;
+		width: 130px;
+		background: white;
+		position: absolute;
+		border-radius: 2px 10px 10px 2px;
+		border: 1px solid #e0e4ee;
+		transform: perspective(1000px) rotateX(10deg);
+		transform-origin: center left;
+		z-index: 5;
+		transition-duration: 3s;
+	}
+
+	.coverPage{
+		height: 160px;
+		width: 130px;
+		background: white;
+		position: absolute;
+		border-radius: 2px 10px 10px 2px;
+		border: none;
+		transform: perspective(1000px) rotateX(10deg);
+		transform-origin: center left;
+		z-index: 5;
+		transition-duration: 2s;
+	}
+
 	.picture, .title, .category{
 		transform: rotateY(180deg);
 		display: flex;
@@ -168,69 +235,62 @@
 		margin: 1em;
 	}
 
-	.page:nth-child(8){
-		transition-duration: 3s;
-		z-index: 3;
+
+	.pages:nth-child(7){
+		transition-duration: 2.8s;
+		z-index: 5;
 	}
-	.page:nth-child(7){
-		transition-duration: 3s;
-		z-index: 3;
-	}
-	.page:nth-child(6){
-		transition-duration: 3s;
-		z-index: 3;
-	}
-	.page:nth-child(5){
+	.pages:nth-child(6){
 		transition-duration: 2.6s;
-		z-index: 3;
+		z-index: 5;
 	}
-	.page:nth-child(4){
+	.pages:nth-child(5){
+		transition-duration: 2.4s;
+		z-index: 5;
+	}
+	.pages:nth-child(4){
 		transition-duration: 2.2s;
-		z-index: 3;
+		z-index: 5;
 	}
-	.page:nth-child(3){
-		transition-duration: 1.8s;
-		z-index: 3;
-	}
-	.page:nth-child(2){
-		transition-duration: 1.4s;
-		z-index: 3;
+	.pages:nth-child(3){
+		transition-duration: 2s;
+		z-index: 5;
 	}
 
-	.book.wasClicked .page:nth-child(8){
-		transition-duration: 5.8s;
+	.book.wasClicked .pages:nth-child(7){
+		transition-duration: 2.8s;
 		border-radius: 7px 10px 10px 2px;
 	}
-	.book.wasClicked .page:nth-child(7){
-		transition-duration: 5.4s;
+	.book.wasClicked .pages:nth-child(6){
+		transition-duration: 2.6s;
 		border-radius: 7px 10px 10px 2px;
 	}
-	.book.wasClicked .page:nth-child(6){
-		transition-duration: 5s;
-		border-radius: 7px 10px 10px 2px;
-	}
-	.book.wasClicked .page:nth-child(5){
-		transition-duration: 4.6s;
+	.book.wasClicked .pages:nth-child(5){
+		transition-duration: 2.4;
 		border-radius: 6px 10px 10px 2px;
 	}
-	.book.wasClicked .page:nth-child(4){
-		transition-duration: 4.2s;
+	.book.wasClicked .pages:nth-child(4){
+		transition-duration: 2.2s;
 		border-radius: 5px 10px 10px 2px;
 	}
-	.book.wasClicked .page:nth-child(3){
-		transition-duration: 3.8s;
+	.book.wasClicked .pages:nth-child(3){
+		transition-duration: 2s;
 		border-radius: 4px 10px 10px 2px;
 	}
-	.book.wasClicked .page:nth-child(2){
-		transition-duration: 3.4s;
+	.book.wasClicked .page{
+		transition-duration: 3s;
 		border-radius: 3px 10px 10px 2px;
-	}
+	} 
+	.book.wasClicked .coverPage{
+		transition-duration: 3s;
+		border-radius: 3px 10px 10px 2px;
+	} 
 
 
 	.last-page{
 		position: relative;
 		text-align: center;
-		font-size: 1em;
+		font-size: 0.5em;
 		transition-duration: 3s;
 		line-height: 0.8em;
 		overflow: hidden;
@@ -246,9 +306,9 @@
 
 	/* description becomes blurry on hover because of the scaling */
 	/* will need something different for phone view so might be easier to break description into 2 sections if longer than 500 char */
-	.last-page:hover .description{
+	/* .last-page:hover .description{
 		transform: translateY(calc(-100%));
-	}
+	} */
 
 
 </style>
