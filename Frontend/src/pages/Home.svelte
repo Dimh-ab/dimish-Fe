@@ -21,11 +21,11 @@
     };
 </script>
 
-<div class="sprite">
+<div class="sprite" use:zoom={10}>
     <img class="girl" src="/static/images/girl2.png" alt="girl" />
     <img
         class="door"
-        use:zoom={10}
+        use:zoom={10} 
         src="/static/images/book-door.png"
         alt="book-door"
     />
@@ -53,5 +53,4 @@
         left: 40vw;
         z-index: 2;
     }
-
 </style>
