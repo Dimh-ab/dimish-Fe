@@ -10,19 +10,11 @@
 		try {
 			const response = await axios.get(PROJECTS_ENDPOINT);
 			$amountOfProjects = response.data
-			// checkDescriptionLength()
+			console.log($amountOfProjects)
 		} catch (error) {
 			console.log(error);
 		}
 	});
-
-	const checkDescriptionLength = () => {
-		for (let i = 0; i < $amountOfProjects.length; i++) {
-			if ($amountOfProjects[i].description.length > 400) {
-				$amountOfProjects[i].description = $amountOfProjects[i].description.slice(0, 400) + "..."
-			}
-		}
-	}
 
 	const openBook = (i) => {
 		wasClicked = wasClicked === i ? -1 : i 
@@ -80,11 +72,11 @@
 	}
 
 	main{
-		height: 80vh;
+		height: 600px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		background-color: #e0e4ee;
+		background-color:transparent;
 		z-index: -999;
 	}
 
@@ -92,45 +84,46 @@
 		display: flex;
 		align-items: center;
 		cursor: pointer;
+		transform: rotate(90deg);
 	}
 
 
 	.book.wasClicked .cover{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(3);
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(2.7);
 		transition-duration: 2s;
 	}
 
 	.book.wasClicked .coverInside{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(3);
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(2.7);
 		transition-duration: 2s;
 		z-index: 6;
 	}
 
 	.book.wasClicked .coverPage{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(3);
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(2.7);
 		transition-duration: 2s;
 		z-index: 7;
 	}
 
 	.book.wasClicked .page{
 		/* opacity: 1; */
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(3);
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(2.7);
 		transition-duration: 2s;
 		z-index: 9;
 	}
 	.book.wasClicked .pages{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(3);
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(2.7);
 		transition-duration: 2s;
 		z-index: 6;
 	}
 
 	.book.wasClicked .back-cover{
-		transform: perspective(1000px) rotateX(10deg) scale(3);
+		transform: perspective(1000px) rotateX(10deg) scale(2.7);
 		transition-duration: 2s;
 	}
 
 	.book.wasClicked .last-page{
-		transform: perspective(1000px) rotateX(10deg) scale(3);
+		transform: perspective(1000px) rotateX(10deg) scale(2.7);
 		transition-duration: 2s;
 	}
 
