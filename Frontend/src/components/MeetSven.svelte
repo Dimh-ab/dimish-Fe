@@ -2,7 +2,7 @@
     let chatWithSven = "";
     let count = 0;
 
-    $: console.log(count)
+    // $: console.log(count)
 
     const svenSaysHello = () => {
         count = count + 1;
@@ -21,6 +21,7 @@
 
 
 <div class="welcome">
+    <div></div>
     <!-- svelte-ignore a11y-missing-attribute -->
     <div class="box">
         <p class={(chatWithSven !== "" ? "speech-bubble" : "")}>{chatWithSven}</p>
@@ -35,7 +36,7 @@
         background-color: transparent;
         height: 2000px;
         display: grid;
-        grid-template-columns: 500px 500px 500px 500px;
+        grid-template-rows: 500px 500px 500px 500px;
         /* grid-template-rows: 500px 500px;  */
     }
 
@@ -62,7 +63,8 @@
 
 
 button{
-    margin: 3em;
+    cursor: pointer;
+    margin: 0;
     /* padding: 1em; */
 }
 
@@ -70,5 +72,10 @@ button{
     iframe{
         border: none;
         margin: 4em 0;
+        /* box-shadow: black 0px 10px; */
+    }
+
+    ::-webkit-scrollbar {
+    display: none;
     }
 </style>

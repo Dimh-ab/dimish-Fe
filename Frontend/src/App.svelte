@@ -1,7 +1,7 @@
 <script>
 	import { Router, Route, Link } from "svelte-routing";
 	import Login from "./components/Login.svelte";
-	import Projects from "./components/Projects.svelte";
+	// import Projects from "./components/Projects.svelte";
 	import Home from "./pages/Home.svelte";
 	import Dashboard from "./pages/Dashboard.svelte";
 	import ProtectedRoute from "./ProtectedRoute.svelte";
@@ -15,7 +15,7 @@
 	<Router {url}>
 		<nav>
 			<Link to="/">Home</Link>
-			<Link to="login">Login</Link>
+			<!-- <Link to="login">Login</Link> -->
 			<Link to="library">Library</Link>
 			<Link to="dashboard">Dashboard</Link>
 		</nav>

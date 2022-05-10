@@ -11,4 +11,5 @@ export const show = writable([]);
 //used to see if editing is true or false (Edit.svelte and ProjectsAD.svelte)
 export const isEditing = writable(false);
 
-export const categories = writable(['Random category', 'Another category', 'Third category', 'Fourth category', 'Fifth category']);
+export const categories = writable(['Barn och Unga', 'Ungdomar', 'Stöd och Rörlighet', 'Primärvård', 'Informativt', 'Övrigt']);
+// export const categories = writable(['Younglings', 'Adolescence balance', 'support and mobility', 'primary care', 'Informative']);

@@ -44,7 +44,7 @@ const handleLogout = () => {
 
 
 <button>
-    <Link to="/" on:click={handleLogout}>Logout</Link>
+    <Link to="/login" on:click={handleLogout}>Logout</Link>
 </button>
 <main>
     <OpenFormBtn />
