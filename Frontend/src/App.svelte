@@ -6,12 +6,15 @@
 	import Dashboard from "./pages/Dashboard.svelte";
 	import ProtectedRoute from "./ProtectedRoute.svelte";
 	import Library from "./pages/Library.svelte";
+	import Background from "./components/Background.svelte";
 
 	export let url = "";
 </script>
 
 <body >
-	
+	<!-- <Background /> -->
+	<!-- <div class="bg-loop"> -->
+
 	<Router {url}>
 		<nav>
 			<Link to="/">Home</Link>
@@ -37,7 +40,7 @@
 	
 		<ProtectedRoute path="dashboard" component={Dashboard} />
 	</Router>
-
+	<!-- </div> -->
 </body>
 
 
@@ -47,7 +50,13 @@
 		font-size: 2rem;
 		color: rgb(240, 167, 9);
 		text-decoration: none;
+		position: absolute;
+		margin-top: 1em;
 	}
+
+	/* nav{
+		position:absolute;
+	} */
 
 
 </style>

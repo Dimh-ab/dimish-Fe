@@ -78,6 +78,7 @@
   --book-color-other: #f9c851;
     --pages-color: white;
     --pages-border: 1px solid #e0e4ee;
+	--title-color: black;
 }
 
     *{
@@ -96,6 +97,9 @@
 
     h1{
         transform: rotate(90deg);
+		margin-left: 400px;
+		font-size: 2em;
+		color: var(--title-color);
     }
 
 	main{

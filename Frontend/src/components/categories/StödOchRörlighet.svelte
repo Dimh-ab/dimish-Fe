@@ -81,6 +81,9 @@
 
     h1{
         transform: rotate(90deg);
+		margin-left: 400px;
+		font-size: 2em;
+		color: var(--title-color);
     }
 
 	main{

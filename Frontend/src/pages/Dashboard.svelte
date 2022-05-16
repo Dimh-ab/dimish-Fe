@@ -1,11 +1,12 @@
 <script>
-import ProjectsAD from '../components/ProjectsAD.svelte';
+import ProjectsAD from '../components/admin/ProjectsAD.svelte';
 import {Link} from 'svelte-routing';
 import axios from 'axios';
 import {token} from '../stores.js';
 import { onMount } from 'svelte';
 import {navigate} from "svelte-routing";
-import OpenFormBtn from '../components/OpenFormBtn.svelte';
+// import OpenFormBtn from '../components/admin/OpenFormBtn.svelte';
+import OpenFormBtn from '../components/admin/OpenFormBtn.svelte';
 
 //Checks if existing token is still valid
 onMount(async () => {

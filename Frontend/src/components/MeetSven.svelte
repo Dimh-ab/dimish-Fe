@@ -1,35 +1,65 @@
 <script>
+     import InterSectionObserver from "svelte-intersection-observer";
+
+    let element
+    let intersecting
+
+    $: console.log('element', element)
+    $: console.log('intersecting', intersecting)
     let chatWithSven = "";
-    let count = 0;
+    // let count = 0;
+
+    $: secondsLeft = 10;
+
+    const interval = setInterval(() => {
+        svenSaysHello()
+        if(secondsLeft <= 0){
+    clearInterval(interval);
+    }
+  secondsLeft -= 1;
+}, 1000);
+
+$: console.log(secondsLeft)
+
 
     // $: console.log(count)
 
     const svenSaysHello = () => {
-        count = count + 1;
-        if(count === 1){
+        // count = count + 1;
+        if(secondsLeft === 9){
         chatWithSven = "Hello you !"
-        }else if(count === 2){
+        }else if(secondsLeft === 6){
         chatWithSven = "Scroll to move around."
-        } else if(count === 3){
+        } else if(secondsLeft === 3){
         chatWithSven = "Click on the books to read."
-        } else if(count > 3){
-            count = 0;
-            chatWithSven = "";
-        }
+        } 
+        // else if(secondsLeft > -1){
+        //     // count = 0;
+        //     chatWithSven = "Good ";
+        // }
     };
+
+    const talkToSvenAgain = () => {
+        secondsLeft = 10;
+        if(secondsLeft === 10){
+            setInterval()
+        }
+    }
 </script>
 
-
-<div class="welcome">
+<InterSectionObserver {element} bind:intersecting>
+<div class="welcome clickSven" >
     <div></div>
     <!-- svelte-ignore a11y-missing-attribute -->
-    <div class="box">
-        <p class={(chatWithSven !== "" ? "speech-bubble" : "")}>{chatWithSven}</p>
+    <div class="box" bind:this={element}>
+        <!-- {#if intersecting} -->
+        <p class={(chatWithSven !== "" ? "speech-bubble" : "")} value={secondsLeft}>{chatWithSven}</p>
+        <!-- {/if} -->
         <iframe src="https://embed.lottiefiles.com/animation/7249"></iframe>
-        <button class="clickSven" on:click={() => svenSaysHello()}>click me</button>
+        <button class="clickSven" on:click={() => talkToSvenAgain()}>talk to Sven again</button>
     </div>
 </div>
-
+</InterSectionObserver>
 
 <style>
     .welcome{
@@ -59,6 +89,7 @@
         background-color: white;
         border-radius: 2em;
         border: 3px solid black;
+        color: black;
     }
 
 
