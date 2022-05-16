@@ -3,6 +3,7 @@
  -->
 
 <script>
+   	import { onMount } from 'svelte'
     import MeetSven from "../components/MeetSven.svelte";
     import BarnOchUnga from "../components/categories/BarnOchUnga.svelte";
     import Ungdomar from "../components/categories/Ungdomar.svelte";
@@ -16,52 +17,53 @@
 
     let element
     let intersecting
+    let key = ''
+    let wrapperElem
 
-    $: console.log('element', element)
-    $: console.log('intersecting', intersecting)
+    onMount(() => wrapperElem.focus())
 
-    // let scrollingY
+    // $: console.log(key)
+
+    // $: console.log('element', element)
+    // $: console.log('intersecting', intersecting)
+
+    let scrollingY
 
     // $: console.log('scrollingY', scrollingY)
 
 </script>
 
-<InterSectionObserver once {element} bind:intersecting>
-    <!-- <Background /> -->
-    <!-- <div class="bg-loop" alt="background"></div>  -->
+<InterSectionObserver {element} bind:intersecting>
+   
     <div class="horizontal-scroll-wrapper">
 
+        <!-- wrapper is a button element so that it can be autofocused for accessibility purposes like moving with keyboard -->
+        <button class={"wrapper " + (intersecting ? "overlay" : "")} bind:this={wrapperElem} >
+
             <div class="avatar">👀</div>
+            
             <MeetSven />
+
             <section bind:this={element} class="first-category">
                 {#if intersecting}
                 <!-- <p>Open all the books to get your wings!</p> -->
-                <!-- <div class={"something " + (intersecting ? "blue" : "")}> -->
-                    <BarnOchUnga />
-                {/if}
+                    <BarnOchUnga key={key}/>
+                    {/if}
             </section>
-                    <Ungdomar />
-                    <StödOchRörlighet />
-                    <Primärvård />
-                    <Informativt />
-        <!-- </div>  -->
 
-    <!-- {/if} -->
-        </div>
+                <Ungdomar />
+                <StödOchRörlighet />
+                <Primärvård />
+                <Informativt />   
+
+        </button>
+    </div>
 </InterSectionObserver>
 
 
-<!-- <svelte:window bind:scrollY={scrollingY} bind:scrollX={x} />  -->
+<svelte:window bind:scrollY={scrollingY} on:keydown={e => key = e.key}/> 
 
 <style>
-
-    /* .bg-loop{
-        background-size: cover;
-        background: url(../images/temporaryBG.svg);
-        position:absolute;
-        width: 1000px;
-        height: 1000px;
-     } */
 
     .avatar{
         position: sticky;
@@ -101,6 +103,20 @@
         overflow-x: hidden;
         transform: rotate(-90deg) translateY(-90vh);
         transform-origin: right top;
+    }
+
+    .wrapper{
+        background: url(../images/temporaryBG5.svg);
+        transition-duration: 3s;
+        z-index: -1;
+    }
+
+    .wrapper.overlay{
+        background: url(../images/temporaryBG5.svg), linear-gradient(rgba(143, 186, 0, 0.5),rgba(143,186,0,0.5));
+        background-blend-mode: overlay;
+        /* background: url();
+        background-color: green;
+        transition-duration: 3s; */
     }
 
     ::-webkit-scrollbar {

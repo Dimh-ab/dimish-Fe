@@ -52,6 +52,7 @@
 		text-decoration: none;
 		position: absolute;
 		margin-top: 1em;
+		z-index: 5;
 	}
 
 	/* nav{

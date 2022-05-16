@@ -5,6 +5,13 @@
 	import { amountOfProjects } from "../../stores.js";
 
     let wasClicked = -1
+	let i = 5
+
+	export let key
+
+	$: if(key === 'Enter'){
+		handleKeyDown(i)
+	}
 
 	const PROJECTS_ENDPOINT = "http://localhost:4000/api/projects";
 
@@ -25,7 +32,19 @@
 
     const openBook = (i) => {
 		wasClicked = wasClicked === i ? -1 : i 
+		console.log(wasClicked, i)
 	}
+
+	// let key = ''
+
+	const handleKeyDown = (i) => {
+		// e => key = e.key
+    // if (key === 'Enter') {
+	// 	console.log(key)
+		openBook(i);
+		// wasClicked = wasClicked === i ? -1 : i 
+	// }
+  };
 
 </script>
 
@@ -33,7 +52,12 @@
     {#each $amountOfProjects as project, i}
     {#if project.category === "Barn och Unga"}
 	<main>
-			<div class={"book " + (i === wasClicked ? 'wasClicked' : '')} on:click={() => openBook(i)}>
+			<div 
+			tabindex="0" 
+			class={"book " + (i === wasClicked ? 'wasClicked' : '')} 
+			on:click={() => openBook(i)} 
+			onkeydown={() => handleKeyDown(i)}
+			>
 				<div class="cover">{project.title}</div>
 				<div class="coverInside"></div>
 
@@ -66,6 +90,8 @@
 	{/each}
     <h1>Barn och Unga</h1>
 </section>
+
+<!-- <svelte:window on:keydown={e => key = e.key}/>  -->
 
 <style>
 

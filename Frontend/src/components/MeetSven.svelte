@@ -4,8 +4,8 @@
     let element
     let intersecting
 
-    $: console.log('element', element)
-    $: console.log('intersecting', intersecting)
+    // $: console.log('element', element)
+    // $: console.log('intersecting', intersecting)
     let chatWithSven = "";
     // let count = 0;
 
@@ -19,7 +19,7 @@
   secondsLeft -= 1;
 }, 1000);
 
-$: console.log(secondsLeft)
+// $: console.log(secondsLeft)
 
 
     // $: console.log(count)
