@@ -4,14 +4,8 @@
 	import axios from "axios";
 	import { amountOfProjects } from "../../stores.js";
 
-    let wasClicked = -1
-	let i = 5
-
 	export let key
-
-	$: if(key === 'Enter'){
-		handleKeyDown(i)
-	}
+    let wasClicked = -1
 
 	const PROJECTS_ENDPOINT = "http://localhost:4000/api/projects";
 
@@ -19,12 +13,6 @@
 		try {
 			const response = await axios.get(PROJECTS_ENDPOINT);
 			$amountOfProjects = response.data
-			// for(let i = 0; i < $amountOfProjects.length; i++){
-            // if($amountOfProjects[i].category === "Barn och Unga"){
-            //     console.log($amountOfProjects[i].title)
-            //     return $amountOfProjects[i];
-            // }
-        // }
 		} catch (error) {
 			console.log(error);
 		}
@@ -35,16 +23,11 @@
 		console.log(wasClicked, i)
 	}
 
-	// let key = ''
-
 	const handleKeyDown = (i) => {
-		// e => key = e.key
-    // if (key === 'Enter') {
-	// 	console.log(key)
-		openBook(i);
-		// wasClicked = wasClicked === i ? -1 : i 
-	// }
-  };
+		if (key == 'Enter') {
+			openBook(i);
+		}	
+  	}
 
 </script>
 
@@ -56,7 +39,8 @@
 			tabindex="0" 
 			class={"book " + (i === wasClicked ? 'wasClicked' : '')} 
 			on:click={() => openBook(i)} 
-			onkeydown={() => handleKeyDown(i)}
+			on:keyup|preventDefault={() => handleKeyDown(i)}
+			
 			>
 				<div class="cover">{project.title}</div>
 				<div class="coverInside"></div>
@@ -90,8 +74,6 @@
 	{/each}
     <h1>Barn och Unga</h1>
 </section>
-
-<!-- <svelte:window on:keydown={e => key = e.key}/>  -->
 
 <style>
 

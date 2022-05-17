@@ -51,10 +51,10 @@
                     {/if}
             </section>
 
-                <Ungdomar />
-                <StödOchRörlighet />
-                <Primärvård />
-                <Informativt />   
+                <Ungdomar key={key}/>
+                <StödOchRörlighet key={key}/>
+                <Primärvård key={key}/>
+                <Informativt key={key}/>   
 
         </button>
     </div>

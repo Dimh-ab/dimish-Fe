@@ -4,11 +4,18 @@
 	import axios from "axios";
 	import { amountOfProjects } from "../../stores.js";
 
+	export let key
     let wasClicked = -1
 
     const openBook = (i) => {
 		wasClicked = wasClicked === i ? -1 : i 
 	}
+
+	const handleKeyDown = (i) => {
+		if (key == 'Enter') {
+			openBook(i);
+		}	
+  	}
 
 	const PROJECTS_ENDPOINT = "http://localhost:4000/api/projects";
 
@@ -29,7 +36,12 @@
     {#each $amountOfProjects as project, i}
     {#if project.category === "Stöd och Rörlighet"}
 	<main>
-			<div class={"book " + (i === wasClicked ? 'wasClicked' : '')} on:click={() => openBook(i)}>
+			<div 
+			tabindex="0"
+			class={"book " + (i === wasClicked ? 'wasClicked' : '')} 
+			on:click={() => openBook(i)}
+			on:keyup|preventDefault={() => handleKeyDown(i)}
+			>
 				<div class="cover">{project.title}</div>
 				<div class="coverInside"></div>
 
