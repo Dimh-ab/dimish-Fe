@@ -1,43 +1,90 @@
+<!-- 
+    OBS: everything that is in Library.svelte has a transform: rotate(90deg) in their own components to turn them the correct way.
+ -->
+
 <script>
-    import Projects from "../components/Projects.svelte";
+   	import { onMount } from 'svelte'
     import MeetSven from "../components/MeetSven.svelte";
-    // import sven from "../sven.gif"
+    import BarnOchUnga from "../components/categories/BarnOchUnga.svelte";
+    import Ungdomar from "../components/categories/Ungdomar.svelte";
+    import StödOchRörlighet from "../components/categories/StödOchRörlighet.svelte";
+    import Primärvård from "../components/categories/Primärvård.svelte";
+    import Informativt from "../components/categories/Informativt.svelte";
+    import Background from "../components/Background.svelte"
+
+    // senses if the element is in the viewport
+    import InterSectionObserver from "svelte-intersection-observer";
+
+    let element
+    let intersecting
+    let key = ''
+    let wrapperElem
+
+    onMount(() => wrapperElem.focus())
+
+    // $: console.log(key)
+
+    // $: console.log('element', element)
+    // $: console.log('intersecting', intersecting)
+
     let scrollingY
-    // let scrollingX
-    // let mainCSS = ""
 
-    $: console.log('scrollingX', scrollingY)
-
-    // const scrollDirection = () => {
-    //     // scrollingX = window.scrollX
-    //     // mainCSS = scrollingY > 1 ? "horizontal-scroll-wrapper" : ""
-    //     if(scrollingY > 1) {
-    //         mainCSS = "horizontal-scroll-wrapper"
-    //     } else if(scrollingX === 3800) {
-    //         mainCSS = ""
-    //     }
-
-    // }
+    // $: console.log('scrollingY', scrollingY)
 
 </script>
 
-<!-- on:scroll={scrollHorizontal} -->
-<main class={(scrollingY < 1 ? "horizontal-scroll-wrapper" : "")}> 
-    <MeetSven />
-    <Projects />
-    <div class="something"></div>
-</main>
+<InterSectionObserver {element} bind:intersecting>
+   
+    <div class="horizontal-scroll-wrapper">
+
+        <!-- wrapper is a button element so that it can be autofocused for accessibility purposes like moving with keyboard -->
+        <button class={"wrapper " + (intersecting ? "overlay" : "")} bind:this={wrapperElem} >
+
+            <div class="avatar">👀</div>
+            
+            <MeetSven />
+
+            <section bind:this={element} class="first-category">
+                {#if intersecting}
+                <!-- <p>Open all the books to get your wings!</p> -->
+                    <BarnOchUnga key={key}/>
+                    {/if}
+            </section>
+
+                <Ungdomar key={key}/>
+                <StödOchRörlighet key={key}/>
+                <Primärvård key={key}/>
+                <Informativt key={key}/>   
+
+        </button>
+    </div>
+</InterSectionObserver>
 
 
-<svelte:window bind:scrollY={scrollingY}/> 
-<!--  bind:scrollX={scrollingX}  -->
+<svelte:window bind:scrollY={scrollingY} on:keydown={e => key = e.key}/> 
 
 <style>
 
+    .avatar{
+        position: sticky;
+        width: 100px;
+        height: 100px;
+        background-color: aqua;
+        top: 200px;
+        left: 200px;
+        z-index: 3;
+        /* transition-duration: 5s; */
+        transform: rotate(90deg);
+        text-align: right;
+    }
 
-   .something{
-       height: 1000px;
-   }
+    .first-category{
+        height: 2000px;
+    }
+
+    /* p{
+        transform: rotate(90deg);
+    } */
 
 
     *{
@@ -48,14 +95,28 @@
 	}
 
     .horizontal-scroll-wrapper {
-        /* margin: 0 80px; */
         background-color: transparent;
         width: 90vh;
         height: 100vw;
-        overflow-y: auto;
-        overflow-x: scroll;
+        /* overflow-y: auto;
+        overflow-x: scroll; */
+        overflow-x: hidden;
         transform: rotate(-90deg) translateY(-90vh);
         transform-origin: right top;
+    }
+
+    .wrapper{
+        background: url(../images/temporaryBG5.svg);
+        transition-duration: 3s;
+        z-index: -1;
+    }
+
+    .wrapper.overlay{
+        background: url(../images/temporaryBG5.svg), linear-gradient(rgba(143, 186, 0, 0.5),rgba(143,186,0,0.5));
+        background-blend-mode: overlay;
+        /* background: url();
+        background-color: green;
+        transition-duration: 3s; */
     }
 
     ::-webkit-scrollbar {

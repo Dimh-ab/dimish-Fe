@@ -1,6 +1,6 @@
 <script>
     import { Route, Link } from 'svelte-routing';
-    import Home from './pages/Home.svelte';
+    import Login from './components/Login.svelte';
     import { token } from './stores.js';
 
     export let path;
@@ -12,5 +12,5 @@
 {#if isAuthenticated}
     <Route path={path} component={component} />
 {:else}
-    <Route path={path} component={Home} />
+    <Route path={path} component={Login} />
 {/if}
