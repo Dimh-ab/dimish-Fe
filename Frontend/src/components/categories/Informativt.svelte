@@ -33,6 +33,7 @@
 </script>
 
 <section>
+	<article>
     {#each $amountOfProjects as project, i}
     {#if project.category === "Informativt"}
 	<main>
@@ -72,10 +73,19 @@
 		</main>
     {/if}
 	{/each}
+	</article>
     <h1>Informativt</h1>
 </section>
 
 <style>
+
+	section{
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		margin-left: 200px;
+	}
 
     *{
 		margin: 0;
@@ -93,9 +103,9 @@
 
     h1{
         transform: rotate(90deg);
-		margin-left: 400px;
 		font-size: 2em;
 		color: var(--title-color);
+		width: 300px;
     }
 
 	main{

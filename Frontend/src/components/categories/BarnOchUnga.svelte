@@ -32,6 +32,7 @@
 </script>
 
 <section>
+	<article>
     {#each $amountOfProjects as project, i}
     {#if project.category === "Barn och Unga"}
 	<main>
@@ -72,6 +73,7 @@
 		</main>
     {/if}
 	{/each}
+	</article>
     <h1>Barn och Unga</h1>
 </section>
 
@@ -86,8 +88,16 @@
   --book-color-other: #f9c851;
     --pages-color: white;
     --pages-border: 1px solid #e0e4ee;
-	--title-color: black;
+	--title-color: rgb(255, 255, 255);
 }
+
+	section{
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		margin-left: 200px;
+	}
 
     *{
 		margin: 0;
@@ -105,9 +115,9 @@
 
     h1{
         transform: rotate(90deg);
-		margin-left: 400px;
 		font-size: 2em;
 		color: var(--title-color);
+		width: 300px;
     }
 
 	main{

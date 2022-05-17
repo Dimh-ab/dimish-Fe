@@ -10,7 +10,7 @@
     import StödOchRörlighet from "../components/categories/StödOchRörlighet.svelte";
     import Primärvård from "../components/categories/Primärvård.svelte";
     import Informativt from "../components/categories/Informativt.svelte";
-    import Background from "../components/Background.svelte"
+    // import Background from "../components/Background.svelte"
 
     // senses if the element is in the viewport
     import InterSectionObserver from "svelte-intersection-observer";
@@ -22,14 +22,7 @@
 
     onMount(() => wrapperElem.focus())
 
-    // $: console.log(key)
-
-    // $: console.log('element', element)
-    // $: console.log('intersecting', intersecting)
-
     let scrollingY
-
-    // $: console.log('scrollingY', scrollingY)
 
 </script>
 
@@ -46,7 +39,6 @@
 
             <section bind:this={element} class="first-category">
                 {#if intersecting}
-                <!-- <p>Open all the books to get your wings!</p> -->
                     <BarnOchUnga key={key}/>
                     {/if}
             </section>
@@ -73,7 +65,6 @@
         top: 200px;
         left: 200px;
         z-index: 3;
-        /* transition-duration: 5s; */
         transform: rotate(90deg);
         text-align: right;
     }
@@ -81,10 +72,6 @@
     .first-category{
         height: 2000px;
     }
-
-    /* p{
-        transform: rotate(90deg);
-    } */
 
 
     *{
@@ -98,8 +85,6 @@
         background-color: transparent;
         width: 90vh;
         height: 100vw;
-        /* overflow-y: auto;
-        overflow-x: scroll; */
         overflow-x: hidden;
         transform: rotate(-90deg) translateY(-90vh);
         transform-origin: right top;
@@ -111,13 +96,13 @@
         z-index: -1;
     }
 
-    .wrapper.overlay{
-        background: url(../images/temporaryBG5.svg), linear-gradient(rgba(143, 186, 0, 0.5),rgba(143,186,0,0.5));
-        background-blend-mode: overlay;
+    /* .wrapper.overlay{ */
+        /* background: url(../images/temporaryBG5.svg), linear-gradient(rgba(143, 186, 0, 0.5),rgba(143,186,0,0.5));
+        background-blend-mode: overlay; */
         /* background: url();
         background-color: green;
         transition-duration: 3s; */
-    }
+    /* } */
 
     ::-webkit-scrollbar {
     display: none;
