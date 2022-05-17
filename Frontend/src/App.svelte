@@ -8,10 +8,11 @@
 	import Library from "./pages/Library.svelte";
 
 	export let url = "";
+
+	
 </script>
 
-<body >
-	
+<body>
 	<Router {url}>
 		<nav>
 			<Link to="/">Home</Link>
@@ -19,35 +20,30 @@
 			<Link to="library">Library</Link>
 			<Link to="dashboard">Dashboard</Link>
 		</nav>
-		
-		<a href="https://www.di-mh.com/">dimh</a>
 
+		<a href="https://www.di-mh.com/">dimh</a>
 
 		<Route path="/">
 			<Home />
 		</Route>
-	
-		<Route path="login" >
+
+		<Route path="login">
 			<Login />
 		</Route>
-	
-		<Route path="library" >
+
+		<Route path="library">
 			<Library />
 		</Route>
-	
+
 		<ProtectedRoute path="dashboard" component={Dashboard} />
 	</Router>
 
 </body>
 
-
 <style>
-
 	a {
 		font-size: 2rem;
 		color: rgb(240, 167, 9);
 		text-decoration: none;
 	}
-
-
 </style>
