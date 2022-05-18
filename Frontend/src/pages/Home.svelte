@@ -19,13 +19,20 @@
 
         console.log("clicked");
     };
+    const handleKeydown = (event) => {
+        if (event.key === "Enter") {
+            zoom;
+        }
+    };
 </script>
+
+<svelte:window on:keydown={handleKeydown} />
 
 <div class="sprite" use:zoom={10}>
     <img class="girl" src="/static/images/girl2.png" alt="girl" />
     <img
         class="door"
-        use:zoom={10} 
+        use:zoom={10}
         src="/static/images/book-door.png"
         alt="book-door"
     />

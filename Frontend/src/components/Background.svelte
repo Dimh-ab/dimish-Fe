@@ -28,7 +28,7 @@ let context
 
 </script>
 
-<!-- <!-- <img src="/images/temporaryBG.svg" class="bg-loop" alt="background"/> -->
+<!-- <img src="/images/temporaryBG.svg" class="bg-loop" alt="background"/> -->
 <img src="/images/temporaryBG.svg" class="bg-loop" alt="background"/> 
 <!-- <canvas bind:this={context}></canvas> -->
 
