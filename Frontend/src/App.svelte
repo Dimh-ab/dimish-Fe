@@ -7,20 +7,19 @@
 	import ProtectedRoute from "./ProtectedRoute.svelte";
 	import Library from "./pages/Library.svelte";
 	import Background from "./components/Background.svelte";
+	import GoogleAnalytics from "./components/GoogleAnalytics.svelte";
+	import Cookies from "./components/Cookies.svelte";
 
 	export let url = "";
-
-<<<<<<< HEAD
-	
 </script>
 
 <body>
-=======
-<body >
 	<!-- <Background /> -->
 	<!-- <div class="bg-loop"> -->
 
->>>>>>> 759f8a3778040e117c85f4cb0b8c33414b32e6e1
+	<!-- <GoogleAnalytics /> -->
+	<Cookies />
+
 	<Router {url}>
 		<nav>
 			<Link to="/">Home</Link>
@@ -57,13 +56,8 @@
 		margin-top: 1em;
 		z-index: 5;
 	}
-<<<<<<< HEAD
-=======
 
 	/* nav{
 		position:absolute;
 	} */
-
-
->>>>>>> 759f8a3778040e117c85f4cb0b8c33414b32e6e1
 </style>

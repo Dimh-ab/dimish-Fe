@@ -8,6 +8,7 @@
     "start": "sirv public -s"
   },
   "devDependencies": {
+    "@beyonk/svelte-google-analytics": "^2.6.0",
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-node-resolve": "^11.0.0",
     "rollup": "^2.3.4",
@@ -21,6 +22,7 @@
   "dependencies": {
     "axios": "^0.26.1",
     "phaser": "^3.55.2",
+    "sapper": "^0.29.3",
     "sirv-cli": "^2.0.0",
     "svelte-phaser": "^0.1.0-beta.2",
     "svelte-routing": "^1.6.0",
