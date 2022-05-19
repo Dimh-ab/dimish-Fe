@@ -10,55 +10,59 @@
     import StödOchRörlighet from "../components/categories/StödOchRörlighet.svelte";
     import Primärvård from "../components/categories/Primärvård.svelte";
     import Informativt from "../components/categories/Informativt.svelte";
-    import Background from "../components/Background.svelte"
+    import {checkPoint} from "../stores.js";
+
+    // import IntersectionObserver from '../components/IntersectionObserver.svelte';
 
     // senses if the element is in the viewport
     import InterSectionObserver from "svelte-intersection-observer";
 
-    let element
-    let intersecting
+    // let element
+    // let intersecting
     let key = ''
     let wrapperElem
-
-    onMount(() => wrapperElem.focus())
-
-    // $: console.log(key)
-
-    // $: console.log('element', element)
-    // $: console.log('intersecting', intersecting)
-
     let scrollingY
 
-    // $: console.log('scrollingY', scrollingY)
+    // auto focuses the library so that the keyboard can be used to move around aswell
+    onMount(() => wrapperElem.focus())
+
 
 </script>
 
-<InterSectionObserver {element} bind:intersecting>
+<!-- <InterSectionObserver {element} bind:intersecting> -->
    
-    <div class="horizontal-scroll-wrapper">
+    <div class="horizontal-scroll-wrapper" >
 
         <!-- wrapper is a button element so that it can be autofocused for accessibility purposes like moving with keyboard -->
-        <button class={"wrapper " + (intersecting ? "overlay" : "")} bind:this={wrapperElem} >
+        <button class="wrapper" bind:this={wrapperElem} data-point={$checkPoint}>
 
             <div class="avatar">👀</div>
             
             <MeetSven />
 
-            <section bind:this={element} class="first-category">
-                {#if intersecting}
-                <!-- <p>Open all the books to get your wings!</p> -->
-                    <BarnOchUnga key={key}/>
-                    {/if}
+            <section class="category" >
+                <BarnOchUnga key={key}/>
             </section>
 
+            <section class="category" >
                 <Ungdomar key={key}/>
+            </section>
+
+            <section class="category">
                 <StödOchRörlighet key={key}/>
+            </section>
+
+            <section class="category">
                 <Primärvård key={key}/>
+            </section>
+
+            <section class="category">
                 <Informativt key={key}/>   
+            </section>
 
         </button>
     </div>
-</InterSectionObserver>
+<!-- </InterSectionObserver> -->
 
 
 <svelte:window bind:scrollY={scrollingY} on:keydown={e => key = e.key}/> 
@@ -73,18 +77,14 @@
         top: 200px;
         left: 200px;
         z-index: 3;
-        /* transition-duration: 5s; */
         transform: rotate(90deg);
         text-align: right;
     }
 
-    .first-category{
+    .category{
         height: 2000px;
     }
 
-    /* p{
-        transform: rotate(90deg);
-    } */
 
 
     *{
@@ -98,25 +98,42 @@
         background-color: transparent;
         width: 90vh;
         height: 100vw;
-        /* overflow-y: auto;
-        overflow-x: scroll; */
         overflow-x: hidden;
         transform: rotate(-90deg) translateY(-90vh);
         transform-origin: right top;
     }
 
-    .wrapper{
+    .wrapper[data-point="0"]{
         background: url(../images/temporaryBG5.svg);
-        transition-duration: 3s;
+        /* transition: ease-in; */
+        transition: 3s;
         z-index: -1;
+        width: 100vh;
     }
 
-    .wrapper.overlay{
-        background: url(../images/temporaryBG5.svg), linear-gradient(rgba(143, 186, 0, 0.5),rgba(143,186,0,0.5));
+    .wrapper[data-point="1"]{
+        background: url(../images/temporaryBG5.svg), linear-gradient(rgba(186, 0, 0, 0.4),rgba(186,0,0,0.4));
         background-blend-mode: overlay;
-        /* background: url();
-        background-color: green;
-        transition-duration: 3s; */
+    }
+
+    .wrapper[data-point="2"]{
+        background: url(../images/temporaryBG5.svg), linear-gradient(rgba(178, 32, 240, 0.4),rgba(205, 26, 221, 0.4));
+        background-blend-mode: overlay;
+    }
+
+    .wrapper[data-point="3"]{
+        background: url(../images/temporaryBG5.svg), linear-gradient(rgba(107, 181, 255, 0.4),rgba(62, 171, 255, 0.4));
+        background-blend-mode: overlay;
+    }
+
+    .wrapper[data-point="4"]{
+        background: url(../images/temporaryBG5.svg), linear-gradient(rgba(108, 240, 32, 0.4),rgba(29, 221, 26, 0.4));
+        background-blend-mode: overlay;
+    }
+
+    .wrapper[data-point="5"]{
+        background: url(../images/temporaryBG5.svg), linear-gradient(rgba(32, 240, 216, 0.4),rgba(26, 65, 221, 0.4));
+        background-blend-mode: overlay;
     }
 
     ::-webkit-scrollbar {

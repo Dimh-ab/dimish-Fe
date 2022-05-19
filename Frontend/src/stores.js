@@ -13,3 +13,5 @@ export const isEditing = writable(false);
 
 export const categories = writable(['Barn och Unga', 'Ungdomar', 'Stöd och Rörlighet', 'Primärvård', 'Informativt', 'Övrigt']);
 // export const categories = writable(['Younglings', 'Adolescence balance', 'support and mobility', 'primary care', 'Informative']);
+
+export const checkPoint = writable(0);
