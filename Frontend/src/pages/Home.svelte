@@ -58,6 +58,6 @@
         position: absolute;
         top: 60vh;
         left: 40vw;
-        z-index: 2;
+        /* z-index: 2; */
     }
 </style>

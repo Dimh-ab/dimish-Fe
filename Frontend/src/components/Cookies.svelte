@@ -51,9 +51,11 @@
     };
 
     const declineCookie = () => {
-        document.getElementById("cookies-decline-btn").addEventListener("click", () => {
-            document.getElementById("cookies").style.display = "none";
-        });
+        document
+            .getElementById("cookies-decline-btn")
+            .addEventListener("click", () => {
+                document.getElementById("cookies").style.display = "none";
+            });
     };
 </script>
 
@@ -62,15 +64,20 @@
         <div class="container">
             <div class="subcontainer">
                 <div class="cookies">
+                    <img
+                        src="/static/images/pngwing.com.png"
+                        alt="cookies-girl"
+                        class="cookies-img"
+                    />
                     <p>
                         This website uses cookies to ensure you get the best
-                        experience on our website. <a
-                            href="https://www.termsfeed.com/"
-                            >More info</a
-                        >
+                        experience on our website. 
+                        <!-- <a href="https://www.termsfeed.com/">More info</a> -->
                     </p>
-                    <button id="cookies-btn" use:acceptCookie>Accept</button>
-                    <button id="cookies-decline-btn" use:declineCookie>Decline</button>
+                    <button id="cookies-btn" use:acceptCookie>Yum, cookies! 🍪</button>
+                    <button id="cookies-decline-btn" use:declineCookie
+                        >No, thanks 😋 </button
+                    >
                 </div>
             </div>
         </div>
@@ -103,9 +110,15 @@
         position: fixed;
         bottom: 0;
         color: white;
-        background-color: rgba(0, 0, 0, 0.7);
+        background-color: rgba(0, 0, 0, 0.5);
         z-index: 1;
         display: none;
+        padding: 1rem 0rem;
+    }
+
+    .cookies-img {
+        width: 4rem;
+        height: auto;
     }
 
     p {
@@ -115,17 +128,17 @@
     .cookies {
         min-height: 70px;
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
         flex-wrap: wrap;
-        gap: 10px;
+        gap: 20px;   
     }
 
-    .cookies a {
+/*     .cookies a {
         color: burlywood;
         font-weight: 500;
         text-decoration: none;
-    }
+    } */
 
     #cookies-btn {
         border-radius: 5px;
@@ -138,7 +151,7 @@
         color: white;
     }
 
-    #cookies-decline-btn {        
+    #cookies-decline-btn {
         cursor: pointer;
         background: none;
         color: rgb(182, 155, 123);
@@ -158,7 +171,3 @@
         }
     }
 </style>
-
-
-
-
