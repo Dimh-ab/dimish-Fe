@@ -2,7 +2,15 @@
 
     import { onMount } from "svelte";
 	import axios from "axios";
-	import { amountOfProjects } from "../../stores.js";
+	import { amountOfProjects, checkPoint } from "../../stores.js";
+	import InterSectionObserver from "svelte-intersection-observer";
+
+	let element
+	let intersecting
+	let rootMargin = "-250px"
+
+	// $: console.log('ungdomar', element)
+	// $: console.log('ungdomar', intersecting)
 
 	export let key
     let wasClicked = -1
@@ -28,11 +36,13 @@
 		}
 	});
 
+	$: console.log('checkpoint', intersecting ? $checkPoint = $checkPoint = 2 : '')
 
 
 </script>
 
-<section>
+<InterSectionObserver {element} bind:intersecting {rootMargin}>
+<section bind:this={element}>
 	<article>
     {#each $amountOfProjects as project, i}
     {#if project.category === "Ungdomar"}
@@ -76,6 +86,7 @@
 	</article>
     <h1>Ungdomar</h1>
 </section>
+</InterSectionObserver>
 
 <style>
 
@@ -85,6 +96,7 @@
 		justify-content: center;
 		align-items: center;
 		margin-left: 200px;
+		padding: 400px 0;
 	}
     *{
 		margin: 0;

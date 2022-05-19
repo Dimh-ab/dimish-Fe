@@ -6,7 +6,6 @@
 	import Dashboard from "./pages/Dashboard.svelte";
 	import ProtectedRoute from "./ProtectedRoute.svelte";
 	import Library from "./pages/Library.svelte";
-	import Background from "./components/Background.svelte";
 	import GoogleAnalytics from "./components/GoogleAnalytics.svelte";
 	import Cookies from "./components/Cookies.svelte";
 
@@ -14,8 +13,6 @@
 </script>
 
 <body>
-	<!-- <Background /> -->
-	<!-- <div class="bg-loop"> -->
 
 	<!-- <GoogleAnalytics /> -->
 	<Cookies />
@@ -23,7 +20,6 @@
 	<Router {url}>
 		<nav>
 			<Link to="/">Home</Link>
-			<!-- <Link to="login">Login</Link> -->
 			<Link to="library">Library</Link>
 			<Link to="dashboard">Dashboard</Link>
 		</nav>
@@ -44,7 +40,6 @@
 
 		<ProtectedRoute path="dashboard" component={Dashboard} />
 	</Router>
-	<!-- </div> -->
 </body>
 
 <style>
@@ -56,8 +51,4 @@
 		margin-top: 1em;
 		z-index: 5;
 	}
-
-	/* nav{
-		position:absolute;
-	} */
 </style>
