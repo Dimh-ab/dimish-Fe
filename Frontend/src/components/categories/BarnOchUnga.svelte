@@ -9,9 +9,6 @@
     let intersecting
 	let rootMargin = "-250px"
 
-	// $: console.log('barn o unga', element)
-    // $: console.log('barn o unga', intersecting)
-
 	export let key
     let wasClicked = -1
 
@@ -37,13 +34,13 @@
 		}	
   	}
 
-	$: console.log('checkpoint', intersecting ? $checkPoint = $checkPoint = 1 : '')
+	$: intersecting ? $checkPoint = $checkPoint = 1 : ''
 
 </script>
 
 <InterSectionObserver {element} bind:intersecting {rootMargin}>
-<section bind:this={element}>
-	<article>
+<section>
+	<article  bind:this={element}>
     {#each $amountOfProjects as project, i}
     {#if project.category === "Barn och Unga"}
 	<main>

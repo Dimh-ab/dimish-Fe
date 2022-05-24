@@ -36,13 +36,13 @@
 		}
 	});
 
-	$: console.log('checkpoint', intersecting ? $checkPoint = $checkPoint = 3 : '')
+	$: intersecting ? $checkPoint = $checkPoint = 3 : ''
 
 </script>
 
 <InterSectionObserver {element} bind:intersecting {rootMargin}>
-<section bind:this={element}>
-	<article>
+<section >
+	<article bind:this={element}>
     {#each $amountOfProjects as project, i}
     {#if project.category === "Stöd och Rörlighet"}
 	<main>

@@ -8,6 +8,7 @@
 	import Library from "./pages/Library.svelte";
 	import GoogleAnalytics from "./components/GoogleAnalytics.svelte";
 	import Cookies from "./components/Cookies.svelte";
+	import Help from "./components/Help.svelte";
 
 	export let url = "";
 </script>
@@ -25,6 +26,7 @@
 		</nav>
 
 		<a href="https://www.di-mh.com/">dimh</a>
+		<Help />
 
 		<Route path="/">
 			<Home />
@@ -48,7 +50,7 @@
 		color: rgb(240, 167, 9);
 		text-decoration: none;
 		position: absolute;
-		margin-top: 1em;
-		z-index: 5;
+		/* margin-top: 1em; */
+		z-index: 1;
 	}
 </style>

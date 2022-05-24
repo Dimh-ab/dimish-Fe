@@ -44,10 +44,28 @@ const handleLogout = () => {
 </script>
 
 
-<button>
-    <Link to="/login" on:click={handleLogout}>Logout</Link>
-</button>
-<main>
+<div>
+    <button>
+        <Link to="/login" on:click={handleLogout}>Logout</Link>
+    </button>
     <OpenFormBtn />
+</div>
+<main>
     <ProjectsAD />
 </main>
+
+<style>
+    main{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+    div{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: flex-end;
+        margin: 1em;
+    }
+</style>

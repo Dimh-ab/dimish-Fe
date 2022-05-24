@@ -48,7 +48,7 @@ const handleLogin = (e) => {
     <input class={validationCSS} type="text" name="username" bind:value={username} placeholder="username" required>
     <input class={validationCSS} type="password" name="password" bind:value={password} placeholder="password" required>
     <button type="submit">LOGIN</button>
-</form>
+  </form>
     {#if validation}
     <p class="color: red">{validation}</p>
     {/if}
@@ -56,6 +56,22 @@ const handleLogin = (e) => {
 
 
 <style>
+
+main{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transform: translateY(50%);
+  /* transform: translate(-50%); */
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+}
 .validation {
   border: 1px solid red;
   color: red;

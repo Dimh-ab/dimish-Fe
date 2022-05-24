@@ -11,14 +11,11 @@
     import Primärvård from "../components/categories/Primärvård.svelte";
     import Informativt from "../components/categories/Informativt.svelte";
     import {checkPoint} from "../stores.js";
-
-    // import IntersectionObserver from '../components/IntersectionObserver.svelte';
-
     // senses if the element is in the viewport
     import InterSectionObserver from "svelte-intersection-observer";
 
-    // let element
-    // let intersecting
+    let element
+    let intersecting
     let key = ''
     let wrapperElem
     let scrollingY
@@ -26,10 +23,14 @@
     // auto focuses the library so that the keyboard can be used to move around aswell
     onMount(() => wrapperElem.focus())
 
+    $: intersecting ? $checkPoint = $checkPoint = 0 : ''
+
+    $: console.log(key)
+
 
 </script>
 
-<!-- <InterSectionObserver {element} bind:intersecting> -->
+<InterSectionObserver {element} bind:intersecting>
    
     <div class="horizontal-scroll-wrapper" >
 
@@ -38,7 +39,10 @@
 
             <div class="avatar">👀</div>
             
-            <MeetSven />
+            <!-- <MeetSven /> -->
+            <section class="category">
+                <div bind:this={element}></div>
+            </section>
 
             <section class="category" >
                 <BarnOchUnga key={key}/>
@@ -62,7 +66,7 @@
 
         </button>
     </div>
-<!-- </InterSectionObserver> -->
+</InterSectionObserver>
 
 
 <svelte:window bind:scrollY={scrollingY} on:keydown={e => key = e.key}/> 
@@ -103,12 +107,16 @@
         transform-origin: right top;
     }
 
-    .wrapper[data-point="0"]{
+    .wrapper{
         background: url(../images/temporaryBG5.svg);
-        /* transition: ease-in; */
         transition: 3s;
         z-index: -1;
         width: 100vh;
+        border: none;
+    }
+
+    .wrapper[data-point="0"]{
+        background: url(../images/temporaryBG5.svg);
     }
 
     .wrapper[data-point="1"]{
