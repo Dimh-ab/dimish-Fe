@@ -1,4 +1,5 @@
 <script>
+    import {fade, fly} from "svelte/transition";
     let showDesc = false;
 </script>
     
@@ -6,7 +7,7 @@
         <button on:click={() => showDesc = !showDesc}>?</button>
 
         {#if showDesc}
-        <article>
+        <article transition:fly={{ y: -20 }}>
             <h3>Welcome to the library!</h3>
             <div class="text">
                 <p>To move you can scroll up or down. You can also use the up and down arrow keys!</p>
