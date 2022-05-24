@@ -1,10 +1,13 @@
 <script>
     import {fade, fly} from "svelte/transition";
     let showDesc = false;
+    let key = '';
+
+    $: console.log(key)
 </script>
     
     <main>
-        <button on:click={() => showDesc = !showDesc}>?</button>
+        <button tabindex="0" on:click={() => showDesc = !showDesc}>?</button>
 
         {#if showDesc}
         <article transition:fly={{ y: -20 }}>
@@ -26,6 +29,8 @@
         {/if}
 
     </main>
+
+    <svelte:window on:keydown={e => key = e.key}/> 
     
     <style>
     
@@ -82,6 +87,10 @@
             right: 0;
             margin: 10px;
             z-index: 2;
+        }
+
+        button:focus-visible{
+            outline: 2px solid white;
         }
     
         .continueBTN{
