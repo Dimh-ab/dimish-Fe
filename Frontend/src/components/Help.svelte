@@ -1,5 +1,5 @@
 <script>
-    import {fade, fly} from "svelte/transition";
+    import {fly} from "svelte/transition";
     let showDesc = false;
     let key = '';
 
@@ -10,7 +10,7 @@
         <button tabindex="0" on:click={() => showDesc = !showDesc}>?</button>
 
         {#if showDesc}
-        <article transition:fly={{ y: -20 }}>
+        <article transition:fly={{ y: -20 }} alt="Photo by Tim Mossholder on Unsplash">
             <h3>Welcome to the library!</h3>
             <div class="text">
                 <p>To move you can scroll up or down. You can also use the up and down arrow keys!</p>
@@ -35,7 +35,7 @@
     <style>
     
         article{
-            background-image: url('../images/chalkboard.jpg');
+            background-image: url('../images/chalkboardDesc.jpg');
             background-size: cover;
             position: absolute;
             top: 150px;
