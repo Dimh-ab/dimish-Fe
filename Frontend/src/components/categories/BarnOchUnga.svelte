@@ -5,6 +5,7 @@
 	import { amountOfProjects, checkPoint } from "../../stores.js";
 	import InterSectionObserver from "svelte-intersection-observer";
 
+	let bookSpine = true
 	let element
     let intersecting
 	let rootMargin = "-250px"
@@ -44,40 +45,44 @@
     {#each $amountOfProjects as project, i}
     {#if project.category === "Barn och Unga"}
 	<main>
-			<div 
-			tabindex="0" 
-			class={"book " + (i === wasClicked ? 'wasClicked' : '')} 
-			on:click={() => openBook(i)} 
-			on:keyup|preventDefault={() => handleKeyDown(i)}
-			
-			>
-				<div class="cover">{project.title}</div>
-				<div class="coverInside"></div>
+		{#if !bookSpine}
+		<div 
+		tabindex="0" 
+		class={"book " + (i === wasClicked ? 'wasClicked' : '')} 
+		on:click={() => openBook(i)} 
+		on:keyup|preventDefault={() => handleKeyDown(i)}
+		
+		>
+			<div class="cover">{project.title}</div>
+			<div class="coverInside"></div>
 
-				<div class="pages"></div>
-				<div class="pages"></div>
-				<div class="pages"></div>
-				<div class="pages"></div>
-				<div class="pages"></div>
-				<div class="coverPage"></div>
-				<div class="page">
-					<h2 class="title">{project.title}</h2>
-			
-					<img
-					src={project.image_url}
-					alt={project.title}
-					name="picture"
-					height="50px"
-					class="picture"
-				/>
-					<p class="category">{project.category}</p>
-				</div>
-				<div class="last-page">	
-				<p class="description">{project.description}</p>
-				</div>
-
-				<div class="back-cover"></div>
+			<div class="pages"></div>
+			<div class="pages"></div>
+			<div class="pages"></div>
+			<div class="pages"></div>
+			<div class="pages"></div>
+			<div class="coverPage"></div>
+			<div class="page">
+				<h2 class="title">{project.title}</h2>
+		
+				<img
+				src={project.image_url}
+				alt={project.title}
+				name="picture"
+				height="50px"
+				class="picture"
+			/>
+				<p class="category">{project.category}</p>
 			</div>
+			<div class="last-page">	
+			<p class="description">{project.description}</p>
+			</div>
+
+			<div class="back-cover"></div>
+		</div>
+		{:else}
+			<div class="book-spine" on:click={() => bookSpine = !bookSpine}>{project.title}</div>
+			{/if}
 		</main>
     {/if}
 	{/each}
@@ -98,6 +103,12 @@
     --pages-color: white;
     --pages-border: 1px solid #e0e4ee;
 	--title-color: rgb(255, 255, 255);
+}
+
+.book-spine{
+	background-color: var(--book-color-kids);
+	padding: 10px 35px;
+	border-radius: 3px;
 }
 
 	section{
