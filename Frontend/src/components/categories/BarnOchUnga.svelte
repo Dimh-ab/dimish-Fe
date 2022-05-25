@@ -4,8 +4,10 @@
 	import axios from "axios";
 	import { amountOfProjects, checkPoint } from "../../stores.js";
 	import InterSectionObserver from "svelte-intersection-observer";
+	import {fade} from "svelte/transition";
 
-	let bookSpine = true
+	let bookSpine = false
+	let bookId = ""
 	let element
     let intersecting
 	let rootMargin = "-250px"
@@ -23,6 +25,23 @@
 			console.log(error);
 		}
 	});
+
+	const clickBookSpine = (book, id) => {
+		if(book.id !== id){
+			bookId = id
+			bookSpine = bookSpine
+			console.log(bookSpine, bookId, book.id)
+		} else if(book.id === id){
+			bookSpine = !bookSpine
+			bookId = id
+			console.log(bookSpine)
+	// 		setTimeout(filterBook => {
+		// 	bookSpine = bookSpine
+		// }, 3000);
+		}
+	}
+
+	$: filterBook = $amountOfProjects.filter(filterBook => filterBook.id === bookId)
 
     const openBook = (i) => {
 		wasClicked = wasClicked === i ? -1 : i 
@@ -42,16 +61,27 @@
 <InterSectionObserver {element} bind:intersecting {rootMargin}>
 <section>
 	<article  bind:this={element}>
-    {#each $amountOfProjects as project, i}
-    {#if project.category === "Barn och Unga"}
 	<main>
-		{#if !bookSpine}
-		<div 
+
+	{#if !bookSpine}
+	<div class="book-spine-array">
+		{#each $amountOfProjects as project}
+			{#if project.category === "Barn och Unga"}
+			<!-- <div class="spine-wrapper"> -->
+				<div transition:fade class="book-spine" key={project.id} on:click={() => clickBookSpine(project, project.id)}></div>
+			<!-- </div> -->
+			{/if}
+		{/each}
+	</div>
+
+	{:else}
+		{#each filterBook as project, i}
+		<div
+		transition:fade
 		tabindex="0" 
 		class={"book " + (i === wasClicked ? 'wasClicked' : '')} 
 		on:click={() => openBook(i)} 
 		on:keyup|preventDefault={() => handleKeyDown(i)}
-		
 		>
 			<div class="cover">{project.title}</div>
 			<div class="coverInside"></div>
@@ -64,14 +94,13 @@
 			<div class="coverPage"></div>
 			<div class="page">
 				<h2 class="title">{project.title}</h2>
-		
 				<img
 				src={project.image_url}
 				alt={project.title}
 				name="picture"
 				height="50px"
 				class="picture"
-			/>
+				/>
 				<p class="category">{project.category}</p>
 			</div>
 			<div class="last-page">	
@@ -80,12 +109,11 @@
 
 			<div class="back-cover"></div>
 		</div>
-		{:else}
-			<div class="book-spine" on:click={() => bookSpine = !bookSpine}>{project.title}</div>
-			{/if}
+		<button on:click={() => bookSpine = !bookSpine}>go back</button>
+		{/each}
+	{/if}
+
 		</main>
-    {/if}
-	{/each}
 	</article>
     <h1>Barn och Unga</h1>
 </section>
@@ -105,10 +133,24 @@
 	--title-color: rgb(255, 255, 255);
 }
 
+.book-spine-array{
+	display: flex;
+	flex-direction: column;
+}
+
 .book-spine{
 	background-color: var(--book-color-kids);
-	padding: 10px 35px;
+	padding: 15px 55px;
 	border-radius: 3px;
+	margin: 30px 0;
+	cursor: pointer;
+	/* border: 2px solid #289548; */
+	/* box-shadow: 5px 5px 5px 5px rgb(0, 0, 0); */
+}
+
+
+button{
+	transform: rotate(90deg);
 }
 
 	section{

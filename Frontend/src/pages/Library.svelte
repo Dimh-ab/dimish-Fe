@@ -120,8 +120,8 @@
     }
 
     .wrapper[data-point="1"]{
-        background: url(../images/temporaryBG5.svg), linear-gradient(rgba(186, 0, 0, 0.4),rgba(186,0,0,0.4));
-        background-blend-mode: overlay;
+        /* background: url(../images/temporaryBG5.svg), linear-gradient(rgba(186, 0, 0, 0.4),rgba(186,0,0,0.4));
+        background-blend-mode: overlay; */
     }
 
     .wrapper[data-point="2"]{
