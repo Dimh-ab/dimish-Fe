@@ -12,7 +12,7 @@
     //document.getElementsByTagName("body")[0].style["font-size"] = "1.2rem";
 
     const increaseFontSize = () => {
-        fontSize+=.2;
+        fontSize += 0.2;
         document.getElementsByTagName("html")[0].style[
             "font-size"
         ] = `${fontSize}rem`;
@@ -24,11 +24,61 @@
     };
 
     function decreaseFontSize() {
-        fontSize-=.2;
+        fontSize -= 0.2;
         document.getElementsByTagName("html")[0].style[
             "font-size"
         ] = `${fontSize}rem`;
     }
+
+    let letterSpacing = 1;
+
+    function increaseLetterSpacing() {
+        letterSpacing += 2;
+        document.getElementsByTagName("html")[0].style[
+            "letter-spacing"
+        ] = `${letterSpacing}px`;
+    }
+
+    function decreaseLetterSpacing() {
+        letterSpacing -= 2;
+        document.getElementsByTagName("html")[0].style[
+            "letter-spacing"
+        ] = `${letterSpacing}px`;
+    }
+
+    let wordSpacing = 1;
+
+    function increaseWordSpacing() {
+        wordSpacing += 5;
+        document.getElementsByTagName("html")[0].style[
+            "word-spacing"
+        ] = `${wordSpacing}px`;
+    }
+
+    function decreaseWordSpacing() {
+        wordSpacing -= 5;
+        document.getElementsByTagName("html")[0].style[
+            "word-spacing"
+        ] = `${wordSpacing}px`;
+    }
+
+    let lineSpacing = 24;
+
+function increaseLineSpacing() {
+    lineSpacing += 5;
+    document.getElementsByTagName("html")[0].style[
+        "line-height"
+    ] = `${lineSpacing}px`;
+}
+
+function decreaseLineSpacing() {
+    lineSpacing -= 5;
+    document.getElementsByTagName("html")[0].style[
+        "line-height"
+    ] = `${lineSpacing}px`;
+}
+
+
 </script>
 
 <body>
@@ -42,23 +92,75 @@
 
     {#if show}
         <aside transition:fly={{ x: 250, opacity: 1 }}>
-
             <p>Change text size:</p>
 
             <div class="accessibility-sidebar">
                 <img
-                    src="/static/images/decrease-font-size.png"
+                    src="/static/images/decrease-font.png"
                     alt="Decrease text size"
                     class="fontsize-plus-btn"
                     on:click={decreaseFontSize}
                 />
                 <img
-                    src="/static/images/increase-font-size.png"
+                    src="/static/images/increase-font.png"
                     alt="Increase text size"
                     class="fontsize-minus-btn"
                     on:click={increaseFontSize}
                 />
             </div>
+
+            <p>Change letter spacing:</p>
+
+            <div class="accessibility-sidebar">
+                <img
+                    src="/static/images/decrease-font-size.png"
+                    alt="Decrease text size"
+                    class="letter-spacing-btn"
+                    on:click={decreaseLetterSpacing}
+                />
+                <img
+                    src="/static/images/increase-font-size.png"
+                    alt="Increase text size"
+                    class="letter-spacing-btn"
+                    on:click={increaseLetterSpacing}
+                />
+            </div>
+
+            <p>Change word spacing:</p>
+
+            <div class="accessibility-sidebar">
+                <img
+                    src="/static/images/decrease.png"
+                    alt="Decrease text size"
+                    class="word-btn"
+                    on:click={decreaseWordSpacing}
+                />
+                <img
+                    src="/static/images/increase.png"
+                    alt="Increase text size"
+                    class="word-btn"
+                    on:click={increaseWordSpacing}
+                />
+            </div>
+
+            <p>Change line height:</p>
+
+            <div class="accessibility-sidebar">
+                <img
+                    src="/static/images/decrease-line-spacing.png"
+                    alt="Decrease line spacing"
+                    class="line-height-btn"
+                    on:click={decreaseLineSpacing}
+                />
+                <img
+                    src="/static/images/increase-line-spacing.png"
+                    alt="Increase line spacing"
+                    class="line-height-btn"
+                    on:click={increaseLineSpacing}
+                />
+            </div>
+
+
         </aside>
     {/if}
 </body>
@@ -88,19 +190,21 @@
     .accessibility-img {
         width: 60px;
         height: 60px;
-        filter: opacity(0.5) drop-shadow(0 0 0 rgb(247, 146, 31));
+        filter: opacity(0.5) drop-shadow(0 0 0 rgb(209, 35, 35));
     }
 
     aside {
         position: fixed;
-        right: 10px;
+        right: 25px;
         top: 110px;
         height: 60%;
+        font-family: "Papyrus", fantasy;
+        font-weight: 600;
         padding: 1rem 1rem 0.6rem;
         border-radius: 20px;
         background: rgba(243, 241, 239, 0.2);
         overflow-y: auto;
-        width: 10rem;
+        width: 12rem;
         z-index: 2;
     }
 
@@ -112,15 +216,37 @@
     .fontsize-plus-btn,
     .fontsize-minus-btn {
         width: 35px;
-        height: 35px;
+        height: auto;
         cursor: pointer;
-        filter: opacity(0.6) drop-shadow(0 0 0 rgb(252, 140, 4));
+        filter:  drop-shadow(0 0 0 rgb(198, 247, 2));
     }
 
-    p {
-        font-size: 1rem;
-        margin: 0;
+    .letter-spacing-btn {
+        width: 25px;
+        height: auto;
+        cursor: pointer;
+        filter: opacity(0.8) drop-shadow(0 0 0 rgb(182, 23, 23));
+    }
+
+    .word-btn{
+        width: 35px;
+        height: auto;
+        cursor: pointer;
+        filter: opacity(0.5) drop-shadow(0 0 0 rgb(241, 2, 2));
+    }
+    
+    .line-height-btn {
+        width: 30px;
+        height: auto;
+        cursor: pointer;
+        filter: opacity(0.8) drop-shadow(0 0 0 rgb(31, 1, 5));
         padding-bottom: 2rem;
     }
 
+    p {
+        font-size: 1.2rem;
+        color: rgb(68, 17, 17);
+        margin: 0;
+        padding: 1rem 0rem;
+    }
 </style>

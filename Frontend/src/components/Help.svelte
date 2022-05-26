@@ -84,8 +84,9 @@
             font-size: 1.5em;
             border-radius: 90px;
             padding: 3px 14px;
-            right: 0;
-            margin: 10px;
+            left: 0;
+            bottom: -14rem;
+            margin: 15px;
             z-index: 2;
         }
 
