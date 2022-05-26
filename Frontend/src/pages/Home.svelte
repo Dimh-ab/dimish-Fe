@@ -3,6 +3,9 @@
     import { fade } from "svelte/transition";
     //let wasClicked = false;
 
+    let key = "";
+    $: console.log(key);
+
     const zoom = (node, scale = 1.5) => {
         node.style.transition = "3s";
 
@@ -16,26 +19,21 @@
         }
 
         node.addEventListener("click", zoomIn);
+        node.addEventListener("keypress", () => {
+            if (key === "Enter") {
+                zoomIn();
+            }
+        });
 
         console.log("clicked");
     };
-    const handleKeydown = (event) => {
-        if (event.key === "Enter") {
-            zoom;
-        }
-    };
 </script>
 
-<svelte:window on:keydown={handleKeydown} />
+<svelte:window on:keydown={(e) => (key = e.key)} />
 
-<div class="sprite" use:zoom={10}>
+<div tabindex="0" class="sprite" use:zoom={10}>
     <img class="girl" src="/static/images/girl2.png" alt="girl" />
-    <img
-        class="door"
-        use:zoom={10}
-        src="/static/images/book-door.png"
-        alt="book-door"
-    />
+    <img class="door" src="/static/images/book-door.png" alt="book-door" />
 </div>
 
 <style>

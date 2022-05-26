@@ -8,6 +8,7 @@
 	import Library from "./pages/Library.svelte";
 	import GoogleAnalytics from "./components/GoogleAnalytics.svelte";
 	import Cookies from "./components/Cookies.svelte";
+	import Accessibility from "./components/Accessibility.svelte";
 
 	export let url = "";
 </script>
@@ -19,12 +20,13 @@
 
 	<Router {url}>
 		<nav>
-			<Link to="/">Home</Link>
+			<Link to="/" >Home</Link>
 			<Link to="library">Library</Link>
 			<Link to="dashboard">Dashboard</Link>
 		</nav>
 
-		<a href="https://www.di-mh.com/">dimh</a>
+		<a href="https://www.di-mh.com/" >dimh</a>
+		<Accessibility />
 
 		<Route path="/">
 			<Home />
@@ -44,7 +46,7 @@
 
 <style>
 	a {
-		font-size: 2rem;
+		font-size: 3rem;
 		color: rgb(240, 167, 9);
 		text-decoration: none;
 		position: absolute;
