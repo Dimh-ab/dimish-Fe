@@ -36,14 +36,14 @@
 		}
 	});
 
-	$: console.log('checkpoint', intersecting ? $checkPoint = $checkPoint = 2 : '')
+	$: intersecting ? $checkPoint = $checkPoint = 2 : ''
 
 
 </script>
 
 <InterSectionObserver {element} bind:intersecting {rootMargin}>
-<section bind:this={element}>
-	<article>
+<section>
+	<article  bind:this={element}>
     {#each $amountOfProjects as project, i}
     {#if project.category === "Ungdomar"}
 	<main>
