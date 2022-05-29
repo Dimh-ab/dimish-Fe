@@ -11,6 +11,8 @@
 	import Cookies from "./components/Cookies.svelte";
 	import Accessibility from "./components/Accessibility.svelte";
 	import Help from "./components/Help.svelte";
+	import Language from "./components/Language.svelte";
+	import Sound from "./components/Sound.svelte";
 
 	export let url = "";
 </script>
@@ -31,6 +33,9 @@
 		<a href="https://www.di-mh.com/" >dimh</a>
 
 		<Accessibility />
+
+		<Language />
+		<Sound />
 
 		<Help />
 
