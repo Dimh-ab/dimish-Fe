@@ -65,14 +65,14 @@
     let lineSpacing = 24;
 
 function increaseLineSpacing() {
-    lineSpacing += 5;
+    lineSpacing += 10;
     document.getElementsByTagName("html")[0].style[
         "line-height"
     ] = `${lineSpacing}px`;
 }
 
 function decreaseLineSpacing() {
-    lineSpacing -= 5;
+    lineSpacing -= 10;
     document.getElementsByTagName("html")[0].style[
         "line-height"
     ] = `${lineSpacing}px`;
@@ -173,7 +173,7 @@ function decreaseLineSpacing() {
     }
 
     .accessibility-btn {
-        position: inherit;
+        position: fixed;
         right: 10px;
         top: 10px;
         background: none;
@@ -190,7 +190,7 @@ function decreaseLineSpacing() {
     .accessibility-img {
         width: 60px;
         height: 60px;
-        filter: opacity(0.5) drop-shadow(0 0 0 rgb(209, 35, 35));
+        filter: opacity(0.5) drop-shadow(0 0 0 rgb(230, 6, 6));
     }
 
     aside {

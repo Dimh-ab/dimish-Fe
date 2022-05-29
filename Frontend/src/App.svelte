@@ -6,6 +6,7 @@
 	import Dashboard from "./pages/Dashboard.svelte";
 	import ProtectedRoute from "./ProtectedRoute.svelte";
 	import Library from "./pages/Library.svelte";
+	import AllProjects from "./pages/AllProjects.svelte";
 	//import GoogleAnalytics from "./components/GoogleAnalytics.svelte";
 	import Cookies from "./components/Cookies.svelte";
 	import Accessibility from "./components/Accessibility.svelte";
@@ -24,11 +25,13 @@
 			<Link to="/" >Home</Link>
 			<Link to="library">Library</Link>
 			<Link to="dashboard">Dashboard</Link>
+			<Link to="all-projects" class="link"> <h3>All projects</h3> </Link>
 		</nav>
 
 		<a href="https://www.di-mh.com/" >dimh</a>
+
 		<Accessibility />
-		<a href="https://www.di-mh.com/">dimh</a>
+
 		<Help />
 
 		<Route path="/">
@@ -43,6 +46,11 @@
 			<Library />
 		</Route>
 
+		
+		<Route path="all-projects">
+			<AllProjects />
+		</Route>
+
 		<ProtectedRoute path="dashboard" component={Dashboard} />
 	</Router>
 </body>
@@ -50,10 +58,24 @@
 <style>
 	a {
 		font-size: 3rem;
+		font-weight: 600;
 		color: rgb(240, 167, 9);
 		text-decoration: none;
-		position: absolute;
+		position: fixed;
 		/* margin-top: 1em; */
 		z-index: 1;
 	}
+
+	nav > :global(a) {
+		text-decoration: none;
+	}
+
+	:global(a) h3 {
+		position: fixed;
+		left: 1rem;
+		bottom: 1.5rem;
+		z-index: 1;
+		color: rgb(75, 27, 27);
+	}
+
 </style>
