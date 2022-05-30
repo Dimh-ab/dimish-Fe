@@ -75,17 +75,19 @@
         } */
 
         button{
-            position: absolute;
+            position: fixed;
             cursor: pointer;
-            background-color: rgba(255, 255, 255, 0.4);
+            
+            filter: opacity(0.5) drop-shadow(0 0 0 rgb(143, 44, 44));
             color: black;
             border: 2px solid black;
             font-weight: 600;
             font-size: 1.5em;
             border-radius: 90px;
             padding: 3px 14px;
-            right: 0;
-            margin: 10px;
+            left: 0;
+            bottom: 3rem;
+            margin: 15px;
             z-index: 2;
         }
 
