@@ -24,9 +24,9 @@
 
 	<Router {url}>
 		<nav>
-			<Link to="/" >Home</Link>
+			<!-- <Link to="/" >Home</Link>
 			<Link to="library">Library</Link>
-			<Link to="dashboard">Dashboard</Link>
+			<Link to="dashboard">Dashboard</Link> -->
 			<Link to="all-projects" class="link"> <h3>All projects</h3> </Link>
 		</nav>
 

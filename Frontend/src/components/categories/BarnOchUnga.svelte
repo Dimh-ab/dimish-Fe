@@ -4,9 +4,8 @@
 	import axios from "axios";
 	import { amountOfProjects, checkPoint } from "../../stores.js";
 	import InterSectionObserver from "svelte-intersection-observer";
-	import {fade} from "svelte/transition";
 
-	let bookSpine = false
+	let isInShelf = true
 	let bookId = ""
 	let element
     let intersecting
@@ -28,20 +27,16 @@
 
 	const clickBookSpine = (book, id) => {
 		if(book.id !== id){
-			bookId = id
-			bookSpine = bookSpine
-			console.log(bookSpine, bookId, book.id)
+			bookId = ''
+			isInShelf = isInShelf
 		} else if(book.id === id){
-			bookSpine = !bookSpine
 			bookId = id
-			console.log(bookSpine)
-	// 		setTimeout(filterBook => {
-		// 	bookSpine = bookSpine
-		// }, 3000);
+			isInShelf = !isInShelf
+			console.log(bookId, id)
 		}
 	}
 
-	$: filterBook = $amountOfProjects.filter(filterBook => filterBook.id === bookId)
+	$: console.log(bookId)
 
     const openBook = (i) => {
 		wasClicked = wasClicked === i ? -1 : i 
@@ -61,110 +56,115 @@
 <InterSectionObserver {element} bind:intersecting {rootMargin}>
 <section>
 	<article  bind:this={element}>
-	<main>
+		<main>
+		{#each $amountOfProjects as project, i (project.id)}
+		{#if project.category === "Barn och Unga"}
+		<div class="book-spacing">
+					<button class={"backBtn " + (project.id === bookId ? "visible" : "")} on:click={() => bookId = bookId = ''}>
+						{'<- ställ tillbaka'}
+					</button>
+			<div
+			tabindex="0" 
+			class={"book " + (i === wasClicked ? 'wasClicked' : '')} 
+			key={project.id}
+			on:click={() => clickBookSpine(project, project.id)}
+			on:keyup|preventDefault={() => handleKeyDown(i)}
+			>
+				<div class="spine1">
+				<div class={"spine " + (project.id === bookId ? 'shelfMode' : 'shake')}></div>
+				</div>
+				<div class={"cover " + (project.id === bookId ? 'position' : 'shelfMode')} on:click={() => openBook(i)}>
+					<h3 class="cover-title">
+						{project.title}
+					</h3>
+				</div>
+				<div class={"coverInside " + (project.id === bookId ? 'position' : 'shelfMode')}></div>
 
-	{#if !bookSpine}
-	<div class="book-spine-array">
-		{#each $amountOfProjects as project}
-			{#if project.category === "Barn och Unga"}
-			<!-- <div class="spine-wrapper"> -->
-				<div transition:fade class="book-spine" key={project.id} on:click={() => clickBookSpine(project, project.id)}></div>
-			<!-- </div> -->
-			{/if}
-		{/each}
-	</div>
+				<div class={"pages " + (project.id === bookId ? 'position' : 'shelfMode')}></div>
+				<div class={"pages " + (project.id === bookId ? 'position' : 'shelfMode')}></div>
+				<div class={"pages " + (project.id === bookId ? 'position' : 'shelfMode')}></div>
+				<div class={"pages " + (project.id === bookId ? 'position' : 'shelfMode')}></div>
+				<div class={"pages " + (project.id === bookId ? 'position' : 'shelfMode')}></div>
+				<div class={"coverPage " + (project.id === bookId ? 'position' : 'shelfMode')}></div>
 
-	{:else}
-		{#each filterBook as project, i}
-		<div
-		transition:fade
-		tabindex="0" 
-		class={"book " + (i === wasClicked ? 'wasClicked' : '')} 
-		on:click={() => openBook(i)} 
-		on:keyup|preventDefault={() => handleKeyDown(i)}
-		>
-			<div class="cover">{project.title}</div>
-			<div class="coverInside"></div>
-
-			<div class="pages"></div>
-			<div class="pages"></div>
-			<div class="pages"></div>
-			<div class="pages"></div>
-			<div class="pages"></div>
-			<div class="coverPage"></div>
-			<div class="page">
-				<h2 class="title">{project.title}</h2>
-				<img
-				src={project.image_url}
-				alt={project.title}
-				name="picture"
-				height="50px"
-				class="picture"
-				/>
-				<p class="category">{project.category}</p>
-			</div>
-			<div class="last-page">	
-			<p class="description">{project.description}</p>
-			</div>
-
-			<div class="back-cover"></div>
+				<div class={"page " + (project.id === bookId ? 'position' : 'shelfMode')} on:click={() => openBook(i)}>
+					<h2 class="title">{project.title}</h2>
+					<img
+					src={project.image_url}
+					alt={project.title}
+					name="picture"
+					height="50px"
+					class="picture"
+					/>
+					<p class="category">{project.category}</p>
+				</div>
+					<div class={"last-page " + (project.id === bookId ? 'position' : 'shelfMode')} on:click={() => openBook(i)}>	
+						<p class="description">{project.description}</p>
+					</div>
+				<div class={"back-cover " + (project.id === bookId ? 'position' : 'shelfMode')}></div>
+			</div>	
+				
 		</div>
-		<button on:click={() => bookSpine = !bookSpine}>go back</button>
+		{/if}
 		{/each}
-	{/if}
-
 		</main>
 	</article>
-    <h1>Barn och Unga</h1>
+	<div class="sign">
+		<div class="string"></div>
+		<h1>Barn och Unga</h1>
+	</div>
 </section>
 </InterSectionObserver>
 
 <style>
 
 :root {
-  --book-color-kids: #e37e43;
-  --book-color-teens: #653e27;
-  --book-color-mobility: #f95151;
-  --book-color-primarycare: #4358e3;
-  --book-color-informatory: #289548;
+  --book-color-kids: #E4A400;
+  --book-color-teens: #3D208D;
+  --book-color-mobility: #0E356F;
+  --book-color-primarycare: #203F29;
+  --book-color-informatory: #111;
   --book-color-other: #f9c851;
     --pages-color: white;
     --pages-border: 1px solid #e0e4ee;
 	--title-color: rgb(255, 255, 255);
+	--font: 'Joan', serif;
 }
 
-.book-spine-array{
-	display: flex;
-	flex-direction: column;
-}
 
-.book-spine{
-	background-color: var(--book-color-kids);
-	padding: 15px 55px;
-	border-radius: 3px;
-	margin: 30px 0;
+.backBtn{
+	position: relative;
+	height: 60px;
+	width: 150px;
+	border: none;
+	opacity: 0;
+	z-index: 2;
 	cursor: pointer;
-	/* border: 2px solid #289548; */
-	/* box-shadow: 5px 5px 5px 5px rgb(0, 0, 0); */
+	transition-duration: 0.4s;
+	background: transparent;
+	color: #fff;
+	font-size: 1.5rem;
 }
 
-
-button{
-	transform: rotate(90deg);
+.backBtn.visible{
+	opacity: 1;
 }
 
+.backBtn:hover{
+	color:#f9c851;
+	transform: scale(1.1);
+}
 	section{
 		display: flex;
 		flex-direction: row;
-		justify-content: center;
+		justify-content: space-between;
 		align-items: center;
-		margin-left: 200px;
 	}
 
     *{
 		margin: 0;
 		padding: 0;
-		font-family: sans-serif;
+		font-family: var(--font);
 	}
 
 	p{
@@ -175,101 +175,186 @@ button{
 		font-size: 0.7em;
 	}
 
+	.sign{
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+
     h1{
         transform: rotate(90deg);
-		font-size: 2em;
+		font-size: 1.6em;
 		color: var(--title-color);
 		width: 300px;
+		letter-spacing: 2px;
+		z-index: 0;
+		position: absolute;
+		right: -80px;
+		background-color: #222;
+		padding: 20px 0;
+		border: 10px solid #deb886;
+        box-shadow: 3px 3px 30px rgb(0, 0, 0);
     }
+
+	.string{
+		border: 2px solid silver;
+		width: 100px;
+		height: 300px;
+		position: absolute;
+		right: -50px;
+	}
+
+	.cover-title{
+		margin-top: 50px;
+		font-weight: 200;
+		letter-spacing: 2px;
+	}
 
 	main{
 		height: 400px;
 		display: flex;
+		flex-direction: row;
 		align-items: center;
 		justify-content: center;
 		background-color:transparent;
+		transform: scale(0.7) rotate(90deg);
+		position: relative;
+		left: -600px;
+	}
+
+	.book-spacing{
+		margin: 0 150px;
 	}
 
 	.book{
 		display: flex;
 		align-items: center;
 		cursor: pointer;
-		transform: rotate(90deg);
+		/* transform: rotate(90deg); */
+		position: relative;
 	}
 
 
 	.book.wasClicked .cover{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(2.7);
-		transition-duration: 2s;
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(3.7);
+		transition-duration: 1.4s;
 	}
 
 	.book.wasClicked .coverInside{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(2.7);
-		transition-duration: 2s;
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(3.7);
+		transition-duration: 1.4s;
 		z-index: 6;
 	}
 
 	.book.wasClicked .coverPage{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(2.7);
-		transition-duration: 2s;
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(3.7);
+		transition-duration: 1.4s;
 		z-index: 7;
 	}
 
 	.book.wasClicked .page{
-		/* opacity: 1; */
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(2.7);
-		transition-duration: 2s;
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(3.7);
+		transition-duration: 1.7s;
 		z-index: 9;
 	}
 	.book.wasClicked .pages{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(2.7);
-		transition-duration: 2s;
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(3.7);
+		transition-duration: 1.7s;
 		z-index: 6;
 	}
 
 	.book.wasClicked .back-cover{
-		transform: perspective(1000px) rotateX(10deg) scale(2.7);
-		transition-duration: 2s;
+		transform: perspective(1000px) rotateX(10deg) scale(3.7);
+		transition-duration: 1.5s;
 	}
 
 	.book.wasClicked .last-page{
-		transform: perspective(1000px) rotateX(10deg) scale(2.7);
-		transition-duration: 2s;
+		transform: perspective(1000px) rotateX(10deg) scale(3.7);
+		transition-duration: 1.4s;
+		z-index: 2;
 	}
 
 
 	.cover{
 		z-index: 6;
-		transition: all 3s;
+		transition: all 2s;
 		transform-origin: center left;
 		color: white;
 		text-align: center;
+		margin-right: 40px;
+		background: url(../images/book1.png) no-repeat;
+		background-size: cover;
+	}
+
+	.spine{
+		transition: all 2s;
+		transform-origin: center right;
+		width: 60px;
+		height: 200px;
+		background: url(../images/spine1.png) no-repeat;
+		background-size: cover;
+		z-index: 1;
+		border-radius: 5px;
+		margin-left: -56px;
+	}
+	/* .spine.shake{
+		animation: shake 1s;
+		animation-iteration-count: infinite;
+	} */
+
+	.spine.shelfMode{
+		transform: perspective(1000px) rotateX(-1deg) rotateY(-90deg);
+		transition-duration: 1.3s;
+		/* animation: none; */
+	}
+
+
+	@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+	.cover.shelfMode, .coverInside.shelfMode{
+		transform: perspective(1000px) rotateX(-1deg) rotateY(90deg);
+		transition-duration: 1.3s;
+	}
+
+	.page.shelfMode, .pages.shelfMode, .coverPage.shelfMode, .back-cover.shelfMode, .last-page.shelfMode{
+		transform: perspective(1000px) rotateX(-1deg) rotateY(90deg);
+		transition-duration: 1.3s;
 	}
 
 	.cover, .back-cover{
-		height: 180px;
-		width: 140px;
+		height: 200px;
+		width: 150px;
 		background-color: var(--book-color-kids);
-		border-radius: 2px 20px 20px 2px;
+		border-radius: 5px 20px 20px 5px;
 		position: absolute;
-		box-shadow: 1px 1px 10px gray;
 		transform: perspective(1000px) rotateX(10deg);
 		transform-origin: center left;
-		transition-duration: 3s;
+		transition-duration: 1.5s;
 	}
 
 	/* covers the top cover on the inside so text etc is not visible when opened */
 	.coverInside{
 		z-index: 5;
-		height: 180px;
-		width: 140px;
+		height: 200px;
+		width: 150px;
 		background-color: var(--book-color-kids);
 		border-radius: 2px 20px 20px 2px;
 		position: absolute;
-		box-shadow: 1px 1px 10px gray;
 		transform: perspective(1000px) rotateX(10deg);
 		transform-origin: center left;
-		transition-duration: 3s;
+		transition-duration: 1.5s;
 	}
 
 
@@ -280,20 +365,26 @@ button{
 	}
 
 	.last-page{
-		height: 160px;
-		width: 130px;
+		height: 180px;
+		width: 140px;
 		background: var(--pages-color);
-		position: absolute;
 		border-radius: 2px 10px 10px 2px;
 		border: var(--pages-border);
 		transform: perspective(1000px) rotateX(10deg);
 		transform-origin: center left;
 		z-index: 2;
+
+		position: absolute;
+		text-align: center;
+		font-size: 0.5em;
+		transition-duration: 1.5s;
+		line-height: 0.8em;
+		overflow: hidden;
 	}
 
 	.page{
-		height: 160px;
-		width: 130px;
+		height: 180px;
+		width: 140px;
 		background: var(--pages-color);
 		position: absolute;
 		border-radius: 2px 10px 10px 2px;
@@ -301,11 +392,11 @@ button{
 		transform: perspective(1000px) rotateX(10deg);
 		transform-origin: center left;
 		z-index: 2;
-		transition-duration: 2s;
+		transition-duration: 1.5s;
 	}
 	.pages{
-		height: 160px;
-		width: 130px;
+		height: 180px;
+		width: 140px;
 		background: var(--pages-color);
 		position: absolute;
 		border-radius: 2px 10px 10px 2px;
@@ -313,12 +404,12 @@ button{
 		transform: perspective(1000px) rotateX(10deg);
 		transform-origin: center left;
 		z-index: 5;
-		transition-duration: 3s;
+		transition-duration: 1.5s;
 	}
 
 	.coverPage{
-		height: 160px;
-		width: 130px;
+		height: 180px;
+		width: 140px;
 		background: var(--pages-color);
 		position: absolute;
 		border-radius: 2px 10px 10px 2px;
@@ -326,7 +417,7 @@ button{
 		transform: perspective(1000px) rotateX(10deg);
 		transform-origin: center left;
 		z-index: 5;
-		transition-duration: 2s;
+		transition-duration: 1.5s;
 	}
 
 	.picture, .title, .category{
@@ -339,65 +430,55 @@ button{
 	}
 
 
+	.pages:nth-child(8){
+		transition-duration: 1.7s;
+		z-index: 5;
+	}
 	.pages:nth-child(7){
-		transition-duration: 2.8s;
+		transition-duration: 1.7s;
 		z-index: 5;
 	}
 	.pages:nth-child(6){
-		transition-duration: 2.6s;
+		transition-duration: 1.6s;
 		z-index: 5;
 	}
 	.pages:nth-child(5){
-		transition-duration: 2.4s;
+		transition-duration: 1.6s;
 		z-index: 5;
 	}
 	.pages:nth-child(4){
-		transition-duration: 2.2s;
-		z-index: 5;
-	}
-	.pages:nth-child(3){
-		transition-duration: 2s;
+		transition-duration: 1.5s;
 		z-index: 5;
 	}
 
+	.book.wasClicked .pages:nth-child(8){
+		transition-duration: 1.7s;
+		border-radius: 7px 10px 10px 2px;
+	}
 	.book.wasClicked .pages:nth-child(7){
-		transition-duration: 2.8s;
+		transition-duration: 1.7s;
 		border-radius: 7px 10px 10px 2px;
 	}
 	.book.wasClicked .pages:nth-child(6){
-		transition-duration: 2.6s;
-		border-radius: 7px 10px 10px 2px;
-	}
-	.book.wasClicked .pages:nth-child(5){
-		transition-duration: 2.4;
+		transition-duration: 1.7;
 		border-radius: 6px 10px 10px 2px;
 	}
-	.book.wasClicked .pages:nth-child(4){
-		transition-duration: 2.2s;
+	.book.wasClicked .pages:nth-child(5){
+		transition-duration: 1.6s;
 		border-radius: 5px 10px 10px 2px;
 	}
-	.book.wasClicked .pages:nth-child(3){
-		transition-duration: 2s;
+	.book.wasClicked .pages:nth-child(4){
+		transition-duration: 1.5s;
 		border-radius: 4px 10px 10px 2px;
 	}
 	.book.wasClicked .page{
-		transition-duration: 3s;
+		transition-duration: 1.7s;
 		border-radius: 3px 10px 10px 2px;
 	} 
 	.book.wasClicked .coverPage{
-		transition-duration: 3s;
+		transition-duration: 1.7s;
 		border-radius: 3px 10px 10px 2px;
 	} 
-
-
-	.last-page{
-		position: relative;
-		text-align: center;
-		font-size: 0.5em;
-		transition-duration: 3s;
-		line-height: 0.8em;
-		overflow: hidden;
-	}
 
 	.last-page .description{
 		position: absolute;

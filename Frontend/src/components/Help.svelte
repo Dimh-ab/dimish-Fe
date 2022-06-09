@@ -103,8 +103,9 @@
            background-color: transparent;
            right: 0;
            bottom: 0;
-           margin: 1em;
+           margin: 0.7em 1em;
            z-index: 2;
+           width: 200px;
            transition-duration: 0.2s;
         }
 

@@ -35,9 +35,9 @@
     <div class="horizontal-scroll-wrapper" >
 
         <!-- wrapper is a button element so that it can be autofocused for accessibility purposes like moving with keyboard -->
-        <button class="wrapper" bind:this={wrapperElem} data-point={$checkPoint}>
+        <button class="wrapper" bind:this={wrapperElem} data-point={$checkPoint} alt="Background created by Inga Viitanen">
 
-            <div class="avatar">👀</div>
+            <div class="avatar"></div>
             
             <!-- <MeetSven /> -->
             <section class="category">
@@ -75,14 +75,15 @@
 
     .avatar{
         position: sticky;
-        width: 100px;
-        height: 100px;
-        background-color: aqua;
-        top: 200px;
-        left: 200px;
+        width: 180px;
+        height: 200px;
+        background: url(../images/fairy.png);
+        top: 150px;
+        left: 70px;
         z-index: 3;
-        transform: rotate(90deg);
+        transform: rotate(90deg) rotateY(180deg);
         text-align: right;
+        background-size: cover;
     }
 
     .category{
@@ -100,15 +101,16 @@
 
     .horizontal-scroll-wrapper {
         background-color: transparent;
-        width: 90vh;
+        width: 100vh;
         height: 100vw;
         overflow-x: hidden;
-        transform: rotate(-90deg) translateY(-90vh);
+        transform: rotate(-90deg) translateY(-100vh);
         transform-origin: right top;
     }
 
     .wrapper{
-        background: url(../images/temporaryBG5.svg);
+        background: url(../images/bg4.svg);
+        background-size: 100%;
         transition: 3s;
         z-index: -1;
         width: 100vh;
@@ -116,31 +118,33 @@
     }
 
     .wrapper[data-point="0"]{
-        background: url(../images/temporaryBG5.svg);
+        background: url(../images/bg4.jpg);
+        background-size: 100%;
     }
 
     .wrapper[data-point="1"]{
-        /* background: url(../images/temporaryBG5.svg), linear-gradient(rgba(186, 0, 0, 0.4),rgba(186,0,0,0.4));
-        background-blend-mode: overlay; */
+        background: url(../images/bg4.jpg);
+        background-size: 100%;
+        /* background-blend-mode: overlay; */
     }
 
     .wrapper[data-point="2"]{
-        background: url(../images/temporaryBG5.svg), linear-gradient(rgba(178, 32, 240, 0.4),rgba(205, 26, 221, 0.4));
-        background-blend-mode: overlay;
+        background: url(../images/bg4.jpg);
+        background-size: 100%;
     }
 
     .wrapper[data-point="3"]{
-        background: url(../images/temporaryBG5.svg), linear-gradient(rgba(107, 181, 255, 0.4),rgba(62, 171, 255, 0.4));
-        background-blend-mode: overlay;
+        background: url(../images/bg4.jpg) center, linear-gradient(rgba(107, 181, 255, 0.2),rgba(62, 171, 255, 0.2));
+        /* background-blend-mode: overlay; */
     }
 
     .wrapper[data-point="4"]{
-        background: url(../images/temporaryBG5.svg), linear-gradient(rgba(108, 240, 32, 0.4),rgba(29, 221, 26, 0.4));
+        background: url(../images/bg4.jpg) center, linear-gradient(rgba(77, 111, 57, 0.2),rgba(29, 221, 26, 0.2));
         background-blend-mode: overlay;
     }
 
     .wrapper[data-point="5"]{
-        background: url(../images/temporaryBG5.svg), linear-gradient(rgba(32, 240, 216, 0.4),rgba(26, 65, 221, 0.4));
+        background: url(../images/bg4.jpg) center, linear-gradient(rgba(32, 240, 216, 0.2),rgba(26, 65, 221, 0.2));
         background-blend-mode: overlay;
     }
 
