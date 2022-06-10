@@ -10,3 +10,9 @@ const showModal = () => modal.set(CreateForm);
 <Modal show={$modal}>
     <button on:click={showModal}>New Project</button>
 </Modal>
+
+<style>
+    button{
+        cursor: pointer;
+    }
+</style>

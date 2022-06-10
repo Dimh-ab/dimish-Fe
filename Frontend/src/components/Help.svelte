@@ -78,7 +78,7 @@
             position: fixed;
             cursor: pointer;
             
-            filter: opacity(0.5) drop-shadow(0 0 0 rgb(143, 44, 44));
+            /* filter: opacity(0.5) drop-shadow(0 0 0 rgb(143, 44, 44)); */
             color: black;
             border: 2px solid black;
             font-weight: 600;
@@ -89,6 +89,7 @@
             bottom: 3rem;
             margin: 15px;
             z-index: 2;
+            background-color: rgba(255, 255, 255, 0.7);
         }
 
         button:focus-visible{

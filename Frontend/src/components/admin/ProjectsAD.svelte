@@ -60,7 +60,7 @@
 		justify-content: space-between;
 		align-items: center;
 		margin: 20px;
-		border: 2px solid #c0c0c0;
+		/* border: 2px solid #c0c0c0; */
 		border-radius: 10px;
 		background-color: #f5f5f5;
 	}

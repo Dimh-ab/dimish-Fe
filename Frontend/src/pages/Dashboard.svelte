@@ -43,16 +43,17 @@ const handleLogout = () => {
 
 </script>
 
-
-<div>
-    <button>
-        <Link to="/login" on:click={handleLogout}>Logout</Link>
-    </button>
-    <OpenFormBtn />
+<div class="dash">
+    <div>
+        <button>
+            <Link to="/login" on:click={handleLogout}>Logout</Link>
+        </button>
+        <OpenFormBtn />
+    </div>
+    <main>
+        <ProjectsAD />
+    </main>
 </div>
-<main>
-    <ProjectsAD />
-</main>
 
 <style>
     main{
@@ -61,11 +62,15 @@ const handleLogout = () => {
         justify-content: center;
         align-items: center;
     }
+
+    button{
+        cursor: pointer;
+    }
     div{
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
         align-items: flex-end;
-        margin: 1em;
+        margin: 1rem 6rem;
     }
 </style>

@@ -190,7 +190,8 @@ function decreaseLineSpacing() {
     .accessibility-img {
         width: 60px;
         height: 60px;
-        filter: opacity(0.5) drop-shadow(0 0 0 rgb(230, 6, 6));
+        /* filter: opacity(0.5) drop-shadow(0 0 0 rgb(230, 6, 6)); */
+        filter: invert();
     }
 
     aside {

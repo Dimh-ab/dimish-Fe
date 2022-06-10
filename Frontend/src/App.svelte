@@ -69,6 +69,7 @@
 		position: fixed;
 		/* margin-top: 1em; */
 		z-index: 1;
+		margin: 0 1rem;
 	}
 
 	nav > :global(a) {
@@ -80,7 +81,7 @@
 		left: 1rem;
 		bottom: 1.5rem;
 		z-index: 1;
-		color: rgb(75, 27, 27);
+		color: #ffffff;
 	}
 
 </style>

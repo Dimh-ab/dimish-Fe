@@ -219,7 +219,7 @@
 		background-color:transparent;
 		transform: scale(0.7) rotate(90deg);
 		position: relative;
-		left: -600px;
+		left: -350px;
 	}
 
 	.book-spacing{
@@ -303,9 +303,9 @@
 	} */
 
 	.spine.shelfMode{
+		/* animation-play-state: paused; */
 		transform: perspective(1000px) rotateX(-1deg) rotateY(-90deg);
 		transition-duration: 1.3s;
-		/* animation: none; */
 	}
 
 
