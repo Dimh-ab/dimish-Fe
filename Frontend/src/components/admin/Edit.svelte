@@ -80,12 +80,12 @@
 
 </script>
 
-<button class="edit-btn" on:click={toEdit(id, i)}>🖌</button>
+<button class="edit-btn" on:click={toEdit(id, i)}>Edit</button>
 {#if $isEditing && $show[i]}
 <form>
     <input class="inputs" type="text" bind:value={project.title}>
 	<input class="inputs" type="file" bind:value={project.image_url} on:change={(e) => uploadImage(e)}>
-    <img src={project.image_url} alt="" height="150px">
+    <img src={project.image_url} alt="" height="70px">
 	<input class="inputs" type="text" bind:value={project.description}>
 	<select class="inputs" bind:value={project.category}>
         {#each $categories as category}
@@ -108,10 +108,14 @@
         cursor: pointer;
     }
     .edit-btn{
-        font-size: 2em;
+        font-size: 1.2em;
         border: none;
         background: transparent;
         cursor: pointer;
+        padding: 0;
+        margin-left: 7px;
+        text-decoration: underline;
+        z-index: 1000;
     }
 
     form{

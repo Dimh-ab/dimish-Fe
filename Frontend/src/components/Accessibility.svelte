@@ -203,7 +203,7 @@ function decreaseLineSpacing() {
         font-weight: 600;
         padding: 1rem 1rem 0.6rem;
         border-radius: 20px;
-        background: rgba(243, 241, 239, 0.2);
+        background: rgba(243, 241, 239, 0.7);
         overflow-y: auto;
         width: 12rem;
         z-index: 2;

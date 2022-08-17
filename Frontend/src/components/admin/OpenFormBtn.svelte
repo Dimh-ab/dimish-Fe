@@ -14,5 +14,10 @@ const showModal = () => modal.set(CreateForm);
 <style>
     button{
         cursor: pointer;
+        border: none;
+        background-color: transparent;
+        color: #fff;
+        padding: 0;
+        text-decoration: underline;
     }
 </style>

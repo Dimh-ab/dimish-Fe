@@ -65,6 +65,11 @@ const handleLogout = () => {
 
     button{
         cursor: pointer;
+        text-decoration: underline;
+        color: #fff;
+        background-color: transparent;
+        border: none;
+        padding: 0;
     }
     div{
         display: flex;

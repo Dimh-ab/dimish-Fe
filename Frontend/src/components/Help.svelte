@@ -7,7 +7,7 @@
 </script>
     
     <main>
-        <button tabindex="0" on:click={() => showDesc = !showDesc}>?</button>
+        <button class="help-button" tabindex="0" on:click={() => showDesc = !showDesc}>?</button>
 
         {#if showDesc}
         <article transition:fly={{ y: -20 }} alt="Photo by Tim Mossholder on Unsplash">
@@ -41,7 +41,7 @@
             top: 50px;
             left: 200px;
             right: 200px;
-            height: 450px;
+            height: 480px;
             border-radius: 3px;
             border: 15px solid #deb886;
             box-shadow: 3px 3px 30px rgb(0, 0, 0);
@@ -65,14 +65,6 @@
             font-family: 'Cabin Sketch', cursive;
             font-size: 1.6em;
         }
-    
-        /* iframe{
-            background-color: transparent;
-            border: none;
-            position: relative;
-            left: -100px;
-            bottom: 30px;
-        } */
 
         button{
             position: fixed;
@@ -123,14 +115,12 @@
                 top: 150px;
                 left: 150px;
                 right: 150px;
-                height: 460px;
+                height: 480px;
                 width: 600px;
                 margin: 10px;
             }
 
-            button{
-                right: 20px;
-            }
+            
         }
 
         @media only screen and (max-width: 920px) {
@@ -198,8 +188,9 @@
 
         @media only screen and (max-width: 500px) {
             article{
-                height: 300px;
-                width: 320px;
+                height: 330px;
+                width: 325px;
+                left: 30px;
             }
 
             h3{
@@ -218,6 +209,10 @@
                 font-size: 1em;
                 letter-spacing: 1.5px;
             }
+
+            .help-button{
+                width: 43px;
+            }
         }
 
         @media only screen and (max-width: 400px) {
@@ -225,17 +220,17 @@
                 top: 150px;
                 left: 5px;
                 right: 5px;
-                height: 300px;
-                width: 320px;
+                height: 290px;
+                width: 300px;
                 margin: 10px;
             }
 
             h3{
-                font-size: 1.2em;
+                font-size: 1.1em;
             }
 
             p{
-                font-size: 1em;
+                font-size: 0.9em;
             }
 
             .text{
