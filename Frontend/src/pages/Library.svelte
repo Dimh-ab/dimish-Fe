@@ -4,7 +4,7 @@
 
 <script>
    	import { onMount } from 'svelte'
-    import MeetSven from "../components/MeetSven.svelte";
+    // import MeetSven from "../components/MeetSven.svelte";
     import BarnOchUnga from "../components/categories/BarnOchUnga.svelte";
     import Ungdomar from "../components/categories/Ungdomar.svelte";
     import StödOchRörlighet from "../components/categories/StödOchRörlighet.svelte";
@@ -26,6 +26,7 @@
     $: intersecting ? $checkPoint = $checkPoint = 0 : ''
 
     $: console.log(key)
+    $: console.log($checkPoint)
 
 
 </script>

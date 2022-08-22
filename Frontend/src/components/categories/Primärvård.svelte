@@ -11,6 +11,11 @@
     let intersecting
 	let rootMargin = "-250px"
 
+	// fixes issue with intersection observer on mobile devices
+	if (window.innerHeight < 768) {
+		rootMargin = "-150px"
+	}
+
 	export let key
     let wasClicked = -1
 
@@ -58,7 +63,7 @@
 	<article  bind:this={element}>
 		<main>
 		{#each $amountOfProjects as project, i (project.id)}
-		{#if project.category === "Stöd och Rörlighet"}
+		{#if project.category === "Primärvård"}
 		<div class="book-spacing">
 					<button class={"backBtn " + (project.id === bookId ? "visible" : "")} on:click={() => bookId = bookId = ''}>
 						{'<- ställ tillbaka'}
@@ -111,7 +116,7 @@
 	</article>
 	<div class="sign">
 		<div class="string"></div>
-		<h1>Stöd och Rörlighet</h1>
+		<h1>Primärvård</h1>
 	</div>
 </section>
 </InterSectionObserver>
@@ -473,6 +478,53 @@
 		transition-duration: 95s;
 		text-align: left;
 		margin: 1em;
+	}
+
+	@media only screen and (max-width: 1000px){
+		main{
+			left: -300px;
+		}
+
+		.cover, .back-cover, .coverInside{
+			height: 150px;
+			width: 100px;
+		}
+
+		.pages, .page, .coverPage, .last-page{
+			height: 130px;
+			width: 90px;
+		}
+
+		.spine{
+			height: 150px;
+			width: 35px;
+			margin-left: -31px;
+		}
+
+		.book.wasClicked .cover, .book.wasClicked .coverPage, .book.wasClicked .coverInside, .book.wasClicked .pages, .book.wasClicked .page{
+			transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(2.7);
+		}
+
+		.book.wasClicked .back-cover, .book.wasClicked .last-page{
+			transform: perspective(1000px) rotateX(10deg) scale(2.7);
+		}
+
+		.picture{
+			height: 35px;
+			margin: 0.7em;
+		}
+
+		/* h1{
+			font-size: 1.2em;
+			width: 180px;
+			position: absolute;
+			right: -45px;
+    	}
+
+		.string{
+			height: 170px;
+		} */
+		
 	}
 
 </style>
