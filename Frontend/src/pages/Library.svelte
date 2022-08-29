@@ -144,13 +144,13 @@
     .wrapper[data-point="1"]{
         background: url(../images/bckg1.jpg), linear-gradient(rgba(186, 0, 0, 0.4),rgba(186,0,0,0.4));
         background-size: 100%;
-        /* background-blend-mode: overlay;         */
+       
     }
 
     .wrapper[data-point="2"]{
         background: url(../images/bckg2.1.jpg), linear-gradient(rgba(178, 32, 240, 0.4),rgba(205, 26, 221, 0.4));
         background-size: 100%;
-        /* background-blend-mode: overlay; */
+       
     }
 
     .wrapper[data-point="3"]{
@@ -169,7 +169,12 @@
         background: url(../images/bckg7.jpg), linear-gradient(rgba(32, 240, 216, 0.4),rgba(26, 65, 221, 0.4));
         background-size: 100%;
     }
-/* 
+
+    /* .wrapper[data-point="0"]{
+        background: url(../images/bg4.jpg);        
+        background-size: 100%;
+    }
+
     .wrapper[data-point="1"]{
         background: url(../images/bg4.jpg);
         background-size: 100%;
@@ -194,8 +199,8 @@
     .wrapper[data-point="5"]{
         background: url(../images/bg4.jpg) center, linear-gradient(rgba(32, 240, 216, 0.2),rgba(26, 65, 221, 0.2));
         background-blend-mode: overlay;
-    }
- */
+    } */
+ 
     ::-webkit-scrollbar {
     display: none;
     }
