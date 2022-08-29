@@ -19,14 +19,21 @@
     let key = ''
     let wrapperElem
     let scrollingY
+    let scrollingX
 
     // auto focuses the library so that the keyboard can be used to move around aswell
     onMount(() => wrapperElem.focus())
 
     $: intersecting ? $checkPoint = $checkPoint = 0 : ''
 
-    $: console.log(key)
+    $: console.log(key, scrollingY, scrollingX)
     $: console.log($checkPoint)
+
+    const moveForward = () => {
+        console.log('moving forward')
+        scrollingX = scrollingX + 10
+        console.log(scrollingX)
+    }
 
 
 </script>
@@ -37,6 +44,11 @@
 
         <!-- wrapper is a button element so that it can be autofocused for accessibility purposes like moving with keyboard -->
         <button class="wrapper" bind:this={wrapperElem} data-point={$checkPoint} alt="Background created by Inga Viitanen">
+
+            <div class="forwardWrap">
+                <button on:mousedown={moveForward} class="forward">forward</button>
+            </div>
+            <button class="backward">backward</button>
 
             <div class="avatar"></div>
             
@@ -70,9 +82,14 @@
 </InterSectionObserver>
 
 
-<svelte:window bind:scrollY={scrollingY} on:keydown={e => key = e.key}/> 
+<svelte:window bind:scrollX={scrollingX} bind:scrollY={scrollingY} on:keydown={e => key = e.key}/> 
 
 <style>
+
+    .forward{
+        position: absolute;
+        left: 0;
+    }
 
     .avatar{
         position: sticky;
@@ -152,6 +169,12 @@
     ::-webkit-scrollbar {
     display: none;
     }
+
+    /* @media (hover: none){
+        .horizontal-scroll-wrapper {
+            overflow-x: visible;
+        }
+    } */
 
 
 </style>
