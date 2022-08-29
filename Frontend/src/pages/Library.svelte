@@ -111,8 +111,8 @@
 
     .wrapper{
         background: url(../images/temporaryBG5.svg); 
-        /* background-size: 100%; */
-        transition: 3s;
+         background-size: 100%; 
+        /* transition: 3s; */
         z-index: -1;
         width: 100vh;
         height: 100vw;
@@ -120,15 +120,21 @@
     }
 
     .wrapper[data-point="0"]{
+        background: url(../images/bg4.jpg); 
+        background-size: 100%;
+    }
+
+/* 
+    .wrapper[data-point="0"]{
         background: url(../images/bckg00.jpg);        
-        background-repeat: no-repeat;
-        background-size: cover;
+         background-repeat: no-repeat; 
+        background-size: contain;
     }
 
     .wrapper[data-point="1"]{
         background: url(../images/bckg1.jpg), linear-gradient(rgba(186, 0, 0, 0.4),rgba(186,0,0,0.4));
         background-blend-mode: overlay;        
-        background-size: contain;
+        background-size: contain; 
     }
 
     .wrapper[data-point="2"]{
@@ -149,12 +155,12 @@
     .wrapper[data-point="5"]{
         background: url(../images/bckg7.jpg), linear-gradient(rgba(32, 240, 216, 0.4),rgba(26, 65, 221, 0.4));
         background-size: 100%;
-    }
-/* 
+    } */
+
     .wrapper[data-point="1"]{
         background: url(../images/bg4.jpg);
         background-size: 100%;
-         background-blend-mode: overlay; 
+        
     }
 
     .wrapper[data-point="2"]{
@@ -176,7 +182,7 @@
         background: url(../images/bg4.jpg) center, linear-gradient(rgba(32, 240, 216, 0.2),rgba(26, 65, 221, 0.2));
         background-blend-mode: overlay;
     }
- */
+
     ::-webkit-scrollbar {
     display: none;
     }
