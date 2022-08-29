@@ -108,39 +108,43 @@
     }
 
     .wrapper{
-        background: url(../images/temporaryBG5.svg);
+         background: url(../images/temporaryBG5.svg); 
         transition: 3s;
         z-index: -1;
         width: 100vh;
+        height: 200vw;
         border: none;
     }
 
     .wrapper[data-point="0"]{
-        background: url(../images/temporaryBG5.svg);
+        background: url(../images/bckg00.jpg);        
+        background-repeat: no-repeat;
+        background-size: cover;
     }
 
     .wrapper[data-point="1"]{
-        background: url(../images/temporaryBG5.svg), linear-gradient(rgba(186, 0, 0, 0.4),rgba(186,0,0,0.4));
-        background-blend-mode: overlay;
+        background: url(../images/bckg1.jpg), linear-gradient(rgba(186, 0, 0, 0.4),rgba(186,0,0,0.4));
+        background-blend-mode: overlay;        
+        background-size: contain;
     }
 
     .wrapper[data-point="2"]{
-        background: url(../images/temporaryBG5.svg), linear-gradient(rgba(178, 32, 240, 0.4),rgba(205, 26, 221, 0.4));
+        background: url(../images/bckg2.1.jpg), linear-gradient(rgba(178, 32, 240, 0.4),rgba(205, 26, 221, 0.4));
         background-blend-mode: overlay;
     }
 
     .wrapper[data-point="3"]{
-        background: url(../images/temporaryBG5.svg), linear-gradient(rgba(107, 181, 255, 0.4),rgba(62, 171, 255, 0.4));
+        background: url(../images/bckg3.jpg), linear-gradient(rgba(107, 181, 255, 0.4),rgba(62, 171, 255, 0.4));
         background-blend-mode: overlay;
     }
 
     .wrapper[data-point="4"]{
-        background: url(../images/temporaryBG5.svg), linear-gradient(rgba(108, 240, 32, 0.4),rgba(29, 221, 26, 0.4));
-        background-blend-mode: overlay;
+        background: url(../images/bckg4.jpg), linear-gradient(rgba(108, 240, 32, 0.4),rgba(29, 221, 26, 0.4));
+        background-blend-mode: overlay; 
     }
 
     .wrapper[data-point="5"]{
-        background: url(../images/temporaryBG5.svg), linear-gradient(rgba(32, 240, 216, 0.4),rgba(26, 65, 221, 0.4));
+        background: url(../images/bckg7.jpg), linear-gradient(rgba(32, 240, 216, 0.4),rgba(26, 65, 221, 0.4));
         background-blend-mode: overlay;
     }
 
