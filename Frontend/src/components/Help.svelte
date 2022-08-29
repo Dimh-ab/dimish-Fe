@@ -112,55 +112,92 @@
 
         @media only screen and (max-width: 1000px) {
             article{
-                top: 150px;
-                left: 150px;
-                right: 150px;
-                height: 480px;
-                width: 600px;
+                top: 10px;
+                left: 50px;
+                /* right: 150px; */
+                height: 330px;
+                width: 700px;
                 margin: 10px;
             }
 
+            h3{
+                font-size: 2em;
+            }
+
+            p{
+                font-size: 1.3em;
+            }
+
+            .text{
+                margin: 10px 40px;
+            }
             
         }
 
-        @media only screen and (max-width: 920px) {
+        /* @media only screen and (max-width: 920px) {
             article{
                 left: 120px;
                 right: 120px;
             }
-        }
+        } */
 
-        @media only screen and (max-width: 820px) {
+        /* @media only screen and (max-width: 820px) {
             article{
                 left: 80px;
                 right: 80px;
             }
-        }
+        } */
 
 
         @media only screen and (max-width: 768px) {
             article{
+                top: 10px;
                 left: 50px;
-                right: 50px;
+                /* right: 150px; */
+                height: 300px;
+                width: 600px;
+                margin: 10px;
+            }
+
+            h3{
+                font-size: 1.8em;
+                margin-top: 2px;
+            }
+
+            p{
+                font-size: 1.1em;
+            }
+
+            .text{
+                margin: 5px 20px;
+            }
+
+            br{
+                display: none;
+            }
+
+            .continueBTN{
+                width: 150px;
+                margin: 5px 20px;
             }
         }
 
         @media only screen and (max-width: 660px) {
             article{
-                height: 400px;
+                top: 10px;
+                left: 50px;
+                /* right: 150px; */
+                height: 220px;
                 width: 500px;
-            }
-            button{
-                right: 10px;
+                margin: 10px;
             }
 
             h3{
                 font-size: 1.6em;
-                margin: 5px 0;
             }
 
             p{
-                font-size: 1.3em;
+                font-size: 1em;
             }
         }
 
@@ -186,7 +223,7 @@
             }
         }
 
-        @media only screen and (max-width: 500px) {
+        /* @media only screen and (max-width: 500px) {
             article{
                 height: 330px;
                 width: 325px;
@@ -236,5 +273,5 @@
             .text{
                 margin: 0 5px;
             }
-        }
+        } */
     </style>

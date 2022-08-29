@@ -19,14 +19,21 @@
     let key = ''
     let wrapperElem
     let scrollingY
+    let scrollingX
 
     // auto focuses the library so that the keyboard can be used to move around aswell
     onMount(() => wrapperElem.focus())
 
     $: intersecting ? $checkPoint = $checkPoint = 0 : ''
 
-    $: console.log(key)
+    $: console.log(key, scrollingY, scrollingX)
     $: console.log($checkPoint)
+
+    const moveForward = () => {
+        console.log('moving forward')
+        scrollingX = scrollingX + 10
+        console.log(scrollingX)
+    }
 
 
 </script>
@@ -37,6 +44,11 @@
 
         <!-- wrapper is a button element so that it can be autofocused for accessibility purposes like moving with keyboard -->
         <button class="wrapper" bind:this={wrapperElem} data-point={$checkPoint} alt="Background created by Inga Viitanen">
+
+            <div class="forwardWrap">
+                <button on:mousedown={moveForward} class="forward">forward</button>
+            </div>
+            <button class="backward">backward</button>
 
             <div class="avatar"></div>
             
@@ -70,9 +82,14 @@
 </InterSectionObserver>
 
 
-<svelte:window bind:scrollY={scrollingY} on:keydown={e => key = e.key}/> 
+<svelte:window bind:scrollX={scrollingX} bind:scrollY={scrollingY} on:keydown={e => key = e.key}/> 
 
 <style>
+
+    .forward{
+        position: absolute;
+        left: 0;
+    }
 
     .avatar{
         position: sticky;
@@ -112,10 +129,11 @@
     .wrapper{
         background: url(../images/temporaryBG5.svg); 
          background-size: 100%; 
+        background-size: 100%;
         /* transition: 3s; */
         z-index: -1;
         width: 100vh;
-        height: 100vw;
+        /* height: 100vw; */
         border: none;
     }
 
@@ -124,39 +142,43 @@
         background-size: 100%;
     }
 
-/* 
+
     .wrapper[data-point="0"]{
-        background: url(../images/bckg00.jpg);        
-         background-repeat: no-repeat; 
-        background-size: contain;
+        background: url(../images/bckg00.jpg);  
+        background-size: 100%;
     }
 
     .wrapper[data-point="1"]{
         background: url(../images/bckg1.jpg), linear-gradient(rgba(186, 0, 0, 0.4),rgba(186,0,0,0.4));
         background-blend-mode: overlay;        
         background-size: contain; 
+        background-size: 100%;
+         background-blend-mode: overlay;         
     }
 
     .wrapper[data-point="2"]{
         background: url(../images/bckg2.1.jpg), linear-gradient(rgba(178, 32, 240, 0.4),rgba(205, 26, 221, 0.4));
-        background-blend-mode: overlay;
+        background-size: 100%;
+        /* background-blend-mode: overlay; */
     }
 
     .wrapper[data-point="3"]{
         background: url(../images/bckg3.jpg), linear-gradient(rgba(107, 181, 255, 0.4),rgba(62, 171, 255, 0.4));
+        background-size: 100%;
         background-blend-mode: overlay;
     }
 
     .wrapper[data-point="4"]{
         background: url(../images/bckg4.jpg), linear-gradient(rgba(108, 240, 32, 0.4),rgba(29, 221, 26, 0.4));
+        background-size: 100%;
         background-blend-mode: overlay; 
     }
 
     .wrapper[data-point="5"]{
         background: url(../images/bckg7.jpg), linear-gradient(rgba(32, 240, 216, 0.4),rgba(26, 65, 221, 0.4));
         background-size: 100%;
-    } */
-
+    } 
+/* 
     .wrapper[data-point="1"]{
         background: url(../images/bg4.jpg);
         background-size: 100%;
@@ -182,10 +204,16 @@
         background: url(../images/bg4.jpg) center, linear-gradient(rgba(32, 240, 216, 0.2),rgba(26, 65, 221, 0.2));
         background-blend-mode: overlay;
     }
-
+ */
     ::-webkit-scrollbar {
     display: none;
     }
+
+    /* @media (hover: none){
+        .horizontal-scroll-wrapper {
+            overflow-x: visible;
+        }
+    } */
 
 
 </style>
