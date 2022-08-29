@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Cabin+Sketch:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cabin+Sketch:wght@400;700&family=Joan&display=swap');
 
 html, body {
 	position: relative;
-	background: rgb(151, 148, 140);
+	background: #222;
 	background-size: 100% 100%;	
 	background-repeat: no-repeat;
 }
@@ -16,6 +16,10 @@ body {
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 
+::-webkit-scrollbar {
+    display: none;
+}
+
 *{
 	margin: 0;
 	padding: 0;
@@ -27,7 +31,8 @@ p{
 }
 
 a {
-	color: rgb(0,100,200);
+	/* color: rgb(0,100,200); */
+	color: #fff;
 	text-decoration: none;
 }
 
@@ -35,9 +40,9 @@ a:hover {
 	text-decoration: underline;
 }
 
-a:visited {
+/* a:visited {
 	color: rgb(0,80,160);
-}
+} */
 
 label {
 	display: block;

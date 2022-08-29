@@ -21,6 +21,8 @@
         bottom: 1rem;
         right: 1rem;
         cursor: pointer;
-        filter: opacity(0.5) drop-shadow(0 0 0 rgb(230, 6, 6));
+        /* filter: opacity(0.5) drop-shadow(0 0 0 rgb(230, 6, 6)); */
+        filter: invert();
+        z-index: 2;
     }
 </style>

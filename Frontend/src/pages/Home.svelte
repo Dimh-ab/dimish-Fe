@@ -54,7 +54,8 @@
         width: 200px;
         height: auto;
         position: absolute;
-        top: 60vh;
+        /* top: 60vh; */
+        bottom: 80px;
         left: 40vw;
         /* z-index: 2; */
     }
