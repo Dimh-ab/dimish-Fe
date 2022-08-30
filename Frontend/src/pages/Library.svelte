@@ -86,7 +86,7 @@
 
 <style>
 
-    .forward{
+.forward{
         position: absolute;
         left: 0;
     }
@@ -128,7 +128,6 @@
 
     .wrapper{
         background: url(../images/temporaryBG5.svg); 
-         background-size: 100%; 
         background-size: 100%;
         /* transition: 3s; */
         z-index: -1;
@@ -138,51 +137,48 @@
     }
 
     .wrapper[data-point="0"]{
-        background: url(../images/bg4.jpg); 
-        background-size: 100%;
-    }
-
-
-    .wrapper[data-point="0"]{
-        background: url(../images/bckg00.jpg);  
-        background-size: 100%;
+        background: url(../images/bckg00-01.jpg);        
+        background-size: 101%;
     }
 
     .wrapper[data-point="1"]{
-        background: url(../images/bckg1.jpg), linear-gradient(rgba(186, 0, 0, 0.4),rgba(186,0,0,0.4));
-        background-blend-mode: overlay;        
-        background-size: contain; 
+        background: url(../images/bckg01.jpg), linear-gradient(rgba(186, 0, 0, 0.4),rgba(186,0,0,0.4));
         background-size: 100%;
-         background-blend-mode: overlay;         
+       
     }
 
     .wrapper[data-point="2"]{
-        background: url(../images/bckg2.1.jpg), linear-gradient(rgba(178, 32, 240, 0.4),rgba(205, 26, 221, 0.4));
+        background: url(../images/bckg02.jpg), linear-gradient(rgba(178, 32, 240, 0.4),rgba(205, 26, 221, 0.4));
         background-size: 100%;
-        /* background-blend-mode: overlay; */
+       
     }
 
     .wrapper[data-point="3"]{
-        background: url(../images/bckg3.jpg), linear-gradient(rgba(107, 181, 255, 0.4),rgba(62, 171, 255, 0.4));
+        background: url(../images/bckg03.jpg), linear-gradient(rgba(107, 181, 255, 0.4),rgba(62, 171, 255, 0.4));
         background-size: 100%;
         background-blend-mode: overlay;
     }
 
     .wrapper[data-point="4"]{
-        background: url(../images/bckg4.jpg), linear-gradient(rgba(108, 240, 32, 0.4),rgba(29, 221, 26, 0.4));
+        background: url(../images/bckg04.jpg), linear-gradient(rgba(108, 240, 32, 0.4),rgba(29, 221, 26, 0.4));
         background-size: 100%;
         background-blend-mode: overlay; 
     }
 
     .wrapper[data-point="5"]{
-        background: url(../images/bckg7.jpg), linear-gradient(rgba(32, 240, 216, 0.4),rgba(26, 65, 221, 0.4));
+        background: url(../images/bckg05.jpg), linear-gradient(rgba(32, 240, 216, 0.4),rgba(26, 65, 221, 0.4));
         background-size: 100%;
-    } 
-/* 
+    }
+
+    /* .wrapper[data-point="0"]{
+        background: url(../images/bg4.jpg);        
+        background-size: 100%;
+    }
+
     .wrapper[data-point="1"]{
         background: url(../images/bg4.jpg);
         background-size: 100%;
-        
+         background-blend-mode: overlay; 
     }
 
     .wrapper[data-point="2"]{
@@ -203,8 +199,8 @@
     .wrapper[data-point="5"]{
         background: url(../images/bg4.jpg) center, linear-gradient(rgba(32, 240, 216, 0.2),rgba(26, 65, 221, 0.2));
         background-blend-mode: overlay;
-    }
- */
+    } */
+ 
     ::-webkit-scrollbar {
     display: none;
     }
@@ -214,6 +210,7 @@
             overflow-x: visible;
         }
     } */
+
 
 
 </style>

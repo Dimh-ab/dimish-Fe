@@ -32,8 +32,8 @@
 <svelte:window on:keydown={(e) => (key = e.key)} />
 
 <div tabindex="0" class="sprite" use:zoom={10}>
-    <img class="girl" src="/static/images/girl2.png" alt="girl" />
-    <img class="door" src="/static/images/book-door.png" alt="book-door" />
+    <!-- <img class="girl" src="/static/images/girl2.png" alt="girl" /> -->
+    <img class="door" src="/static/images/homepage-3-01-01.jpg" alt="book-door" />
 </div>
 
 <style>
@@ -45,18 +45,18 @@
     }
 
     .door {
-        width: 450px;
-        height: auto;
+        width: 100%;
+        height: 100vh;
         cursor: pointer;
     }
 
-    .girl {
+/*     .girl {
         width: 200px;
         height: auto;
         position: absolute;
-        /* top: 60vh; */
-        bottom: 80px;
-        left: 40vw;
-        /* z-index: 2; */
-    }
+        top: 60vh;
+        bottom: 90px;
+        left: 60vw;
+        z-index: 2; 
+    } */
 </style>
