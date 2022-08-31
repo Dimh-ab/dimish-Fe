@@ -62,9 +62,9 @@
 
 </script>
 
-<InterSectionObserver {element} bind:intersecting {rootMargin}>
+<!-- <InterSectionObserver {element} bind:intersecting {rootMargin}> -->
 <section>
-	<article  bind:this={element}>
+	<!-- <article  bind:this={element}> -->
 		<main>
 		{#each $amountOfProjects as project, i (project.id)}
 		{#if project.category === "Barn och Unga"}
@@ -117,13 +117,13 @@
 		{/if}
 		{/each}
 		</main>
-	</article>
+	<!-- </article> -->
 	<div class="sign">
 		<div class="string"></div>
 		<h1>Barn och Unga</h1>
 	</div>
 </section>
-</InterSectionObserver>
+<!-- </InterSectionObserver> -->
 
 <style>
 

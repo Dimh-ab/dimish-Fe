@@ -38,7 +38,7 @@
 
 </script>
 
-<InterSectionObserver {element} bind:intersecting>
+<!-- <InterSectionObserver {element} bind:intersecting> -->
    
     <div class="horizontal-scroll-wrapper" >
 
@@ -79,7 +79,7 @@
 
         </button>
     </div>
-</InterSectionObserver>
+<!-- </InterSectionObserver> -->
 
 
 <svelte:window bind:scrollX={scrollingX} bind:scrollY={scrollingY} on:keydown={e => key = e.key}/> 
@@ -105,7 +105,7 @@
     }
 
     .category{
-        height: 2000px;
+        height: 2380px;
     }
 
 
@@ -127,7 +127,7 @@
     }
 
     .wrapper{
-        background: url(../images/temporaryBG5.svg); 
+        background: url(../images/wide-2-01.jpg); 
         background-size: 100%;
         /* transition: 3s; */
         z-index: -1;
@@ -135,7 +135,7 @@
         /* height: 100vw; */
         border: none;
     }
-
+/* 
     .wrapper[data-point="0"]{
         background: url(../images/bckg00-01.jpg);        
         background-size: 101%;
@@ -168,7 +168,7 @@
     .wrapper[data-point="5"]{
         background: url(../images/bckg05.jpg), linear-gradient(rgba(32, 240, 216, 0.4),rgba(26, 65, 221, 0.4));
         background-size: 100%;
-    }
+    } */
 
     /* .wrapper[data-point="0"]{
         background: url(../images/bg4.jpg);        
