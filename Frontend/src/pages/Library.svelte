@@ -21,6 +21,9 @@
     let scrollingY
     let scrollingX
 
+    let number = 0
+    let timeOut
+
     // auto focuses the library so that the keyboard can be used to move around aswell
     onMount(() => wrapperElem.focus())
 
@@ -29,14 +32,46 @@
     $: console.log(key, scrollingY, scrollingX)
     $: console.log($checkPoint)
 
-    const moveForward = () => {
-        console.log('moving forward')
-        scrollingX = scrollingX + 10
-        console.log(scrollingX)
+    const moveRightMobile = (e) => {
+        if(e.target.id === 'moveRightBtn'){
+            timeOut = setInterval(() => {
+                if (e.type === 'pointerdown'){
+                    number += 1
+                    console.log(number)
+                }
+                window.scrollBy(number, 0)
+            }, 500);
+        }    
+        console.log(e.type)
+    }
+
+    const moveLeftMobile = (e) => {
+        if(e.target.id === 'moveLeftBtn'){
+            timeOut = setInterval(() => {
+                if (e.type === 'pointerdown'){
+                    number -= 1
+                    console.log(number)
+                }
+            }, 500)
+        }
+    }
+
+    const stopMovement = (e) => {
+        if(e.type === 'pointerup'){
+            clearInterval(timeOut)
+        }
+        console.log(e.type)
     }
 
 
 </script>
+
+<div class="rotate-animation" >
+    <video autoplay muted loop id="rotate-device">
+        <source src="../images/rotate-device.mp4" type="video/mp4">
+    </video>
+    <p id="rotate-phone-message">please rotate your device</p>
+</div>
 
 <!-- <InterSectionObserver {element} bind:intersecting> -->
    
@@ -45,10 +80,21 @@
         <!-- wrapper is a button element so that it can be autofocused for accessibility purposes like moving with keyboard -->
         <button class="wrapper" bind:this={wrapperElem} data-point={$checkPoint} alt="Background created by Inga Viitanen">
 
-            <div class="forwardWrap">
-                <button on:mousedown={moveForward} class="forward">forward</button>
+            <div class="buttons">
+
+                <button 
+                id="moveLeftBtn"
+                on:pointerdown={(e) => moveLeftMobile(e)} 
+                on:pointerup={(e) => stopMovement(e)} 
+                ></button>
+
+                <button 
+                id="moveRightBtn" 
+                on:pointerdown={(e) => moveRightMobile(e)} 
+                on:pointerup={(e) => stopMovement(e)} 
+                ></button>
+
             </div>
-            <button class="backward">backward</button>
 
             <div class="avatar"></div>
             
@@ -86,10 +132,45 @@
 
 <style>
 
-.forward{
-        position: absolute;
-        left: 0;
+.buttons{
+        position: sticky;
+        top: 1px;
+        right: 1px;
+        height: 100vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
+
+   #moveRightBtn{
+    /* position: sticky; */
+    /* top: 860px;
+    right: 160px; */
+    transform: rotate(90deg);
+    border: none;
+    background: url(../images/arrow.png) no-repeat;
+    height: 70px;
+    width: 70px;
+    opacity: 0.7;
+    margin-left: 150px;
+   }
+
+   #moveLeftBtn{
+    /* position: sticky; */
+    /* top: -5px;
+    left: 190px; */
+    transform: rotate(-90deg);
+    border: none;
+    background: url(../images/arrow.png) no-repeat;
+    height: 70px;
+    width: 50px;
+    opacity: 0.7;
+    margin-left: 150px;
+   }
+
+   #moveRightBtn:active, #moveLeftBtn:active{
+    opacity: 1;
+   }
 
     .avatar{
         position: sticky;
@@ -205,11 +286,51 @@
     display: none;
     }
 
-    /* @media (hover: none){
-        .horizontal-scroll-wrapper {
-            overflow-x: visible;
+    .rotate-animation{
+        background-color: transparent;
+        position: relative;
+        top: 380px;
+        z-index: 1000;
+    }
+
+    #rotate-phone-message{
+        position: absolute;
+        left:0;
+        right: 0;
+        top: -40px;
+        text-align: center;
+        font-size: 1.5em;
+    }
+
+    #rotate-device{
+        border: 5px solid rgba(0, 0, 0, 0.53);
+        border-radius: 350px;
+        width: 200px;
+        margin: auto;
+        position: absolute;
+        left:0;
+        right: 0;
+    }
+
+    @media (orientation: landscape){
+
+        .rotate-animation, #rotate-device,  #rotate-phone-message{
+            display: none;
         }
-    } */
+    }
+
+    @media (hover: none){
+        .horizontal-scroll-wrapper {
+            overflow-x: auto;
+        }
+    }
+
+    @media (hover: hover){
+        #moveLeftBtn, #moveRightBtn, .buttons{
+            display: none;
+        }
+    }
+
 
 
 
