@@ -68,6 +68,11 @@
 		<main>
 		{#each $amountOfProjects as project, i (project.id)}
 		{#if project.category === "Barn och Unga"}
+		<!-- <div class="book-spacing"></div>
+		<div class="book-spacing"></div>
+		<div class="book-spacing"></div>
+		<div class="book-spacing"></div>
+		<div class="book-spacing"></div> -->
 		<div class="book-spacing">
 					<button class={"backBtn " + (project.id === bookId ? "visible" : "")} on:click={() => bookId = bookId = ''}>
 						{'<- ställ tillbaka'}
@@ -112,16 +117,15 @@
 					</div>
 				<div class={"back-cover " + (project.id === bookId ? 'position' : 'shelfMode')}></div>
 			</div>	
-				
 		</div>
 		{/if}
 		{/each}
 		</main>
 	</article>
-	<div class="sign">
+	<!-- <div class="sign">
 		<div class="string"></div>
 		<h1>Barn och Unga</h1>
-	</div>
+	</div> -->
 </section>
 </InterSectionObserver>
 
@@ -191,7 +195,7 @@
 		justify-content: center;
 	}
 
-    h1{
+    /* h1{
         transform: rotate(90deg);
 		font-size: 1.6em;
 		color: var(--title-color);
@@ -204,7 +208,7 @@
 		padding: 20px 0;
 		border: 10px solid #deb886;
         box-shadow: 3px 3px 30px rgb(0, 0, 0);
-    }
+    } */
 
 	.string{
 		border: 2px solid silver;
@@ -221,27 +225,61 @@
 	}
 
 	main{
-		height: 400px;
+		translate: 2px 137px;
+		height: 800px;
+		width: 600px;
 		display: flex;
-		flex-direction: row;
+		/* column-width: 20px;
+		column-gap: 15px; */
+ 		 /* width: 90%; */
+		/* max-width: 1100px; */
+		margin: 50px auto;
+		flex-direction: row-reverse;
+		flex-wrap: wrap;
 		align-items: center;
-		justify-content: center;
+		justify-content: flex-start;
 		background-color:transparent;
 		transform: scale(0.7) rotate(90deg);
-		position: relative;
-		left: -350px;
+		/* margin-left: 100px; */
+		/* position: relative; */
+		/* left: -1050px; */
 	}
 
+	.book-spacing:first-child{
+		margin-right: 600px;
+	}
+
+	.book-spacing:nth-child(3){
+		margin-right: 55px;
+	}
+	.book-spacing:nth-child(4){
+		margin-right: 27px;
+	}
+	.book-spacing:nth-child(5){
+		margin-right: 27px;
+	}
+	.book-spacing:nth-child(6){
+		margin-right: 45px;
+	}
+	.book-spacing:nth-child(7){
+		margin-right: 45px;
+	}
+
+	/* main > *{
+		flex: 1 1 10;
+	} */
+
 	.book-spacing{
-		margin: 0 150px;
+		margin: 0 10px;
 	}
 
 	.book{
 		display: flex;
-		align-items: center;
+		/* align-self: flex-start; */
+		/* align-items: center; */
 		cursor: pointer;
 		/* transform: rotate(90deg); */
-		position: relative;
+		/* position: relative; */
 	}
 
 
@@ -307,24 +345,24 @@
 		border-radius: 5px;
 		margin-left: -56px;
 		box-shadow:
-    	0 0 30px 15px #ffca2d94,  /* inner white */
-    	0 0 50px 20px rgba(255, 221, 0, 0.427), /* middle magenta */
-    	0 0 100px 50px rgba(255, 179, 0, 0.437); /* outer cyan */
+    	0 0 5px 5px #ffca2d94,  /* inner */
+    	0 0 20px 20px rgba(255, 221, 0, 0.427), /* middle */
+    	0 0 50px 50px rgba(255, 179, 0, 0.437); /* outer */
 		animation: glow 2s ease-in-out infinite alternate;
 	}
 
 	@keyframes glow {
 		from{
 			box-shadow:
-    		0 0 10px 5px #ffca2d6e,  /* inner white */
-    		0 0 30px 15px #ffdd0047, /* middle magenta */
-    		0 0 50px 25px #ffb30050; /* outer cyan */
+    		0 0 2px 2px #ffa42d6e,  /* inner  */
+    		0 0 5px 5px #ff8c0047, /* middle  */
+    		0 0 80px 8px #ff6a0050; /* outer */
 		}
 		to{
 			box-shadow:
-    		0 0 40px 20px #ffca2d6e,  /* inner white */
-    		0 0 60px 30px #ffdd0047, /* middle magenta */
-    		0 0 110px 60px #ffb30050;; /* outer cyan */
+    		0 0 5px 5px #ffca2d6e,  /* inner  */
+    		0 0 10px 10px #ffdd0047, /* middle  */
+    		0 0 20px 20px #ffb30050;; /* outer  */
 		}
 	}
 	/* .spine.shake{
@@ -524,7 +562,7 @@
 
 	@media only screen and (max-width: 1000px){
 		main{
-			left: -200px;
+			left: -700px;
 		}
 
 		.book-spacing{

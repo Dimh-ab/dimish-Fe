@@ -289,6 +289,26 @@
 		z-index: 1;
 		border-radius: 5px;
 		margin-left: -56px;
+		box-shadow:
+    	0 0 30px 15px #2d5eff94,  /* inner */
+    	0 0 50px 20px #00a6ff6d, /* middle  */
+    	0 0 100px 50px #00b3ff6f; /* outer  */
+		animation: glow 2s ease-in-out infinite alternate;
+	}
+
+	@keyframes glow {
+		from{
+			box-shadow:
+    		0 0 10px 5px #2d5eff94,  /* inner  */
+    		0 0 30px 15px #00a6ff6d, /* middle  */
+    		0 0 50px 25px #00b3ff6f; /* outer  */
+		}
+		to{
+			box-shadow:
+    		0 0 40px 20px #2d5eff94,  /* inner  */
+    		0 0 60px 30px #00a6ff6d, /* middle */
+    		0 0 110px 60px #00b3ff6f;; /* outer */
+		}
 	}
 	/* .spine.shake{
 		animation: shake 1s;

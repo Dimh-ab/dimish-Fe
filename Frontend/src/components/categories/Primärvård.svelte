@@ -289,6 +289,26 @@
 		z-index: 1;
 		border-radius: 5px;
 		margin-left: -56px;
+		box-shadow:
+    	0 0 30px 15px #33ff2494,  /* inner */
+    	0 0 50px 20px rgba(0, 255, 17, 0.427), /* middle */
+    	0 0 100px 50px rgba(115, 255, 0, 0.437); /* outer */
+		animation: glow 2s ease-in-out infinite alternate;
+	}
+
+	@keyframes glow {
+		from{
+			box-shadow:
+    		0 0 10px 5px #5eff2d6e,  /* inner  */
+    		0 0 30px 15px #22ff0047, /* middle  */
+    		0 0 50px 25px #00ff2650; /* outer */
+		}
+		to{
+			box-shadow:
+    		0 0 40px 20px #ffca2d6e,  /* inner  */
+    		0 0 60px 30px #ffdd0047, /* middle  */
+    		0 0 110px 60px #ffb30050;; /* outer  */
+		}
 	}
 	/* .spine.shake{
 		animation: shake 1s;
