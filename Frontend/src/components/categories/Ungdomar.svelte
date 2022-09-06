@@ -58,9 +58,9 @@
 
 </script>
 
-<!-- <InterSectionObserver {element} bind:intersecting {rootMargin}> -->
-<section>
-	<!-- <article  bind:this={element}> -->
+<InterSectionObserver {element} bind:intersecting {rootMargin}>
+<section id="second-category">
+	<article  bind:this={element}>
 		<main>
 		{#each $amountOfProjects as project, i (project.id)}
 		{#if project.category === "Ungdomar"}
@@ -113,13 +113,13 @@
 		{/if}
 		{/each}
 		</main>
-	<!-- </article> -->
+	</article>
 	<div class="sign">
 		<div class="string"></div>
 		<h1>Ungdomar</h1>
 	</div>
 </section>
-<!-- </InterSectionObserver> -->
+</InterSectionObserver>
 
 <style>
 
@@ -151,6 +151,7 @@
 		flex-direction: row;
 		justify-content: space-between;
 		align-items: center;
+		height: 100vw;
 	}
 
     *{
@@ -288,6 +289,26 @@
 		z-index: 1;
 		border-radius: 5px;
 		margin-left: -56px;
+		box-shadow:
+    	0 0 30px 15px #6f2dff94,  /* inner white */
+    	0 0 50px 20px #4c00ff6d, /* middle magenta */
+    	0 0 100px 50px #8800ff6f; /* outer cyan */
+		animation: glow 2s ease-in-out infinite alternate;
+	}
+
+	@keyframes glow {
+		from{
+			box-shadow:
+    		0 0 10px 5px #6f2dff94,  /* inner white */
+    		0 0 20px 10px #4c00ff6d, /* middle magenta */
+    		0 0 40px 25px #8800ff6f; /* outer cyan */
+		}
+		to{
+			box-shadow:
+    		0 0 40px 20px #6f2dff94,  /* inner white */
+    		0 0 60px 30px #4c00ff6d, /* middle magenta */
+    		0 0 110px 60px #8800ff6f;; /* outer cyan */
+		}
 	}
 	/* .spine.shake{
 		animation: shake 1s;

@@ -62,9 +62,9 @@
 
 </script>
 
-<!-- <InterSectionObserver {element} bind:intersecting {rootMargin}> -->
-<section>
-	<!-- <article  bind:this={element}> -->
+<InterSectionObserver {element} bind:intersecting {rootMargin}>
+<section id="first-category">
+	<article  bind:this={element}>
 		<main>
 		{#each $amountOfProjects as project, i (project.id)}
 		{#if project.category === "Barn och Unga"}
@@ -117,13 +117,13 @@
 		{/if}
 		{/each}
 		</main>
-	<!-- </article> -->
+	</article>
 	<div class="sign">
 		<div class="string"></div>
 		<h1>Barn och Unga</h1>
 	</div>
 </section>
-<!-- </InterSectionObserver> -->
+</InterSectionObserver>
 
 <style>
 
@@ -168,6 +168,7 @@
 		flex-direction: row;
 		justify-content: space-between;
 		align-items: center;
+		height: 100vw;
 	}
 
     *{
@@ -305,6 +306,26 @@
 		z-index: 1;
 		border-radius: 5px;
 		margin-left: -56px;
+		box-shadow:
+    	0 0 30px 15px #ffca2d94,  /* inner white */
+    	0 0 50px 20px rgba(255, 221, 0, 0.427), /* middle magenta */
+    	0 0 100px 50px rgba(255, 179, 0, 0.437); /* outer cyan */
+		animation: glow 2s ease-in-out infinite alternate;
+	}
+
+	@keyframes glow {
+		from{
+			box-shadow:
+    		0 0 10px 5px #ffca2d6e,  /* inner white */
+    		0 0 30px 15px #ffdd0047, /* middle magenta */
+    		0 0 50px 25px #ffb30050; /* outer cyan */
+		}
+		to{
+			box-shadow:
+    		0 0 40px 20px #ffca2d6e,  /* inner white */
+    		0 0 60px 30px #ffdd0047, /* middle magenta */
+    		0 0 110px 60px #ffb30050;; /* outer cyan */
+		}
 	}
 	/* .spine.shake{
 		animation: shake 1s;
@@ -318,7 +339,7 @@
 	}
 
 
-	@keyframes shake {
+	/* @keyframes shake {
   0% { transform: translate(1px, 1px) rotate(0deg); }
   10% { transform: translate(-1px, -2px) rotate(-1deg); }
   20% { transform: translate(-3px, 0px) rotate(1deg); }
@@ -330,7 +351,7 @@
   80% { transform: translate(-1px, -1px) rotate(1deg); }
   90% { transform: translate(1px, 2px) rotate(0deg); }
   100% { transform: translate(1px, -2px) rotate(-1deg); }
-}
+} */
 
 	.cover.shelfMode, .coverInside.shelfMode{
 		transform: perspective(1000px) rotateX(-1deg) rotateY(90deg);
@@ -503,8 +524,12 @@
 
 	@media only screen and (max-width: 1000px){
 		main{
-			left: -500px;
+			left: -200px;
 		}
+
+		.book-spacing{
+		margin: 0 50px;
+	}
 
 		.cover, .back-cover, .coverInside{
 			height: 150px;

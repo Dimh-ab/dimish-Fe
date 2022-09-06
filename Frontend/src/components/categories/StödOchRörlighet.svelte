@@ -58,9 +58,9 @@
 
 </script>
 
-<!-- <InterSectionObserver {element} bind:intersecting {rootMargin}> -->
-<section>
-	<!-- <article  bind:this={element}> -->
+<InterSectionObserver {element} bind:intersecting {rootMargin}>
+<section id="third-category">
+	<article  bind:this={element}>
 		<main>
 		{#each $amountOfProjects as project, i (project.id)}
 		{#if project.category === "Stöd och Rörlighet"}
@@ -113,13 +113,13 @@
 		{/if}
 		{/each}
 		</main>
-	<!-- </article> -->
+	</article>
 	<div class="sign">
 		<div class="string"></div>
 		<h1>Stöd och Rörlighet</h1>
 	</div>
 </section>
-<!-- </InterSectionObserver> -->
+</InterSectionObserver>
 
 <style>
 
@@ -151,6 +151,7 @@
 		flex-direction: row;
 		justify-content: space-between;
 		align-items: center;
+		height: 100vw;
 	}
 
     *{

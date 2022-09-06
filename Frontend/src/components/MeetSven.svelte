@@ -39,11 +39,11 @@
 </script>
 
 <InterSectionObserver {element} bind:intersecting>
-<div class="welcome clickSven" >
+<div class="welcome clickSven" id="lobby">
     <div></div>
     <!-- svelte-ignore a11y-missing-attribute -->
     <div class="box" bind:this={element}>
-        <p class={(chatWithSven !== "" ? "speech-bubble" : "")} value={secondsLeft}>{chatWithSven}</p>
+        <!-- <p class={(chatWithSven !== "" ? "speech-bubble" : "")} value={secondsLeft}>{chatWithSven}</p> -->
         <iframe src="https://embed.lottiefiles.com/animation/7249"></iframe>
         <!-- <button class="clickSven" on:click={() => talkToSvenAgain()}>talk to Sven again</button> -->
     </div>
@@ -53,15 +53,15 @@
 <style>
     .welcome{
         background-color: transparent;
-        height: 2000px;
+        height: 1px;
         display: grid;
-        grid-template-rows: 500px 500px 500px 500px;
+        grid-template-rows: 350px 300px 300px 300px;
     }
 
     .box{
         transform: rotate(90deg);
-        width: 500px;
-        height: 500px;
+        width: 240px;
+        height: 300px;
         background-color: transparent;
         border-radius: 10px;
         display: flex;
@@ -70,7 +70,7 @@
         align-items: center;
     }
 
-    .speech-bubble{
+    /* .speech-bubble{
         position: absolute;
         top: 0;
         padding: 2em 1em;
@@ -78,7 +78,7 @@
         border-radius: 2em;
         border: 3px solid black;
         color: black;
-    }
+    } */
 
 
 /* button{
@@ -94,5 +94,16 @@
 
     ::-webkit-scrollbar {
     display: none;
+    }
+
+    @media (hover: hover){
+
+        .welcome{
+            grid-template-rows: 600px 300px 300px 300px;
+        }
+        .box{
+            width: 340px;
+            height: 300px;
+        }
     }
 </style>

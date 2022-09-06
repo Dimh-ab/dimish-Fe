@@ -4,13 +4,14 @@
 
 <script>
    	import { onMount } from 'svelte'
-    // import MeetSven from "../components/MeetSven.svelte";
+    import MeetSven from "../components/MeetSven.svelte";
     import BarnOchUnga from "../components/categories/BarnOchUnga.svelte";
     import Ungdomar from "../components/categories/Ungdomar.svelte";
     import StödOchRörlighet from "../components/categories/StödOchRörlighet.svelte";
     import Primärvård from "../components/categories/Primärvård.svelte";
     import Informativt from "../components/categories/Informativt.svelte";
     import {checkPoint} from "../stores.js";
+
     // senses if the element is in the viewport
     import InterSectionObserver from "svelte-intersection-observer";
 
@@ -21,47 +22,98 @@
     let scrollingY
     let scrollingX
 
-    let number = 0
-    let timeOut
+    let rightCategory = ''
+    let leftCategory = ''
+    let leftGuide = ''
+    let rightGuide = ''
+    let IOSdevice = ''
+    let fullscreenGuide = ''
+
+    // let number = 0
+    // let timeOut
 
     // auto focuses the library so that the keyboard can be used to move around aswell
     onMount(() => wrapperElem.focus())
 
     $: intersecting ? $checkPoint = $checkPoint = 0 : ''
 
-    $: console.log(key, scrollingY, scrollingX)
-    $: console.log($checkPoint)
+    // $: console.log(key, scrollingY, scrollingX)
+    // $: console.log($checkPoint)
 
-    const moveRightMobile = (e) => {
-        if(e.target.id === 'moveRightBtn'){
-            timeOut = setInterval(() => {
-                if (e.type === 'pointerdown'){
-                    number += 1
-                    console.log(number)
-                }
-                window.scrollBy(number, 0)
-            }, 500);
-        }    
-        console.log(e.type)
+    $: if($checkPoint === 0){
+        rightCategory = '#first-category'
+        rightGuide = 'continue ->'
+    } else if($checkPoint === 1){
+        rightCategory = '#second-category'
+    }else if($checkPoint === 2){
+        rightCategory = '#third-category'
+    }else if($checkPoint === 3){
+        rightCategory = '#fourth-category'
+    }else if($checkPoint === 4){
+        rightCategory = '#fifth-category'
     }
 
-    const moveLeftMobile = (e) => {
-        if(e.target.id === 'moveLeftBtn'){
-            timeOut = setInterval(() => {
-                if (e.type === 'pointerdown'){
-                    number -= 1
-                    console.log(number)
-                }
-            }, 500)
-        }
+
+    $: if($checkPoint === 0){
+        leftGuide = ''
+    }else if($checkPoint === 1){
+        leftCategory = '#lobby'
+        leftGuide = '<- back to lobby'
+    } else if($checkPoint === 2){
+        leftCategory = '#first-category'
+    }else if($checkPoint === 3){
+        leftCategory = '#second-category'
+    }else if($checkPoint === 4){
+        leftCategory = '#third-category'
+    }else if($checkPoint === 5){
+        leftCategory = '#fourth-category'
     }
 
-    const stopMovement = (e) => {
-        if(e.type === 'pointerup'){
-            clearInterval(timeOut)
-        }
-        console.log(e.type)
+    let isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+    if (isIOS) {    
+    console.log('This is a IOS device');
+    fullscreenGuide = `För fullskärm: <br> 1. Vid webbläsarens adressfält finns en ikon 'aA'. <br> 2. Tryck på den och välj 'Göm verktygsfält'. <br> 3. Rotera skärmen.`
+    IOSdevice = 'IOSdevice'
+    } else {
+    console.log('This is Not a IOS device');
+    fullscreenGuide = 'Rotera skärmen'
+    IOSdevice = ''
     }
+
+    // const moveRightMobile = (e) => {
+    //     if(e.target.id === 'moveRightBtn'){
+    //         timeOut = setInterval(() => {
+    //             if (e.type === 'pointerdown'){
+    //                 number += 1
+    //                 console.log(number)
+    //             }
+    //             window.scrollBy(number, 0)
+    //         }, 500);
+    //     }    
+    //     console.log(e.type)
+    // }
+
+    // const moveLeftMobile = (e) => {
+    //     if(e.target.id === 'moveLeftBtn'){
+    //         timeOut = setInterval(() => {
+    //             if (e.type === 'pointerdown'){
+    //                 number -= 1
+    //                 console.log(number)
+    //             }
+    //         }, 500)
+    //     }
+    // }
+
+    // const stopMovement = (e) => {
+    //     if(e.type === 'pointerup'){
+    //         clearInterval(timeOut)
+    //     }
+    //     console.log(e.type)
+    // }
+
+    // on:pointerdown={(e) => moveLeftMobile(e)} 
+    // on:pointerup={(e) => stopMovement(e)} 
 
 
 </script>
@@ -70,35 +122,32 @@
     <video autoplay muted loop id="rotate-device">
         <source src="../images/rotate-device.mp4" type="video/mp4">
     </video>
-    <p id="rotate-phone-message">please rotate your device</p>
+    <p id="rotate-phone-message" class={IOSdevice}>{@html fullscreenGuide}</p>
 </div>
 
-<!-- <InterSectionObserver {element} bind:intersecting> -->
+<InterSectionObserver {element} bind:intersecting>
    
     <div class="horizontal-scroll-wrapper" >
 
         <!-- wrapper is a button element so that it can be autofocused for accessibility purposes like moving with keyboard -->
         <button class="wrapper" bind:this={wrapperElem} data-point={$checkPoint} alt="Background created by Inga Viitanen">
 
-            <div class="buttons">
+            <MeetSven />
 
-                <button 
-                id="moveLeftBtn"
-                on:pointerdown={(e) => moveLeftMobile(e)} 
-                on:pointerup={(e) => stopMovement(e)} 
-                ></button>
+                <a href={leftCategory}>
+                    <button id="moveLeftBtn">{leftGuide}</button>
+                </a>
 
-                <button 
-                id="moveRightBtn" 
-                on:pointerdown={(e) => moveRightMobile(e)} 
-                on:pointerup={(e) => stopMovement(e)} 
-                ></button>
 
-            </div>
+                <div class="avatar"></div>
 
-            <div class="avatar"></div>
+
+                <a href={rightCategory}>
+                    <button id="moveRightBtn">{rightGuide}</button>
+                </a>
+
             
-            <!-- <MeetSven /> -->
+        
             <section class="category">
                 <div bind:this={element}></div>
             </section>
@@ -125,51 +174,46 @@
 
         </button>
     </div>
-<!-- </InterSectionObserver> -->
+</InterSectionObserver>
 
 
 <svelte:window bind:scrollX={scrollingX} bind:scrollY={scrollingY} on:keydown={e => key = e.key}/> 
 
 <style>
 
-.buttons{
-        position: sticky;
-        top: 1px;
-        right: 1px;
-        height: 100vw;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
 
    #moveRightBtn{
-    /* position: sticky; */
-    /* top: 860px;
-    right: 160px; */
+    position: sticky;
+    top: 720px;
+    bottom: 0;
     transform: rotate(90deg);
     border: none;
-    background: url(../images/arrow.png) no-repeat;
-    height: 70px;
-    width: 70px;
-    opacity: 0.7;
-    margin-left: 150px;
-   }
+    background: transparent;
+    /* background: url(../images/arrow.png) no-repeat; */
+    height: 150px;
+    width: 150px;
+    color: gold;
+    margin-left: -50px;
+    z-index: 10;
+    }
 
    #moveLeftBtn{
-    /* position: sticky; */
-    /* top: -5px;
-    left: 190px; */
-    transform: rotate(-90deg);
+    position: sticky;
+    top: 0;
+    left: 0;
+    transform: rotate(90deg);
     border: none;
-    background: url(../images/arrow.png) no-repeat;
-    height: 70px;
-    width: 50px;
-    opacity: 0.7;
-    margin-left: 150px;
+    background: transparent;
+    color: gold;
+    /* background: url(../images/arrow.png) no-repeat; */
+    height: 150px;
+    width: 150px;
+    margin-left: -50px;
+    z-index: 10;
    }
 
    #moveRightBtn:active, #moveLeftBtn:active{
-    opacity: 1;
+    color: gold;
    }
 
     .avatar{
@@ -186,7 +230,7 @@
     }
 
     .category{
-        height: 2380px;
+        height: 1580px;
     }
 
 
@@ -205,15 +249,15 @@
         overflow-x: hidden;
         transform: rotate(-90deg) translateY(-100vh);
         transform-origin: right top;
+        scroll-behavior: smooth;
     }
 
     .wrapper{
-        background: url(../images/wide-2-01.jpg); 
+        background: url(../images/bg-with-cat1.png); 
         background-size: 100%;
         /* transition: 3s; */
         z-index: -1;
         width: 100vh;
-        /* height: 100vw; */
         border: none;
     }
 /* 
@@ -297,9 +341,15 @@
         position: absolute;
         left:0;
         right: 0;
-        top: -40px;
+        top: -80px;
         text-align: center;
         font-size: 1.5em;
+        background-color: aliceblue;
+        padding: 0.5em 2em;
+    }
+
+    #rotate-phone-message.IOSdevice{
+        top: -220px
     }
 
     #rotate-device{
@@ -323,10 +373,14 @@
         .horizontal-scroll-wrapper {
             overflow-x: auto;
         }
+
+        .category{
+        height: 1000px;
+        }
     }
 
     @media (hover: hover){
-        #moveLeftBtn, #moveRightBtn, .buttons{
+        #moveLeftBtn, #moveRightBtn{
             display: none;
         }
     }

@@ -3,6 +3,8 @@
     import { fade } from "svelte/transition";
     //let wasClicked = false;
 
+    let IOSdevice = ''
+    let fullscreenGuide = ''
     let key = "";
     $: console.log(key);
 
@@ -27,6 +29,20 @@
 
         console.log("clicked");
     };
+
+    
+    let isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+    if (isIOS) {    
+        console.log('This is a IOS device');
+        fullscreenGuide = `För fullskärm: <br> 1. Vid webbläsarens adressfält finns en ikon 'aA'. <br> 2. Tryck på den och välj 'Göm verktygsfält'. <br> 3. Rotera skärmen.`
+        IOSdevice = 'IOSdevice'
+    } else {
+        console.log('This is Not a IOS device');
+        fullscreenGuide = 'Rotera skärmen'
+        IOSdevice = ''
+    }
+
 </script>
 
 <svelte:window on:keydown={(e) => (key = e.key)} />
@@ -35,7 +51,7 @@
         <video autoplay muted loop id="rotate-device">
             <source src="../images/rotate-device.mp4" type="video/mp4">
         </video>
-        <p id="rotate-phone-message">please rotate your device</p>
+        <p id="rotate-phone-message" class={IOSdevice}>{@html fullscreenGuide}</p>
     </div>
 
 <div tabindex="0" class="sprite" use:zoom={10}>
@@ -78,9 +94,15 @@
         position: absolute;
         left:0;
         right: 0;
-        top: -40px;
+        top: -80px;
         text-align: center;
         font-size: 1.5em;
+        background-color: aliceblue;
+        padding: 0.5em 2em;
+    }
+
+    #rotate-phone-message.IOSdevice{
+        top: -220px
     }
 
     #rotate-device{
