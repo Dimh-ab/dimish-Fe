@@ -253,7 +253,7 @@
     }
 
     .wrapper{
-        background: url(../images/cat1-v.png); 
+        background: url(../images/category1.png); 
         background-size: 100%;
         /* transition: 3s; */
         z-index: -1;

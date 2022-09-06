@@ -114,10 +114,10 @@
 		{/each}
 		</main>
 	</article>
-	<div class="sign">
+	<!-- <div class="sign">
 		<div class="string"></div>
 		<h1>Ungdomar</h1>
-	</div>
+	</div> -->
 </section>
 </InterSectionObserver>
 
@@ -174,7 +174,7 @@
 		justify-content: center;
 	}
 
-    h1{
+    /* h1{
         transform: rotate(90deg);
 		font-size: 1.6em;
 		color: var(--title-color);
@@ -187,7 +187,7 @@
 		padding: 20px 0;
 		border: 10px solid #deb886;
         box-shadow: 3px 3px 30px rgb(0, 0, 0);
-    }
+    } */
 
 	.string{
 		border: 2px solid silver;
@@ -204,19 +204,20 @@
 	}
 
 	main{
-		height: 400px;
+		translate: 105px -230px;
+		height: 800px;
+		width: 600px;
 		display: flex;
-		flex-direction: row;
+		flex-direction: row-reverse;
+		flex-wrap: wrap;
 		align-items: center;
-		justify-content: center;
+		justify-content: flex-start;
 		background-color:transparent;
-		transform: scale(0.7) rotate(90deg);
-		position: relative;
-		left: -150px;
+		transform: scale(0.3) rotate(90deg);
 	}
 
 	.book-spacing{
-		margin: 0 150px;
+		margin: 0 10px;
 	}
 
 	.book{
@@ -310,10 +311,7 @@
     		0 0 110px 60px #8800ff6f;; /* outer  */
 		}
 	}
-	/* .spine.shake{
-		animation: shake 1s;
-		animation-iteration-count: infinite;
-	} */
+	
 
 	.spine.shelfMode{
 		transform: perspective(1000px) rotateX(-1deg) rotateY(-90deg);
@@ -321,20 +319,6 @@
 		/* animation: none; */
 	}
 
-
-	@keyframes shake {
-  0% { transform: translate(1px, 1px) rotate(0deg); }
-  10% { transform: translate(-1px, -2px) rotate(-1deg); }
-  20% { transform: translate(-3px, 0px) rotate(1deg); }
-  30% { transform: translate(3px, 2px) rotate(0deg); }
-  40% { transform: translate(1px, -1px) rotate(1deg); }
-  50% { transform: translate(-1px, 2px) rotate(-1deg); }
-  60% { transform: translate(-3px, 1px) rotate(0deg); }
-  70% { transform: translate(3px, 1px) rotate(-1deg); }
-  80% { transform: translate(-1px, -1px) rotate(1deg); }
-  90% { transform: translate(1px, 2px) rotate(0deg); }
-  100% { transform: translate(1px, -2px) rotate(-1deg); }
-}
 
 	.cover.shelfMode, .coverInside.shelfMode{
 		transform: perspective(1000px) rotateX(-1deg) rotateY(90deg);
