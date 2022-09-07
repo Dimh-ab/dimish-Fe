@@ -204,19 +204,20 @@
 	}
 
 	main{
-		height: 200px;
+		translate: -235px 30px;
+		height: 900px;
+		width: 1200px;
 		display: flex;
-		flex-direction: row;
+		flex-direction: row-reverse;
+		flex-wrap: wrap;
 		align-items: center;
-		justify-content: center;
+		justify-content: flex-start;
 		background-color:transparent;
-		transform: scale(0.7) rotate(90deg);
-		position: relative;
-		left: 150px;
+		transform: scale(0.3) rotate(90deg);
 	}
 
 	.book-spacing{
-		margin: 0 150px;
+		margin: 0 10px;
 	}
 
 	.book{

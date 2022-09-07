@@ -253,7 +253,7 @@
     }
 
     .wrapper{
-        background: url(../images/category1.png); 
+        background: url(../images/category1.png) no-repeat; 
         background-size: 100%;
         /* transition: 3s; */
         z-index: -1;

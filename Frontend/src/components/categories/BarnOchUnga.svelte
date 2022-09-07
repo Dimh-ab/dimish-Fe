@@ -68,11 +68,6 @@
 		<main>
 		{#each $amountOfProjects as project, i (project.id)}
 		{#if project.category === "Barn och Unga"}
-		<!-- <div class="book-spacing"></div>
-		<div class="book-spacing"></div>
-		<div class="book-spacing"></div>
-		<div class="book-spacing"></div>
-		<div class="book-spacing"></div> -->
 		<div class="book-spacing">
 					<button class={"backBtn " + (project.id === bookId ? "visible" : "")} on:click={() => bookId = bookId = ''}>
 						{'<- ställ tillbaka'}
@@ -168,11 +163,16 @@
 	transform: scale(1.1);
 }
 	section{
-		display: flex;
+		/* display: flex;
 		flex-direction: row;
 		justify-content: space-between;
-		align-items: center;
+		align-items: center; */
+		position: absolute;
 		height: 100vw;
+	}
+
+	article{
+		translate: 5px 375px;
 	}
 
     *{
@@ -225,24 +225,15 @@
 	}
 
 	main{
-		translate: 5px 137px;
 		height: 800px;
 		width: 600px;
 		display: flex;
-		/* column-width: 20px;
-		column-gap: 15px; */
- 		 /* width: 90%; */
-		/* max-width: 1100px; */
-		/* margin: 50px auto; */
 		flex-direction: row-reverse;
 		flex-wrap: wrap;
 		align-items: center;
 		justify-content: flex-start;
 		background-color:transparent;
 		transform: scale(0.7) rotate(90deg);
-		/* margin-left: 100px; */
-		/* position: relative; */
-		/* left: -1050px; */
 	}
 
 	.book-spacing:first-child{
@@ -539,26 +530,58 @@
 	}
 
 	@media only screen and (max-width: 1000px){
-		main{
-			left: -700px;
+		article{
+			translate: 75px 145px;
 		}
 
-		.book-spacing{
-		margin: 0 50px;
+		main{
+			height: 100px;
+		}
+
+	.book-spacing:first-child{
+		height: 187px;
+		margin-right: 415px;
+	}
+
+	.book-spacing:nth-child(2){
+		height: 140px;
+	}
+
+	.book-spacing:nth-child(3){
+		height: 140px;
+		margin-right: -15px;
+	}
+
+	.book-spacing:nth-child(4){
+		height: 140px;
+		margin-right: -35px;
+	}
+
+	.book-spacing:nth-child(5){
+		height: 110px;
+	}
+	.book-spacing:nth-child(6){
+		height: 110px;
+		margin-right: -32px;
+	}
+
+	.book-spacing:nth-child(7){
+		height: 110px;
+		margin-right: -32px;
 	}
 
 		.cover, .back-cover, .coverInside{
-			height: 150px;
+			height: 130px;
 			width: 100px;
 		}
 
 		.pages, .page, .coverPage, .last-page{
-			height: 130px;
+			height: 120px;
 			width: 90px;
 		}
 
 		.spine{
-			height: 150px;
+			height: 130px;
 			width: 35px;
 			margin-left: -31px;
 		}
@@ -588,5 +611,43 @@
 		}
 		
 	}
+
+	@media only screen and (max-width: 844px){
+	article{
+		translate: 60px 50px;
+	}
+
+	main{
+		height: 100px;
+	}
+
+	.book-spacing:first-child{
+		height: 187px;
+		margin-right: 395px;
+	}
+
+	.book-spacing:nth-child(3){
+		height: 160px;
+		margin-right: -15px;
+	}
+
+	.book-spacing:nth-child(4){
+		height: 160px;
+		margin-right: -35px;
+	}
+	.book-spacing:nth-child(6){
+		height: 160px;
+		margin-right: -32px;
+	}
+
+	.book-spacing:nth-child(7){
+		height: 160px;
+		margin-right: -32px;
+	}
+
+	.book-spacing:nth-child(2), .book-spacing:nth-child(5){
+		height: 160px;
+	}
+}
 
 </style>

@@ -114,10 +114,10 @@
 		{/each}
 		</main>
 	</article>
-	<div class="sign">
+	<!-- <div class="sign">
 		<div class="string"></div>
 		<h1>Stöd och Rörlighet</h1>
-	</div>
+	</div> -->
 </section>
 </InterSectionObserver>
 
@@ -174,7 +174,7 @@
 		justify-content: center;
 	}
 
-    h1{
+    /* h1{
         transform: rotate(90deg);
 		font-size: 1.6em;
 		color: var(--title-color);
@@ -187,7 +187,7 @@
 		padding: 20px 0;
 		border: 10px solid #deb886;
         box-shadow: 3px 3px 30px rgb(0, 0, 0);
-    }
+    } */
 
 	.string{
 		border: 2px solid silver;
