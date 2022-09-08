@@ -114,10 +114,10 @@
 		{/each}
 		</main>
 	</article>
-	<div class="sign">
+	<!-- <div class="sign">
 		<div class="string"></div>
 		<h1>Informativt</h1>
-	</div>
+	</div> -->
 </section>
 </InterSectionObserver>
 
@@ -174,7 +174,7 @@
 		justify-content: center;
 	}
 
-    h1{
+    /* h1{
         transform: rotate(90deg);
 		font-size: 1.6em;
 		color: var(--title-color);
@@ -187,7 +187,7 @@
 		padding: 20px 0;
 		border: 10px solid #deb886;
         box-shadow: 3px 3px 30px rgb(0, 0, 0);
-    }
+    } */
 
 	.string{
 		border: 2px solid silver;
@@ -204,9 +204,9 @@
 	}
 
 	main{
-		translate: -235px 30px;
+		translate: -90px 170px;
 		height: 900px;
-		width: 1200px;
+		width: 800px;
 		display: flex;
 		flex-direction: row-reverse;
 		flex-wrap: wrap;
@@ -214,6 +214,29 @@
 		justify-content: flex-start;
 		background-color:transparent;
 		transform: scale(0.3) rotate(90deg);
+	}
+
+	.book-spacing:first-child{
+		translate: 50px 0;
+	}
+
+	.book-spacing:nth-child(2){
+		translate: 0 -150px;
+	}
+	.book-spacing:nth-child(3){
+		translate: -40px -150px;
+	}
+	.book-spacing:nth-child(4){
+		translate: -80px 50px;
+	}
+	.book-spacing:nth-child(5){
+		translate: 0 -80px;
+	}
+	.book-spacing:nth-child(6){
+		translate: -50px 50px;
+	}
+	.book-spacing:nth-child(7){
+		translate: -130px -50px;
 	}
 
 	.book-spacing{
@@ -230,44 +253,43 @@
 
 
 	.book.wasClicked .cover{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(3.7);
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(6.2);
 		transition-duration: 1.4s;
 	}
 
 	.book.wasClicked .coverInside{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(3.7);
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(6.2);
 		transition-duration: 1.4s;
 		z-index: 6;
 	}
 
 	.book.wasClicked .coverPage{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(3.7);
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(6.2);
 		transition-duration: 1.4s;
 		z-index: 7;
 	}
 
 	.book.wasClicked .page{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(3.7);
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(6.2);
 		transition-duration: 1.7s;
 		z-index: 9;
 	}
 	.book.wasClicked .pages{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(3.7);
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(6.2);
 		transition-duration: 1.7s;
 		z-index: 6;
 	}
 
 	.book.wasClicked .back-cover{
-		transform: perspective(1000px) rotateX(10deg) scale(3.7);
+		transform: perspective(1000px) rotateX(10deg) scale(6.2);
 		transition-duration: 1.5s;
 	}
 
 	.book.wasClicked .last-page{
-		transform: perspective(1000px) rotateX(10deg) scale(3.7);
+		transform: perspective(1000px) rotateX(10deg) scale(6.2);
 		transition-duration: 1.4s;
 		z-index: 2;
 	}
-
 
 	.cover{
 		z-index: 6;

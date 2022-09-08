@@ -272,40 +272,40 @@
 
 
 	.book.wasClicked .cover{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(3.7);
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(3.6);
 		transition-duration: 1.4s;
 	}
 
 	.book.wasClicked .coverInside{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(3.7);
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(3.6);
 		transition-duration: 1.4s;
 		z-index: 6;
 	}
 
 	.book.wasClicked .coverPage{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(3.7);
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(3.6);
 		transition-duration: 1.4s;
 		z-index: 7;
 	}
 
 	.book.wasClicked .page{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(3.7);
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(3.6);
 		transition-duration: 1.7s;
 		z-index: 9;
 	}
 	.book.wasClicked .pages{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(3.7);
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(3.6);
 		transition-duration: 1.7s;
 		z-index: 6;
 	}
 
 	.book.wasClicked .back-cover{
-		transform: perspective(1000px) rotateX(10deg) scale(3.7);
+		transform: perspective(1000px) rotateX(10deg) scale(3.6);
 		transition-duration: 1.5s;
 	}
 
 	.book.wasClicked .last-page{
-		transform: perspective(1000px) rotateX(10deg) scale(3.7);
+		transform: perspective(1000px) rotateX(10deg) scale(3.6);
 		transition-duration: 1.4s;
 		z-index: 2;
 	}
@@ -336,7 +336,7 @@
     	0 0 5px 5px #ffca2d94,  /* inner */
     	0 0 20px 20px rgba(255, 221, 0, 0.427), /* middle */
     	0 0 50px 50px rgba(255, 179, 0, 0.437); /* outer */
-		animation: glow 2s ease-in-out infinite alternate;
+		animation: glow 1.5s ease-in-out infinite alternate;
 	}
 
 	@keyframes glow {

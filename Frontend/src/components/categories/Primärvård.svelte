@@ -218,28 +218,28 @@
 
 	.book-spacing:first-child{
 		margin-left: 200px;
-		/* height: 50px; */
+		translate: 200px 200px;
 	}
 
 	.book-spacing:nth-child(2){
 		margin-right: 205px;
-		height: 600px;
+		translate: 250px 50px;
 	}
 	.book-spacing:nth-child(3){
 		margin-right: 197px;
-		height: 800px;
+		translate: 100px -30px;
 	}
 	.book-spacing:nth-child(4){
 		margin-left: -177px;
-		height: 50px;
+		translate: 0 300px;
 	}
 	.book-spacing:nth-child(5){
 		margin-right: 105px;
-		height: 650px;
+		translate: 50px 75px;
 	}
 	.book-spacing:nth-child(6){
 		margin-right: 475px;
-		height: 500px;
+		translate: -100px 250px;
 	}
 
 	.book-spacing{
@@ -256,44 +256,43 @@
 
 
 	.book.wasClicked .cover{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(5.7);
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(6.2);
 		transition-duration: 1.4s;
 	}
 
 	.book.wasClicked .coverInside{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(5.7);
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(6.2);
 		transition-duration: 1.4s;
 		z-index: 6;
 	}
 
 	.book.wasClicked .coverPage{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(5.7);
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(6.2);
 		transition-duration: 1.4s;
 		z-index: 7;
 	}
 
 	.book.wasClicked .page{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(5.7);
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(6.2);
 		transition-duration: 1.7s;
 		z-index: 9;
 	}
 	.book.wasClicked .pages{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(5.7);
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(6.2);
 		transition-duration: 1.7s;
 		z-index: 6;
 	}
 
 	.book.wasClicked .back-cover{
-		transform: perspective(1000px) rotateX(10deg) scale(5.7);
+		transform: perspective(1000px) rotateX(10deg) scale(6.2);
 		transition-duration: 1.5s;
 	}
 
 	.book.wasClicked .last-page{
-		transform: perspective(1000px) rotateX(10deg) scale(5.7);
+		transform: perspective(1000px) rotateX(10deg) scale(6.2);
 		transition-duration: 1.4s;
 		z-index: 2;
 	}
-
 
 	.cover{
 		z-index: 6;
