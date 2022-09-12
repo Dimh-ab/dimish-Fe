@@ -24,6 +24,8 @@
     // auto focuses the library so that the keyboard can be used to move around aswell
     onMount(() => wrapperElem.focus());
 
+    //ver1
+
     // window.addEventListener("load", () => {
     //     const canvas = document.getElementById("canvas1");
     //     console.log(canvas);
@@ -64,11 +66,7 @@
     //                 }
     //                 console.log(e.key, this.keys);
     //             });
-
-    //             window.addEventListener("scroll", () => {
-    //                 scrollingX = scrollingX + 10;
-    //             })
-
+    //
     //         }
     //     }
 
@@ -206,121 +204,285 @@
     //     animate(0);
     // });
 
-     onMount( () => {
-        // const girlAnimate = () => 
-        
-        let canvas = document.getElementById("canvas1");
+    //ver2
+
+    window.addEventListener("load", () => {
+        const canvas = document.getElementById("canvas1");
         console.log(canvas);
         const ctx = canvas.getContext("2d");
         console.log(ctx);
 
-        const CANVAS_WIDTH = (canvas.width = 600);
-        const CANVAS_HEIGHT = (canvas.height = 800);
+        // const CANVAS_WIDTH = ()
+        canvas.width = 600;
+        // const CANVAS_HEIGHT = ()
+        canvas.height = 800;
 
-        const playerImage = new Image();
-        console.log(playerImage);
-        playerImage.src = "../images/spritesheet.png";
-        const spriteWidth = 550.2;
-        const spriteHeight = 775;
-        let playerState = "girl";
+        class InputHandler {
+            constructor() {
+                this.keys = [];
+                window.addEventListener("keydown", (e) => {
+                    console.log(e.key);
+                    if (
+                        (e.key === "ArrowDown" ||
+                            e.key === "ArrowUp" ||
+                            e.key === "ArrowLeft" ||
+                            e.key === "ArrowRight") &&
+                        this.keys.indexOf(e.key) === -1
+                    ) {
+                        this.keys.push(e.key);
+                    }
+                    console.log(e.key, this.keys);
+                });
 
-        // let frameX = 0;
-        // let frameY = 0;
-        let gameFrame = 0;
-        const staggerFrames = 12;
-        const spriteAnimations = [];
-        const animationStates = [
-            {
-                name: "girl",
-                frames: 5,
-            },
-            {
-                name: "fairy",
-                frames: 5,
-            },
-            {
-                name: "flyup",
-                frames: 4,
-            },
-            {
-                name: "flydown",
-                frames: 4,
-            },
-            {
-                name: "fairydust",
-                frames: 5,
-            },
-        ];
-        animationStates.forEach((state, index) => {
-            let frames = {
-                loc: [],
-            };
-            for (let j = 0; j < state.frames; j++) {
-                let positionX = j * spriteWidth;
-                let positionY = index * spriteHeight;
-                frames.loc.push({ x: positionX, y: positionY });
+                window.addEventListener("keyup", (e) => {
+                    console.log(e.key);
+                    if (
+                        e.key === "ArrowDown" ||
+                        e.key === "ArrowUp" ||
+                        e.key === "ArrowLeft" ||
+                        e.key === "ArrowRight"
+                    ) {
+                        this.keys.splice(this.keys.indexOf(e.key), 1);
+                    }
+                    console.log(e.key, this.keys);
+                });
+
+                window.addEventListener("wheel", (e) => {
+                    console.log(e);
+                    e.preventDefault();
+                    if (
+                        e.deltaY === 100 ||
+                        e.deltaY === -100 &&
+                        this.keys.indexOf(e.deltaY) === -1
+                    ) {
+                        this.keys.push(e.deltaY);
+                    } else {
+                        this.keys.splice(this.keys.indexOf(e.deltaY), 1);
+                    }
+                    console.log(e.deltaY, this.keys);
+                });
+
+                                
             }
-            spriteAnimations[state.name] = frames;
-        });
-
-        console.log(spriteAnimations);
-
-        function animate() {
-            ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-            // if (moveForward) {
-                // if (input.keys.indexOf("ArrowRight") > -1) {
-    //                 this.speed = 6;
-    //                 if (this.frameTimer > this.frameInterval) {
-    //                     if (this.frameX >= this.maxFrame) this.frameX = 0;
-    //                     else this.frameX++;
-    //                     this.frameTimer = 0;
-    //                 } else {
-    //                     this.frameTimer += deltaTime;
-    //                 }
-        if (key === "ArrowDown") {
-            
         }
-            let position =
-                Math.floor(gameFrame / staggerFrames) %
-                spriteAnimations[playerState].loc.length;
-            let frameX = spriteWidth * position;
-            let frameY = spriteAnimations[playerState].loc[position].y;
 
-            ctx.drawImage(
-                playerImage,
-                frameX,
-                frameY,
-                spriteWidth,
-                spriteHeight,
-                0,
-                0,
-                spriteWidth,
-                spriteHeight
-            );
+        class Player {
+            constructor(gameWidth, gameHeight) {
+                this.gameWidth = gameWidth;
+                this.gameHeight = gameHeight;
+                this.width = 550.2;
+                this.height = 775;
+                this.x = 0;
+                this.y = this.gameHeight - this.height;
+                this.image = document.getElementById("playerImage");
+                this.frameX = 0;
+                this.frameY = 0;
+                this.fps = 6;
+                this.frameTimer = 0;
+                this.frameInterval = 1000 / this.fps;
+                this.maxFrame = 4;
+                this.speed = 0;
+                this.vy = 0;
+                this.weight = 1;
+            }
+            draw(context) {
+                // context.fillRect(this.x, this.y, this.width, this.height);
+                context.drawImage(
+                    this.image,
+                    this.frameX * this.width,
+                    this.frameY * this.height,
+                    this.width,
+                    this.height,
+                    this.x,
+                    this.y,
+                    this.width,
+                    this.height
+                );
+            }
+            update(input, deltaTime) {
+                //sprite animation
 
-            /*             if (gameFrame % staggerFrames == 0) {
-                if (frameX < 4) frameX++;
-                    else frameX = 0;
-            } */
+                //controls
+                if (input.keys.indexOf("ArrowDown") > -1 || input.keys.indexOf(100) > -1) {
+                    this.speed = 8;
+                    if (this.frameTimer > this.frameInterval) {
+                        if (this.frameX >= this.maxFrame) this.frameX = 0;
+                        else this.frameX++;
+                        this.frameTimer = 0;
+                    } else {
+                        this.frameTimer += deltaTime;
+                    }
+                } else if (input.keys.indexOf("ArrowUp") > -1 || input.keys.indexOf(-100) > -1) {
+                    this.speed = -5;
+                    if (this.frameTimer > this.frameInterval) {
+                        if (this.frameX >= this.maxFrame) this.frameX = 0;
+                        else this.frameX++;
+                        this.frameTimer = 0;
+                    } else {
+                        this.frameTimer += deltaTime;
+                    }                
+                
+                } else {
+                    this.speed = 0;
+                    this.frameX = 0;
+                }
+            }
+        }
 
-            gameFrame++;
+        const input = new InputHandler();
+        const player = new Player(canvas.width, canvas.height);
+        let lastTime = 0;
+        // player.draw(ctx);
+        // player.update();
+
+        function animate(timeStamp) {
+            const deltaTime = timeStamp - lastTime;
+            lastTime = timeStamp;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            player.draw(ctx);
+            player.update(input, deltaTime);
             requestAnimationFrame(animate);
-            // } else {
-
-            // }
         }
-        animate();
+        animate(0);
     });
 
-    // const updatePlayer = () => {
-    //     if(key === "ArrowDown") {
-    //         girlAnimate();
-    //     } else if (key === "ArrowUp") {
-    //         console.log("KeyUp pressed");
-    //     }
-    // }
+    //ver3
 
- 
+    //  onMount( () => {
+    // const girlAnimate = () =>
+    // window.addEventListener("load", () => {
+    //     let canvas = document.getElementById("canvas1");
+    //     console.log(canvas);
+    //     const ctx = canvas.getContext("2d");
+    //     console.log(ctx);
+
+    //     const CANVAS_WIDTH = (canvas.width = 600);
+    //     const CANVAS_HEIGHT = (canvas.height = 800);
+
+    //     const playerImage = new Image();
+    //     console.log(playerImage);
+    //     playerImage.src = "../images/spritesheet.png";
+    //     const spriteWidth = 550.2;
+    //     const spriteHeight = 775;
+    //     let playerState = "girl";
+    //     let playerState2= "fairy"
+    //     // let frameX = 0;
+    //     // let frameY = 0;
+    //     let gameFrame = 0;
+    //     const staggerFrames = 12;
+    //     const spriteAnimations = [];
+    //     const animationStates = [
+    //         {
+    //             name: "girl",
+    //             frames: 5,
+    //         },
+    //         {
+    //             name: "fairy",
+    //             frames: 5,
+    //         },
+    //         {
+    //             name: "flyup",
+    //             frames: 4,
+    //         },
+    //         {
+    //             name: "flydown",
+    //             frames: 4,
+    //         },
+    //         {
+    //             name: "fairydust",
+    //             frames: 5,
+    //         },
+    //     ];
+    //     animationStates.forEach((state, index) => {
+    //         let frames = {
+    //             loc: [],
+    //         };
+    //         for (let j = 0; j < state.frames; j++) {
+    //             let positionX = j * spriteWidth;
+    //             let positionY = index * spriteHeight;
+    //             frames.loc.push({ x: positionX, y: positionY });
+    //         }
+    //         spriteAnimations[state.name] = frames;
+    //     });
+
+    //     console.log(spriteAnimations);
+
+    //     class InputHandler {
+    //         constructor() {
+    //             this.keys = [];
+    //             window.addEventListener("keydown", (e) => {
+    //                 console.log(e.key);
+    //                 if (
+    //                     (e.key === "ArrowDown" ||
+    //                         e.key === "ArrowUp" ||
+    //                         e.key === "ArrowLeft" ||
+    //                         e.key === "ArrowRight") &&
+    //                     this.keys.indexOf(e.key) === -1
+    //                 ) {
+    //                     this.keys.push(e.key);
+    //                 }
+    //                 console.log(e.key, this.keys);
+    //             });
+
+    //             window.addEventListener("keyup", (e) => {
+    //                 console.log(e.key);
+    //                 if (
+    //                     e.key === "ArrowDown" ||
+    //                     e.key === "ArrowUp" ||
+    //                     e.key === "ArrowLeft" ||
+    //                     e.key === "ArrowRight"
+    //                 ) {
+    //                     this.keys.splice(this.keys.indexOf(e.key), 1);
+    //                 }
+    //                 console.log(e.key, this.keys);
+    //             });
+
+    //         }
+    //     }
+
+    //     const input = new InputHandler();
+
+    //     function animate() {
+    //         let position;
+    //         let frameX;
+    //         let frameY;
+
+    //         ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+
+    //         if (input.keys.indexOf("ArrowDown") > -1 || input.keys.indexOf("ArrowUp") > -1) {
+    //             position =
+    //             Math.floor(gameFrame / staggerFrames) %
+    //             spriteAnimations[playerState].loc.length;
+    //             frameX = spriteWidth * position;
+    //             frameY = spriteAnimations[playerState].loc[position].y;
+    //         } else {
+    //             position = 0 ;
+    //             frameX = spriteWidth * position;
+    //             frameY = spriteAnimations[playerState].loc[position].y;
+    //         }
+
+    //         ctx.drawImage(
+    //             playerImage,
+    //             frameX,
+    //             frameY,
+    //             spriteWidth,
+    //             spriteHeight,
+    //             0,
+    //             0,
+    //             spriteWidth,
+    //             spriteHeight
+    //         );
+
+    //         /*             if (gameFrame % staggerFrames == 0) {
+    //             if (frameX < 4) frameX++;
+    //                 else frameX = 0;
+    //         } */
+
+    //         gameFrame++;
+    //         requestAnimationFrame(animate);
+    //     }
+    //     animate();
+    // });
 
     $: intersecting ? ($checkPoint = $checkPoint = 0) : "";
 
@@ -349,10 +511,15 @@
         </div>
         <button class="backward">backward</button>
 
-        <canvas id="canvas1"> </canvas>
-        <!-- <img class="forward"
-        src="../images/spritesheet.png" alt="player" id="playerImage" />
+        <canvas id="canvas1" />
         <img
+            class="forward"
+            src="../images/spritesheet.png"
+            alt="player"
+            id="playerImage"
+            on:mousedown={() => {}}
+        />
+        <!--<img
             src="../images/wideframe-3.jpg"
             alt="background"
             id="backgroundImage"
@@ -393,12 +560,23 @@
     on:keydown={(e) => (key = e.key)}
 />
 
-
 <style>
     .forward {
         position: absolute;
         left: 0;
     }
+
+    /* #canvas1 {
+         border: 5px solid black;  
+        position: sticky;
+        width: 600px;
+        height: 800px;
+        top: 150px;
+         left: -530px; 
+        display: flex;
+        z-index: 3;
+        transform: rotate(90deg) rotateY(0deg);
+    } */
 
     #canvas1 {
         /* border: 5px solid black; */
@@ -406,26 +584,15 @@
         width: 600px;
         height: 800px;
         top: 150px;
-        left: 30px;
+        left: 50px;
+        display: flex;
         z-index: 3;
         transform: rotate(90deg) rotateY(0deg);
     }
 
-    /* #canvas1 {
-        border: 5px solid black;
-        position: absolute;
-        width: 2000px;
-        height: 600px;
-        top: 750px;
-        left: -570px;
-        z-index: 3;
-        transform: rotate(90deg) rotateY(0deg);
-    } */
-
-    /* #playerImage,
-    #backgroundImage {
+    #playerImage {
         display: none;
-    } */
+    }
     /* 
     .avatar {
         position: sticky;
