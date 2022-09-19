@@ -249,20 +249,17 @@
 
                 window.addEventListener("wheel", (e) => {
                     console.log(e);
-                    e.preventDefault();
                     if (
                         e.deltaY === 100 ||
-                        e.deltaY === -100 &&
-                        this.keys.indexOf(e.deltaY) === -1
+                        (e.deltaY === -100 &&
+                            this.keys.indexOf(e.deltaY) === -1)
                     ) {
                         this.keys.push(e.deltaY);
                     } else {
-                        this.keys.splice(this.keys.indexOf(e.deltaY), 1);
+                       
                     }
                     console.log(e.deltaY, this.keys);
                 });
-
-                                
             }
         }
 
@@ -303,7 +300,10 @@
                 //sprite animation
 
                 //controls
-                if (input.keys.indexOf("ArrowDown") > -1 || input.keys.indexOf(100) > -1) {
+                if (
+                    input.keys.indexOf("ArrowDown") > -1 ||
+                    input.keys.indexOf(100) > -1
+                ) {
                     this.speed = 8;
                     if (this.frameTimer > this.frameInterval) {
                         if (this.frameX >= this.maxFrame) this.frameX = 0;
@@ -312,7 +312,10 @@
                     } else {
                         this.frameTimer += deltaTime;
                     }
-                } else if (input.keys.indexOf("ArrowUp") > -1 || input.keys.indexOf(-100) > -1) {
+                } else if (
+                    input.keys.indexOf("ArrowUp") > -1 ||
+                    input.keys.indexOf(-100) > -1
+                ) {
                     this.speed = -5;
                     if (this.frameTimer > this.frameInterval) {
                         if (this.frameX >= this.maxFrame) this.frameX = 0;
@@ -320,9 +323,8 @@
                         this.frameTimer = 0;
                     } else {
                         this.frameTimer += deltaTime;
-                    }                
-                
-                } else {
+                    }
+                } else {     
                     this.speed = 0;
                     this.frameX = 0;
                 }
@@ -516,8 +518,7 @@
             class="forward"
             src="../images/spritesheet.png"
             alt="player"
-            id="playerImage"
-            on:mousedown={() => {}}
+            id="playerImage"            
         />
         <!--<img
             src="../images/wideframe-3.jpg"
