@@ -320,40 +320,6 @@
     IOSdevice = ''
     }
 
-    // const moveRightMobile = (e) => {
-    //     if(e.target.id === 'moveRightBtn'){
-    //         timeOut = setInterval(() => {
-    //             if (e.type === 'pointerdown'){
-    //                 number += 1
-    //                 console.log(number)
-    //             }
-    //             window.scrollBy(number, 0)
-    //         }, 500);
-    //     }    
-    //     console.log(e.type)
-    // }
-
-    // const moveLeftMobile = (e) => {
-    //     if(e.target.id === 'moveLeftBtn'){
-    //         timeOut = setInterval(() => {
-    //             if (e.type === 'pointerdown'){
-    //                 number -= 1
-    //                 console.log(number)
-    //             }
-    //         }, 500)
-    //     }
-    // }
-
-    // const stopMovement = (e) => {
-    //     if(e.type === 'pointerup'){
-    //         clearInterval(timeOut)
-    //     }
-    //     console.log(e.type)
-    // }
-
-    // on:pointerdown={(e) => moveLeftMobile(e)} 
-    // on:pointerup={(e) => stopMovement(e)} 
-
 
         class Player {
             constructor(gameWidth, gameHeight) {
