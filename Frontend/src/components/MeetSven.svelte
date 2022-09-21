@@ -39,7 +39,8 @@
 </script>
 
 <InterSectionObserver {element} bind:intersecting>
-<div class="welcome clickSven" id="lobby">
+<section id="lobby">
+<div class="welcome clickSven" >
     <div></div>
     <!-- svelte-ignore a11y-missing-attribute -->
     <div class="box" bind:this={element}>
@@ -48,20 +49,40 @@
         <!-- <button class="clickSven" on:click={() => talkToSvenAgain()}>talk to Sven again</button> -->
     </div>
 </div>
+</section>
 </InterSectionObserver>
 
 <style>
+
+    section{
+        position: absolute;
+		/* width: 100vh; */
+		/* height: 100%; */
+		top: 0px;
+		left: 0px;
+		background: url(../images/cat-bg/bckg00-01.jpg) no-repeat;
+		/* background-size: 100%; */
+		width: 1128px;
+		height: 1800px;
+        /* width: 100%; */
+        /* height: 100%; */
+		background-size: contain;
+    }
     .welcome{
         background-color: transparent;
         height: 1px;
-        display: grid;
-        grid-template-rows: 350px 300px 300px 300px;
+        /* display: grid; */
+        /* grid-template-rows: 350px 300px 300px 300px; */
+        /* translate: 0 -2300px; */
+        position: absolute;
+        top: 40%;
+        left: 20px;
     }
 
     .box{
         transform: rotate(90deg);
-        width: 240px;
-        height: 300px;
+        width: 140px;
+        height: 100px;
         background-color: transparent;
         border-radius: 10px;
         display: flex;
@@ -96,14 +117,59 @@
     display: none;
     }
 
-    @media (hover: hover){
+    /* @media (hover: hover){ */
 
-        .welcome{
+        /* .welcome{
             grid-template-rows: 600px 300px 300px 300px;
-        }
-        .box{
+        
+        } */
+        /* .box{
             width: 340px;
             height: 300px;
+        } */
+    /* } */
+
+    @media only screen and (max-width: 1200px){
+        section{
+            width: 100%;
+		    height: 250%;
+            /* box-shadow: 0px 0 100px 0 rgb(0, 0, 0); */
+        }
+
+        .welcome{
+            top: 30%;
+        }
+    }
+
+    @media only screen and (max-height: 425px){
+        section{
+            width: 1000px;
+            height: 1250px;
+        }
+
+        .welcome{
+            top: 40%;
+        }
+    }
+
+    @media only screen and (max-height: 390px){
+        section{
+            height: 1150px;
+        }
+    }
+    @media only screen and (max-height: 375px){
+        section{
+            height: 1110px;
+        }
+    }
+    @media only screen and (max-height: 345px){
+        section{
+            height: 1020px;
+        }
+    }
+    @media only screen and (max-height: 325px){
+        section{
+            height: 960px;
         }
     }
 </style>

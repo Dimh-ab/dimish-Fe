@@ -147,11 +147,20 @@
 	transform: scale(1.1);
 }
 	section{
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		align-items: center;
-		height: 100vw;
+		position: absolute;
+		/* width: 100vh; */
+		/* height: 100%; */
+		top: 3450px;
+		left: 0;
+		background: url(../images/bckg02.jpg) no-repeat;
+		/* background-size: 100%; */
+		width: 928px;
+		height: 1145px;
+		background-size: contain;
+	}
+
+	article{
+		margin-top: 410px;
 	}
 
     *{
@@ -502,9 +511,38 @@
 		margin: 1em;
 	}
 
+	@media only screen and (max-width: 1200px){
+        section{
+            width: 100%;
+		    height: 200%;
+			top: 4505px;
+			left: 0;
+        }
+
+		article{
+			margin-top: 630px;
+		}
+
+		main{
+			translate: 235px -220px;
+		}
+    }
+
+	@media only screen and (max-width: 1024px){
+
+		section{
+			top: 4225px;
+		}
+
+		article{
+			margin-top: 600px;
+		}
+	}
+
 	@media only screen and (max-width: 1000px){
 		main{
-			left: -300px;
+			/* left: -300px; */
+			translate: -10px -400px;
 		}
 
 		.cover, .back-cover, .coverInside{
@@ -548,5 +586,76 @@
 		} */
 		
 	}
+
+	@media only screen and (max-height: 425px){
+		section{
+			top: 2390px;
+            width: 1000px;
+            height: 800px;
+        }
+
+		article{
+			margin-top: 30px;
+		}
+
+		main{
+			translate: 0px 0px;
+		}
+    }
+
+    @media only screen and (max-height: 390px){
+        section{
+            height: 730px;
+			top: 2200px;
+        }
+
+		article{
+			margin-top: 0px;
+		}
+
+		main{
+			translate: -10px 0px;
+		}
+
+		.book-spacing:first-child{
+			translate: -30px 160px;
+		}
+
+		.book-spacing:nth-child(2){
+			translate: 0px 100px;
+		}
+		.book-spacing:nth-child(3){
+			translate: -30px 280px;
+		}
+		.book-spacing:nth-child(4){
+			translate: -50px -30px;
+		}
+    }
+    @media only screen and (max-height: 375px){
+        section{
+            height: 700px;
+			top: 2120px;
+        }
+    }
+    @media only screen and (max-height: 345px){
+        section{
+            height: 645px;
+			top: 1960px;
+        }
+
+		main{
+			translate: -30px -40px;
+		}
+    }
+    @media only screen and (max-height: 325px){
+        section{
+            height: 605px;
+			top: 1850px;
+        }
+
+		main{
+			translate: -50px -40px;
+		}
+    }
 
 </style>

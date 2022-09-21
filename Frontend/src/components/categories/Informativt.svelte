@@ -147,11 +147,21 @@
 	transform: scale(1.1);
 }
 	section{
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		align-items: center;
-		height: 100vw;
+		/* height: 100vw; */
+		position: absolute;
+		/* width: 100vh; */
+		/* height: 100%; */
+		top: 8280px;
+		left: -380px;
+		background: url(../images/cat-bg/bckg05.jpg) no-repeat;
+		/* background-size: 100%; */
+		width: 1200px;
+		height: 1800px;
+		background-size: contain;
+	}
+
+	article{
+		margin-top: 670px;
 	}
 
     *{
@@ -204,7 +214,7 @@
 	}
 
 	main{
-		translate: -90px 170px;
+		translate: 250px 170px;
 		height: 900px;
 		width: 800px;
 		display: flex;
@@ -524,9 +534,38 @@
 		margin: 1em;
 	} 
 
+	@media only screen and (max-width: 1200px){
+        section{
+            width: 100%;
+		    height: 250%;
+			top: 10210px;
+			left: 0;
+        }
+
+		article{
+			margin-top: 270px;
+		}
+
+		main{
+			translate: 50px 170px;
+		}
+    }
+
+	@media only screen and (max-width: 1024px){
+
+		section{
+			top: 9565px;
+		}
+
+		article{
+			margin-top: 220px;
+		}
+
+	}
+
 	@media only screen and (max-width: 1000px){
 		main{
-			left: -50px;
+			translate: -190px 70px;
 		}
 
 		.cover, .back-cover, .coverInside{
@@ -570,5 +609,99 @@
 		} */
 		
 	}
+
+	@media only screen and (max-height: 425px){
+		section{
+			top: 5760px;
+            width: 1000px;
+            height: 950px;
+			left: -100px;
+        }
+
+		main{
+			translate: -50px 30px;
+		}
+
+		.book-spacing:first-child{
+			translate: 0px 0px;
+		}
+		.book-spacing:nth-child(4){
+			translate: -20px 50px;
+		}
+		.book-spacing:nth-child(5){
+			translate: -40px -140px;
+		}
+		.book-spacing:nth-child(6){
+			translate: -50px -40px;
+		}
+		.book-spacing:nth-child(7){
+			translate: -100px -120px;
+		}
+    }
+
+	@media only screen and (max-height: 415px){
+		section{
+			top: 5660px;
+			height: 930px;
+		}
+
+		main{
+			translate: -60px 20px;
+		}
+	}
+
+	
+
+    @media only screen and (max-height: 390px){
+        section{
+			top: 5260px;
+            height: 840px;
+        }
+
+		main{
+			translate: -100px -50px;
+		}
+    }
+    @media only screen and (max-height: 375px){
+        section{
+			top: 5060px;
+            height: 810px;
+        }
+
+		main{
+			translate: -120px -70px;
+		}
+
+		.book-spacing:nth-child(6){
+			translate: -50px -90px;
+		}
+		.book-spacing:nth-child(5){
+			translate: -50px -180px;
+		}
+		.book-spacing:first-child{
+			translate: -50px 0px;
+		}
+    }
+
+    @media only screen and (max-height: 345px){
+        section{
+			top: 4670px;
+            height: 770px;
+        }
+
+		main{
+			translate: -130px -95px;
+		}
+    }
+    @media only screen and (max-height: 325px){
+        section{
+			top: 4410px;
+            height: 740px;
+        }
+
+		main{
+			translate: -145px -115px;
+		}
+    }
 
 </style>

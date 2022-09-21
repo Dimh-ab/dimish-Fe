@@ -35,7 +35,7 @@
     // auto focuses the library so that the keyboard can be used to move around aswell
     onMount(() => wrapperElem.focus())
 
-    $: intersecting ? $checkPoint = $checkPoint = 0 : ''
+    // $: intersecting ? $checkPoint = $checkPoint = 0 : ''
 
     // $: console.log(key, scrollingY, scrollingX)
     // $: console.log($checkPoint)
@@ -125,66 +125,75 @@
     <p id="rotate-phone-message" class={IOSdevice}>{@html fullscreenGuide}</p>
 </div>
 
-<InterSectionObserver {element} bind:intersecting>
+<!-- <InterSectionObserver {element} bind:intersecting> -->
    
     <div class="horizontal-scroll-wrapper" >
 
         <!-- wrapper is a button element so that it can be autofocused for accessibility purposes like moving with keyboard -->
         <button class="wrapper" bind:this={wrapperElem} data-point={$checkPoint} alt="Background created by Inga Viitanen">
 
-            <MeetSven />
+            
 
-                <a href={leftCategory}>
+                <a href={leftCategory} class="moveButtons">
                     <button id="moveLeftBtn">{leftGuide}</button>
                 </a>
 
 
-                <div class="avatar"></div>
+                <!-- <div class="avatar"></div> -->
 
 
-                <a href={rightCategory}>
+                <a href={rightCategory} class="moveButtons">
                     <button id="moveRightBtn">{rightGuide}</button>
                 </a>
 
-            
+            <!-- <section> -->
+
+                <MeetSven />
         
-            <section class="category">
+            <!-- <section class="category">
                 <div bind:this={element}></div>
-            </section>
+            </section> -->
 
-            <section class="category" >
+            <!-- <section class="category" > -->
                 <BarnOchUnga key={key}/>
-            </section>
+            <!-- </section> -->
 
-            <section class="category" >
+            <!-- <section class="category" > -->
                 <Ungdomar key={key}/>
-            </section>
+            <!-- </section> -->
 
-            <section class="category">
+            <!-- <section class="category"> -->
                 <StödOchRörlighet key={key}/>
-            </section>
+            <!-- </section> -->
 
-            <section class="category">
+            <!-- <section class="category"> -->
                 <Primärvård key={key}/>
-            </section>
+            <!-- </section> -->
 
-            <section class="category">
+            <!-- <section class="category"> -->
                 <Informativt key={key}/>   
-            </section>
+            <!-- </section> -->
+
+        <!-- </section> -->
 
         </button>
     </div>
-</InterSectionObserver>
+<!-- </InterSectionObserver> -->
 
 
 <svelte:window bind:scrollX={scrollingX} bind:scrollY={scrollingY} on:keydown={e => key = e.key}/> 
 
 <style>
 
+    .moveButtons{
+        z-index: 100;
+        /* width: 100vh; */
+    }
+
 
    #moveRightBtn{
     position: sticky;
-    top: 720px;
+    top: 0;
     bottom: 0;
     transform: rotate(90deg);
     border: none;
@@ -193,14 +202,15 @@
     height: 150px;
     width: 150px;
     color: gold;
-    margin-left: -50px;
+    /* margin-left: -50px; */
     z-index: 10;
+    translate: -100px 0px;
     }
 
    #moveLeftBtn{
     position: sticky;
     top: 0;
-    left: 0;
+    bottom: 0;
     transform: rotate(90deg);
     border: none;
     background: transparent;
@@ -208,15 +218,16 @@
     /* background: url(../images/arrow.png) no-repeat; */
     height: 150px;
     width: 150px;
-    margin-left: -50px;
+    /* margin-left: -50px; */
     z-index: 10;
+    translate: 50px -600px;
    }
 
    #moveRightBtn:active, #moveLeftBtn:active{
     color: gold;
    }
 
-    .avatar{
+    /* .avatar{
         position: sticky;
         width: 180px;
         height: 200px;
@@ -227,11 +238,11 @@
         transform: rotate(90deg) rotateY(180deg);
         text-align: right;
         background-size: cover;
-    }
+    } */
 
-    .category{
+    /* .category{
         height: 1580px;
-    }
+    } */
 
 
 
@@ -253,13 +264,18 @@
     }
 
     .wrapper{
-        background: url(../images/category1.png) no-repeat; 
-        background-size: 100%;
+        /* background: url(../images/category1.png) no-repeat;  */
+        /* background-size: 100%; */
         /* transition: 3s; */
+        background-color: rgb(255, 255, 255);
         z-index: -1;
         width: 100vh;
+        height: 15000px;
         border: none;
     }
+
+
+    
 /* 
     .wrapper[data-point="0"]{
         background: url(../images/bckg00-01.jpg);        
@@ -269,13 +285,11 @@
     .wrapper[data-point="1"]{
         background: url(../images/bckg01.jpg), linear-gradient(rgba(186, 0, 0, 0.4),rgba(186,0,0,0.4));
         background-size: 100%;
-       
     }
 
     .wrapper[data-point="2"]{
         background: url(../images/bckg02.jpg), linear-gradient(rgba(178, 32, 240, 0.4),rgba(205, 26, 221, 0.4));
         background-size: 100%;
-       
     }
 
     .wrapper[data-point="3"]{
@@ -369,23 +383,53 @@
         }
     }
 
-    @media (hover: none){
-        .horizontal-scroll-wrapper {
-            overflow-x: auto;
-        }
-
-        .category{
-        height: 1000px;
-        }
-    }
-
     @media (hover: hover){
         #moveLeftBtn, #moveRightBtn{
             display: none;
         }
     }
 
+    @media only screen and (max-width: 1200px){
 
+        .wrapper{
+            height: 25000px;
+        }
+        #moveLeftBtn{
+            translate: 50px -1010px;
+        }
+    }
+
+    @media only screen and (max-width: 1030px){
+        #moveLeftBtn{
+            translate: 50px -850px;
+        }
+    }
+
+    @media only screen and (max-width: 920px){
+        #moveLeftBtn{
+            translate: 50px -755px;
+        }
+        #moveRightBtn{
+            translate: -100px 10px;
+        }
+    }
+
+    @media only screen and (max-width: 844px){
+        #moveLeftBtn{
+            translate: 50px -690px;
+        }
+    }
+
+    @media only screen and (max-width: 768px){
+        #moveLeftBtn{
+            translate: 50px -610px;
+        }
+    }
+    @media only screen and (max-width: 680px){
+        #moveLeftBtn{
+            translate: 50px -510px;
+        }
+    }
 
 
 </style>

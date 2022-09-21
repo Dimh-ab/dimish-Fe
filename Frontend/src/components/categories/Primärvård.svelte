@@ -147,11 +147,20 @@
 	transform: scale(1.1);
 }
 	section{
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		align-items: center;
-		height: 100vw;
+		position: absolute;
+		/* width: 100vh; */
+		/* height: 100%; */
+		top: 6487px;
+		left: 0;
+		background: url(../images/cat-bg/bckg04.jpg) no-repeat;
+		/* background-size: 100%; */
+		/* width: 1028px; */
+		height: 1800px;
+		background-size: contain;
+	}
+
+	article{
+		margin-top: 700px;
 	}
 
     *{
@@ -527,10 +536,53 @@
 		margin: 1em;
 	}
 
+	@media only screen and (max-width: 1200px){
+        section{
+            width: 100%;
+		    height: 250%;
+			top: 8560px;
+			left: 0;
+        }
+
+		article{
+			margin-top: 600px;
+		}
+    }
+
+	@media only screen and (max-width: 1024px){
+
+		section{
+			top: 8020px;
+		}
+
+		article{
+			margin-top: 520px;
+		}
+
+	}
+
 	@media only screen and (max-width: 1000px){
 		main{
-			left: -300px;
+			translate: -250px -60px;
 		}
+
+		.book-spacing:first-child{
+		margin-left: 200px;
+		translate: -100px 250px;
+	}
+
+	.book-spacing:nth-child(2){
+		margin-right: 205px;
+		translate: 150px 150px;
+	}
+	.book-spacing:nth-child(3){
+		margin-right: 197px;
+		translate: 100px 130px;
+	}
+	.book-spacing:nth-child(5){
+		margin-right: 197px;
+		translate: -150px 75px;
+	}
 
 		.cover, .back-cover, .coverInside{
 			height: 150px;
@@ -573,5 +625,91 @@
 		} */
 		
 	}
+
+	@media only screen and (max-height: 425px){
+		section{
+			top: 4510px;
+            width: 1000px;
+            height: 1250px;
+        }
+
+		main{
+			translate: -250px -90px;
+		}
+    }
+
+	@media only screen and (max-height: 415px){
+		section{
+			top: 4460px;
+			height: 1200px;
+		}
+
+		main{
+			translate: -250px -135px;
+		}
+	}
+
+    @media only screen and (max-height: 390px){
+        section{
+            height: 1140px;
+			top: 4120px;
+        }
+
+		main{
+			translate: -280px -180px;
+		}
+
+		.book-spacing:nth-child(5){
+			translate: -100px 110px;
+		}
+
+		.book-spacing:nth-child(6){
+			translate: -100px 140px;
+		}
+    }
+    @media only screen and (max-height: 375px){
+        section{
+            height: 1090px;
+			top: 3970px;
+        }
+
+		main{
+			translate: -290px -210px;
+		}
+    }
+    @media only screen and (max-height: 345px){
+        section{
+            height: 1010px;
+			top: 3665px;
+        }
+
+		main{
+			translate: -315px -240px;
+		}
+
+		.book-spacing:first-child{
+			translate: -250px 260px;
+		}
+
+		.book-spacing:nth-child(2){
+			translate: 50px 110px;
+		}
+		.book-spacing:nth-child(6){
+			translate: -100px 80px;
+		}
+		.book-spacing:nth-child(5){
+			translate: -200px 50px;
+		}
+    }
+    @media only screen and (max-height: 325px){
+        section{
+            height: 955px;
+			top: 3460px;
+        }
+
+		main{
+			translate: -330px -280px;
+		}
+    }
 
 </style>

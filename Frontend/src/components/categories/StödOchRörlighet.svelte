@@ -147,11 +147,25 @@
 	transform: scale(1.1);
 }
 	section{
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		align-items: center;
-		height: 100vw;
+		/* height: 100vw;
+		position: absolute;
+		top: 5000px;
+		left: 0; */
+
+		position: absolute;
+		/* width: 100vh; */
+		/* height: 100%; */
+		top: 4590px;
+		left: 0;
+		background: url(../images/cat-bg/bckg03.jpg) no-repeat;
+		/* background-size: 100%; */
+		/* width: 1028px; */
+		height: 1900px;
+		background-size: contain;
+	}
+
+	article{
+		margin-top: 950px;
 	}
 
     *{
@@ -528,10 +542,51 @@
 		margin: 1em;
 	}
 
-	@media only screen and (max-width: 1000px){
-		main{
-			left: -300px;
+	@media only screen and (max-width: 1200px){
+        section{
+            width: 100%;
+		    height: 250%;
+			top: 6030px;
+			left: 0;
+        }
+
+		article{
+			margin-top: 1300px;
 		}
+
+		/* translate: -300px -170px;
+			scale: 1.1; */
+    }
+
+	@media only screen and (max-width: 1024px){
+
+		section{
+			top: 5650px;
+		}
+
+	}
+
+	@media only screen and (max-width: 1000px){
+
+	.book-spacing:first-child{
+		translate: -280px 550px;
+	}
+
+	.book-spacing:nth-child(2){
+		translate: -150px 550px;
+	}
+	.book-spacing:nth-child(3){
+		translate: -215px 380px;
+	}
+	.book-spacing:nth-child(4){
+		translate: -120px 550px;
+	}
+	.book-spacing:nth-child(5){
+		translate: -40px 110px;
+	}
+	.book-spacing:nth-child(6){
+		translate: 30px -5px;
+	}
 
 		.cover, .back-cover, .coverInside{
 			height: 150px;
@@ -574,5 +629,154 @@
 		} */
 		
 	}
+
+	@media only screen and (max-height: 425px){
+
+		/* TODO: bokplacering responsivt */
+		section{
+			top: 3190px;
+            width: 1000px;
+            height: 1320px;
+        }
+
+		main{
+			translate: -435px -770px;
+		}
+
+		.book-spacing:first-child{
+			translate: -210px 530px;
+		}
+
+		.book-spacing:nth-child(2){
+			translate: -135px 530px;
+		}
+		.book-spacing:nth-child(3){
+			translate: -180px 350px;
+		}
+		.book-spacing:nth-child(4){
+			translate: -140px 530px;
+		}
+		.book-spacing:nth-child(5){
+			translate: -20px 80px;
+		}
+		.book-spacing:nth-child(6){
+			translate: 30px -35px;
+		}
+    }
+
+	@media only screen and (max-height: 415px){
+		section{
+			height: 1270px;
+		}
+
+		main{
+			translate: -445px -795px;
+		}
+
+		
+		.book-spacing:first-child{
+			translate: -245px 520px;
+		}
+
+		.book-spacing:nth-child(2){
+			translate: -155px 520px;
+		}
+		.book-spacing:nth-child(3){
+			translate: -190px 350px;
+		}
+		.book-spacing:nth-child(4){
+			translate: -145px 520px;
+		}
+	}
+
+    @media only screen and (max-height: 390px){
+        section{
+            height: 1200px;
+			top: 2920px;
+        }
+
+		main{
+			translate: -465px -823px;
+		}
+
+		.book-spacing:first-child{
+			translate: -300px 480px;
+		}
+
+		.book-spacing:nth-child(2){
+			translate: -205px 480px;
+		}
+		.book-spacing:nth-child(3){
+			translate: -225px 320px;
+		}
+		.book-spacing:nth-child(4){
+			translate: -160px 480px;
+		}
+		.book-spacing:nth-child(5){
+			translate: -40px 70px;
+		}
+    }
+    @media only screen and (max-height: 375px){
+        section{
+            height: 1150px;
+			top: 2820px;
+        }
+
+		main{
+			translate: -465px -863px;
+		}
+
+		.book-spacing:nth-child(3){
+			translate: -210px 330px;
+		}
+		.book-spacing:nth-child(4){
+			translate: -140px 480px;
+		}
+		.book-spacing:nth-child(5){
+			translate: -10px 90px;
+		}
+		.book-spacing:nth-child(6){
+			translate: 70px -10px;
+		}
+    }
+    @media only screen and (max-height: 345px){
+        section{
+            height: 1060px;
+			top: 2605px;
+        }
+
+		main{
+			scale: 0.8;
+			translate: -495px -970px;
+		}
+
+		.book-spacing:first-child{
+			translate: -170px 570px;
+		}
+
+		.book-spacing:nth-child(2){
+			translate: -95px 570px;
+		}
+		.book-spacing:nth-child(3){
+			translate: -140px 380px;
+		}
+		.book-spacing:nth-child(4){
+			translate: -100px 570px;
+		}
+		.book-spacing:nth-child(5){
+			translate: 20px 110px;
+		}
+    }
+    @media only screen and (max-height: 325px){
+        section{
+            height: 1005px;
+			top: 2450px;
+        }
+
+		main{
+			translate: -510px -1010px;
+			scale: 0.75;
+		}
+    }
 
 </style>
