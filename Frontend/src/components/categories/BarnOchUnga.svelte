@@ -280,40 +280,40 @@
 
 
 	.book.wasClicked .cover{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(3.6);
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(6);
 		transition-duration: 1.4s;
 	}
 
 	.book.wasClicked .coverInside{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(3.6);
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(6);
 		transition-duration: 1.4s;
 		z-index: 6;
 	}
 
 	.book.wasClicked .coverPage{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(3.6);
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(6);
 		transition-duration: 1.4s;
 		z-index: 7;
 	}
 
 	.book.wasClicked .page{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(3.6);
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(6);
 		transition-duration: 1.7s;
 		z-index: 9;
 	}
 	.book.wasClicked .pages{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(3.6);
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(6);
 		transition-duration: 1.7s;
 		z-index: 6;
 	}
 
 	.book.wasClicked .back-cover{
-		transform: perspective(1000px) rotateX(10deg) scale(3.6);
+		transform: perspective(1000px) rotateX(10deg) scale(6);
 		transition-duration: 1.5s;
 	}
 
 	.book.wasClicked .last-page{
-		transform: perspective(1000px) rotateX(10deg) scale(3.6);
+		transform: perspective(1000px) rotateX(10deg) scale(6);
 		transition-duration: 1.4s;
 		z-index: 2;
 	}
@@ -365,6 +365,7 @@
 	.spine.shelfMode{
 		transform: perspective(1000px) rotateX(-1deg) rotateY(-90deg);
 		transition-duration: 1.3s;
+		z-index: 1;
 	}
 
 
