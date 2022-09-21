@@ -2,24 +2,16 @@
     OBS: everything that is in Library.svelte has a transform: rotate(90deg) in their own components to turn them the correct way.
  -->
 <script>
-<<<<<<< HEAD
    	import { onMount } from 'svelte'
     import MeetSven from "../components/MeetSven.svelte";
-=======
-    import { onMount } from "svelte";
     // import MeetSven from "../components/MeetSven.svelte";
->>>>>>> origin/spriteAnimation
     import BarnOchUnga from "../components/categories/BarnOchUnga.svelte";
     import Ungdomar from "../components/categories/Ungdomar.svelte";
     import StödOchRörlighet from "../components/categories/StödOchRörlighet.svelte";
     import Primärvård from "../components/categories/Primärvård.svelte";
     import Informativt from "../components/categories/Informativt.svelte";
-<<<<<<< HEAD
     import {checkPoint} from "../stores.js";
-
-=======
-    import { checkPoint } from "../stores.js";
->>>>>>> origin/spriteAnimation
+    
     // senses if the element is in the viewport
     import InterSectionObserver from "svelte-intersection-observer";
     import { claim_text } from "svelte/internal";
@@ -43,6 +35,37 @@
 
     // auto focuses the library so that the keyboard can be used to move around aswell
     onMount(() => wrapperElem.focus());
+
+
+    //controls the buttons you mmove with in mobile/Tablet view, will be changed into a function
+    $: if($checkPoint === 0){
+        rightCategory = '#first-category'
+        rightGuide = 'continue ->'
+    } else if($checkPoint === 1){
+        rightCategory = '#second-category'
+    }else if($checkPoint === 2){
+        rightCategory = '#third-category'
+    }else if($checkPoint === 3){
+        rightCategory = '#fourth-category'
+    }else if($checkPoint === 4){
+        rightCategory = '#fifth-category'
+    }
+
+
+    $: if($checkPoint === 0){
+        leftGuide = ''
+    }else if($checkPoint === 1){
+        leftCategory = '#lobby'
+        leftGuide = '<- back to lobby'
+    } else if($checkPoint === 2){
+        leftCategory = '#first-category'
+    }else if($checkPoint === 3){
+        leftCategory = '#second-category'
+    }else if($checkPoint === 4){
+        leftCategory = '#third-category'
+    }else if($checkPoint === 5){
+        leftCategory = '#fourth-category'
+    }
 
     //ver1
 
@@ -283,40 +306,7 @@
             }
         }
 
-<<<<<<< HEAD
-    // $: intersecting ? $checkPoint = $checkPoint = 0 : ''
 
-    // $: console.log(key, scrollingY, scrollingX)
-    // $: console.log($checkPoint)
-
-    $: if($checkPoint === 0){
-        rightCategory = '#first-category'
-        rightGuide = 'continue ->'
-    } else if($checkPoint === 1){
-        rightCategory = '#second-category'
-    }else if($checkPoint === 2){
-        rightCategory = '#third-category'
-    }else if($checkPoint === 3){
-        rightCategory = '#fourth-category'
-    }else if($checkPoint === 4){
-        rightCategory = '#fifth-category'
-    }
-
-
-    $: if($checkPoint === 0){
-        leftGuide = ''
-    }else if($checkPoint === 1){
-        leftCategory = '#lobby'
-        leftGuide = '<- back to lobby'
-    } else if($checkPoint === 2){
-        leftCategory = '#first-category'
-    }else if($checkPoint === 3){
-        leftCategory = '#second-category'
-    }else if($checkPoint === 4){
-        leftCategory = '#third-category'
-    }else if($checkPoint === 5){
-        leftCategory = '#fourth-category'
-    }
 
     let isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
@@ -365,7 +355,6 @@
     // on:pointerup={(e) => stopMovement(e)} 
 
 
-=======
         class Player {
             constructor(gameWidth, gameHeight) {
                 this.gameWidth = gameWidth;
@@ -589,17 +578,7 @@
     //     animate();
     // });
 
-    $: intersecting ? ($checkPoint = $checkPoint = 0) : "";
 
-    $: console.log(key, scrollingY, scrollingX);
-    $: console.log($checkPoint);
-
-    const moveForward = () => {
-        console.log("moving forward");
-        scrollingX = scrollingX + 10;
-        console.log(scrollingX);
-    };
->>>>>>> origin/spriteAnimation
 </script>
 
 <div class="rotate-animation" >
@@ -610,116 +589,44 @@
 </div>
 
 <!-- <InterSectionObserver {element} bind:intersecting> -->
-<<<<<<< HEAD
    
     <div class="horizontal-scroll-wrapper" >
 
         <!-- wrapper is a button element so that it can be autofocused for accessibility purposes like moving with keyboard -->
         <button class="wrapper" bind:this={wrapperElem} data-point={$checkPoint} alt="Background created by Inga Viitanen">
 
-            
 
                 <a href={leftCategory} class="moveButtons">
                     <button id="moveLeftBtn">{leftGuide}</button>
                 </a>
 
-
-                <!-- <div class="avatar"></div> -->
-
-
                 <a href={rightCategory} class="moveButtons">
                     <button id="moveRightBtn">{rightGuide}</button>
                 </a>
 
-            <!-- <section> -->
+                <canvas id="canvas1" />
+                <img
+                    class="forward"
+                    src="../images/spritesheet.png"
+                    alt="player"
+                    id="playerImage"            
+                />
+
 
                 <MeetSven />
         
-            <!-- <section class="category">
-                <div bind:this={element}></div>
-            </section> -->
-
-            <!-- <section class="category" > -->
                 <BarnOchUnga key={key}/>
-            <!-- </section> -->
-
-            <!-- <section class="category" > -->
+        
                 <Ungdomar key={key}/>
-            <!-- </section> -->
-
-            <!-- <section class="category"> -->
+           
                 <StödOchRörlighet key={key}/>
-            <!-- </section> -->
-
-            <!-- <section class="category"> -->
+           
                 <Primärvård key={key}/>
-            <!-- </section> -->
-
-            <!-- <section class="category"> -->
+           
                 <Informativt key={key}/>   
-            <!-- </section> -->
-
-        <!-- </section> -->
 
         </button>
     </div>
-<!-- </InterSectionObserver> -->
-=======
->>>>>>> origin/spriteAnimation
-
-<div class="horizontal-scroll-wrapper">
-    <!-- wrapper is a button element so that it can be autofocused for accessibility purposes like moving with keyboard -->
-    <button
-        class="wrapper"
-        bind:this={wrapperElem}
-        data-point={$checkPoint}
-        alt="Background created by Inga Viitanen"
-    >
-        <div class="forwardWrap">
-            <button on:mousedown={moveForward} class="forward">forward</button>
-        </div>
-        <button class="backward">backward</button>
-
-        <canvas id="canvas1" />
-        <img
-            class="forward"
-            src="../images/spritesheet.png"
-            alt="player"
-            id="playerImage"            
-        />
-        <!--<img
-            src="../images/wideframe-3.jpg"
-            alt="background"
-            id="backgroundImage"
-        /> -->
-        <!-- <div class="avatar" /> -->
-
-        <!-- <MeetSven /> -->
-        <section class="category">
-            <div bind:this={element} />
-        </section>
-
-        <section class="category">
-            <BarnOchUnga {key} />
-        </section>
-
-        <section class="category">
-            <Ungdomar {key} />
-        </section>
-
-        <section class="category">
-            <StödOchRörlighet {key} />
-        </section>
-
-        <section class="category">
-            <Primärvård {key} />
-        </section>
-
-        <section class="category">
-            <Informativt {key} />
-        </section>
-    </button>
-</div>
 <!-- </InterSectionObserver> -->
 
 <svelte:window
@@ -729,11 +636,9 @@
 />
 
 <style>
-<<<<<<< HEAD
 
     .moveButtons{
         z-index: 100;
-        /* width: 100vh; */
     }
 
 
@@ -744,7 +649,6 @@
     transform: rotate(90deg);
     border: none;
     background: transparent;
-    /* background: url(../images/arrow.png) no-repeat; */
     height: 150px;
     width: 150px;
     color: gold;
@@ -761,7 +665,6 @@
     border: none;
     background: transparent;
     color: gold;
-    /* background: url(../images/arrow.png) no-repeat; */
     height: 150px;
     width: 150px;
     /* margin-left: -50px; */
@@ -774,7 +677,6 @@
    }
 
     /* .avatar{
-=======
     .forward {
         position: absolute;
         left: 0;
@@ -795,10 +697,11 @@
     #canvas1 {
         /* border: 5px solid black; */
         position: sticky;
-        width: 600px;
-        height: 800px;
-        top: 150px;
-        left: 50px;
+        width: 200px;
+        height: 400px;
+        /* top: 150px; */
+        left: 80px;
+        bottom: 670px;
         display: flex;
         z-index: 3;
         transform: rotate(90deg) rotateY(0deg);
@@ -807,32 +710,10 @@
     #playerImage {
         display: none;
     }
-    /* 
-    .avatar {
->>>>>>> origin/spriteAnimation
-        position: sticky;
-        width: 180px;
-        height: 200px;
-        background: url(../images/sprite-07.jpg);
-        top: 150px;
-        left: 70px;
-        z-index: 3;
-        transform: rotate(90deg) rotateY(0deg);
-        text-align: right;
-        background-size: cover;
-<<<<<<< HEAD
-    } */
-
-    /* .category{
-        height: 1580px;
-    } */
-=======
-    }
- */
-    .category {
+   
+    /* .category {
         height: 2380px;
-    }
->>>>>>> origin/spriteAnimation
+    } */
 
     * {
         box-sizing: border-box;
@@ -851,61 +732,17 @@
         scroll-behavior: smooth;
     }
 
-<<<<<<< HEAD
-    .wrapper{
-        /* background: url(../images/category1.png) no-repeat;  */
-        /* background-size: 100%; */
-=======
+
     .wrapper {
-        background: url(../images/wide-2-01.jpg);
-        background-size: 100%;
->>>>>>> origin/spriteAnimation
-        /* transition: 3s; */
+        /* background: url(../images/wide-2-01.jpg); */
+        /* background-size: 100%; */
         background-color: rgb(255, 255, 255);
         z-index: -1;
         width: 100vh;
         height: 15000px;
         border: none;
     }
-<<<<<<< HEAD
 
-
-    
-/* 
-=======
-    /* 
->>>>>>> origin/spriteAnimation
-    .wrapper[data-point="0"]{
-        background: url(../images/bckg00-01.jpg);        
-        background-size: 101%;
-    }
-
-    .wrapper[data-point="1"]{
-        background: url(../images/bckg01.jpg), linear-gradient(rgba(186, 0, 0, 0.4),rgba(186,0,0,0.4));
-        background-size: 100%;
-    }
-
-    .wrapper[data-point="2"]{
-        background: url(../images/bckg02.jpg), linear-gradient(rgba(178, 32, 240, 0.4),rgba(205, 26, 221, 0.4));
-        background-size: 100%;
-    }
-
-    .wrapper[data-point="3"]{
-        background: url(../images/bckg03.jpg), linear-gradient(rgba(107, 181, 255, 0.4),rgba(62, 171, 255, 0.4));
-        background-size: 100%;
-        background-blend-mode: overlay;
-    }
-
-    .wrapper[data-point="4"]{
-        background: url(../images/bckg04.jpg), linear-gradient(rgba(108, 240, 32, 0.4),rgba(29, 221, 26, 0.4));
-        background-size: 100%;
-        background-blend-mode: overlay; 
-    }
-
-    .wrapper[data-point="5"]{
-        background: url(../images/bckg05.jpg), linear-gradient(rgba(32, 240, 216, 0.4),rgba(26, 65, 221, 0.4));
-        background-size: 100%;
-    } */
 
     /* .wrapper[data-point="0"]{
         background: url(../images/bg4.jpg);        
@@ -979,7 +816,6 @@
         .rotate-animation, #rotate-device,  #rotate-phone-message{
             display: none;
         }
-<<<<<<< HEAD
     }
 
     @media (hover: hover){
@@ -1032,7 +868,3 @@
 
 
 </style>
-=======
-    } */
-</style>
->>>>>>> origin/spriteAnimation
