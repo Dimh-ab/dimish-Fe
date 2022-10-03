@@ -1,4 +1,6 @@
 <script>
+    import { _ } from "svelte-i18n"
+
     const acceptCookie = () => {
         const setCookie = (cName, cValue, expDays) => {
             let date = new Date();
@@ -70,13 +72,12 @@
                         class="cookies-img"
                     />
                     <p>
-                        This website uses cookies to ensure you get the best
-                        experience on our website. 
+                         {$_("cookies")}  
                         <!-- <a href="https://www.termsfeed.com/">More info</a> -->
                     </p>
-                    <button id="cookies-btn" use:acceptCookie>Yum, cookies! 🍪</button>
+                    <button id="cookies-btn" use:acceptCookie>{$_("acceptCookies")}! 🍪</button>
                     <button id="cookies-decline-btn" use:declineCookie
-                        >No, thanks 😋 </button
+                        >{$_("declineCookies")} 😋 </button
                     >
                 </div>
             </div>

@@ -574,7 +574,7 @@
     <div class="horizontal-scroll-wrapper" >
 
         <!-- wrapper is a button element so that it can be autofocused for accessibility purposes like moving with keyboard -->
-        <button class="wrapper" bind:this={wrapperElem} data-point={$checkPoint} alt="Background created by Inga Viitanen">
+        <button class="wrapper" bind:this={wrapperElem} data-point={$checkPoint} alt="Background">
 
 
                 <a href={leftCategory} class="moveButtons">

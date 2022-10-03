@@ -1,5 +1,5 @@
 <script>
-
+	import { _ } from "svelte-i18n"
     import { onMount } from "svelte";
 	import axios from "axios";
 	import { amountOfProjects, checkPoint, bookId, projectId } from "../../stores.js";
@@ -88,7 +88,7 @@
 		{#if project.category === "Barn och Unga"}
 		<div class={"book-spacing " + (i === wasClicked ? "zindex" : "")}>
 					<button class={"backBtn " + (project.id === $bookId ? "visible" : "")} on:click={() => $bookId = $bookId = ''}>
-						{'<- ställ tillbaka'}
+						{$_("closeTheBook")}
 					</button>
 				<div
 				tabindex="0" 
@@ -137,7 +137,7 @@
 	</article>
 	<!-- <div class="sign">
 		<div class="string"></div>
-		<h1>Barn och Unga</h1>
+		<h1>{$_("descendantsTitle")}</h1>
 	</div> -->
 </section>
 </InterSectionObserver>

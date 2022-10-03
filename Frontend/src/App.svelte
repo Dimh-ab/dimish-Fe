@@ -11,8 +11,9 @@
 	import Cookies from "./components/Cookies.svelte";
 	import Accessibility from "./components/Accessibility.svelte";
 	import Help from "./components/Help.svelte";
-	import Language from "./components/Language.svelte";
+	import Language from "./locale/i18n.svelte";
 	import Sound from "./components/Sound.svelte";
+	import { _ } from "svelte-i18n"
 
 	export let url = "";
 </script>
@@ -27,7 +28,7 @@
 			<!-- <Link to="/" >Home</Link>
 			<Link to="library">Library</Link>
 			<Link to="dashboard">Dashboard</Link> -->
-			<Link to="all-projects" class="link"> <h3>All projects</h3> </Link>
+			<Link to="all-projects" class="link"> <h3>{$_("allProjects")}</h3> </Link>
 		</nav>
 
 		<a href="https://www.di-mh.com/" >dimh</a>
