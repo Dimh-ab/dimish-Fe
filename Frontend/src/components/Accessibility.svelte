@@ -1,4 +1,5 @@
 <script>
+    import { _ } from "svelte-i18n"
     import { fly } from "svelte/transition";
 
     function toggleAcc() {
@@ -92,7 +93,7 @@ function decreaseLineSpacing() {
 
     {#if show}
         <aside transition:fly={{ x: 250, opacity: 1 }}>
-            <p>Change text size:</p>
+            <p>{$_("accTextSize")}</p>
 
             <div class="accessibility-sidebar">
                 <img
@@ -109,7 +110,7 @@ function decreaseLineSpacing() {
                 />
             </div>
 
-            <p>Change letter spacing:</p>
+            <p>{$_("accLetterSpacing")}</p>
 
             <div class="accessibility-sidebar">
                 <img
@@ -126,7 +127,7 @@ function decreaseLineSpacing() {
                 />
             </div>
 
-            <p>Change word spacing:</p>
+            <p>{$_("accWordSpacing")}</p>
 
             <div class="accessibility-sidebar">
                 <img
@@ -143,7 +144,7 @@ function decreaseLineSpacing() {
                 />
             </div>
 
-            <p>Change line height:</p>
+            <p>{$_("accLineHeight")}</p>
 
             <div class="accessibility-sidebar">
                 <img
