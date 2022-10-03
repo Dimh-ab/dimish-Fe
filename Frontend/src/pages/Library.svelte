@@ -10,7 +10,8 @@
     import StödOchRörlighet from "../components/categories/StödOchRörlighet.svelte";
     import Primärvård from "../components/categories/Primärvård.svelte";
     import Informativt from "../components/categories/Informativt.svelte";
-    import {checkPoint} from "../stores.js";
+    import {checkPoint, bookId, projectId} from "../stores.js";
+    import Book from '../components/categories/Book.svelte';
     
     // senses if the element is in the viewport
     import InterSectionObserver from "svelte-intersection-observer";
@@ -29,12 +30,17 @@
     let rightGuide = ''
     let IOSdevice = ''
     let fullscreenGuide = ''
+    // export let bookId
+    // export let projectId
 
     // let number = 0
     // let timeOut
 
     // auto focuses the library so that the keyboard can be used to move around aswell
     onMount(() => wrapperElem.focus());
+
+
+    $: console.log($bookId, $projectId)
 
 
     //controls the buttons you mmove with in mobile/Tablet view, will be changed into a function
@@ -66,6 +72,9 @@
     }else if($checkPoint === 5){
         leftCategory = '#fourth-category'
     }
+
+
+    
 
     //ver1
 
@@ -555,6 +564,12 @@
 </div>
 
 <!-- <InterSectionObserver {element} bind:intersecting> -->
+
+    <!-- {#if $bookId === $projectId} -->
+    <!-- <Book /> -->
+    <!-- {/if} -->
+
+    <!-- {:else} -->
    
     <div class="horizontal-scroll-wrapper" >
 
@@ -593,6 +608,8 @@
 
         </button>
     </div>
+
+    <!-- {/if} -->
 <!-- </InterSectionObserver> -->
 
 <svelte:window

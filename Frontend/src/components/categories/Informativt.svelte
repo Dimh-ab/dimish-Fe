@@ -2,11 +2,11 @@
 
     import { onMount } from "svelte";
 	import axios from "axios";
-	import { amountOfProjects, checkPoint } from "../../stores.js";
+	import { amountOfProjects, checkPoint, bookId, projectId } from "../../stores.js";
 	import InterSectionObserver from "svelte-intersection-observer";
 
 	let isInShelf = true
-	let bookId = ""
+	// let bookId = ""
 	let element
     let intersecting
 	let rootMargin = "-250px"
@@ -32,12 +32,12 @@
 
 	const clickBookSpine = (book, id) => {
 		if(book.id !== id){
-			bookId = ''
+			$bookId = ''
 			isInShelf = isInShelf
 		} else if(book.id === id){
-			bookId = id
+			$bookId = id
 			isInShelf = !isInShelf
-			console.log(bookId, id)
+			console.log($bookId, id)
 		}
 	}
 
@@ -45,6 +45,11 @@
 
     const openBook = (i) => {
 		wasClicked = wasClicked === i ? -1 : i 
+		if(i === wasClicked){
+			$projectId = $bookId
+		} else{
+			$projectId = 0
+		}
 		console.log(wasClicked, i)
 	}
 
@@ -59,13 +64,13 @@
 </script>
 
 <InterSectionObserver {element} bind:intersecting {rootMargin}>
-<section  id="fifth-category">
+<section  id="fifth-category" class={"fifth-category " + ($bookId === $projectId ? "overlay" : "")}>
 	<article  bind:this={element}>
 		<main>
 		{#each $amountOfProjects as project, i (project.id)}
 		{#if project.category === "Informativt"}
-		<div class="book-spacing">
-					<button class={"backBtn " + (project.id === bookId ? "visible" : "")} on:click={() => bookId = bookId = ''}>
+		<div class={"book-spacing " + (i === wasClicked ? "zindex" : "")}>
+					<button class={"backBtn " + (project.id === $bookId ? "visible" : "")} on:click={() => $bookId = $bookId = ''}>
 						{'<- ställ tillbaka'}
 					</button>
 			<div
@@ -76,23 +81,23 @@
 			on:keyup|preventDefault={() => handleKeyDown(i)}
 			>
 				<div class="spine1">
-				<div class={"spine " + (project.id === bookId ? 'shelfMode' : 'shake')}></div>
+				<div class={"spine " + (project.id === $bookId ? 'shelfMode' : 'shake')}></div>
 				</div>
-				<div class={"cover " + (project.id === bookId ? 'position' : 'shelfMode')} on:click={() => openBook(i)}>
+				<div class={"cover " + (project.id === $bookId ? 'position' : 'shelfMode')} on:click={() => openBook(i)}>
 					<h3 class="cover-title">
 						{project.title}
 					</h3>
 				</div>
-				<div class={"coverInside " + (project.id === bookId ? 'position' : 'shelfMode')}></div>
+				<div class={"coverInside " + (project.id === $bookId ? 'position' : 'shelfMode')}></div>
 
-				<div class={"pages " + (project.id === bookId ? 'position' : 'shelfMode')}></div>
-				<div class={"pages " + (project.id === bookId ? 'position' : 'shelfMode')}></div>
-				<div class={"pages " + (project.id === bookId ? 'position' : 'shelfMode')}></div>
-				<div class={"pages " + (project.id === bookId ? 'position' : 'shelfMode')}></div>
-				<div class={"pages " + (project.id === bookId ? 'position' : 'shelfMode')}></div>
-				<div class={"coverPage " + (project.id === bookId ? 'position' : 'shelfMode')}></div>
+				<div class={"pages " + (project.id === $bookId ? 'position' : 'shelfMode')}></div>
+				<div class={"pages " + (project.id === $bookId ? 'position' : 'shelfMode')}></div>
+				<div class={"pages " + (project.id === $bookId ? 'position' : 'shelfMode')}></div>
+				<div class={"pages " + (project.id === $bookId ? 'position' : 'shelfMode')}></div>
+				<div class={"pages " + (project.id === $bookId ? 'position' : 'shelfMode')}></div>
+				<div class={"coverPage " + (project.id === $bookId ? 'position' : 'shelfMode')}></div>
 
-				<div class={"page " + (project.id === bookId ? 'position' : 'shelfMode')} on:click={() => openBook(i)}>
+				<div class={"page " + (project.id === $bookId ? 'position' : 'shelfMode')} on:click={() => openBook(i)}>
 					<h2 class="title">{project.title}</h2>
 					<img
 					src={project.image_url}
@@ -103,10 +108,10 @@
 					/>
 					<p class="category">{project.category}</p>
 				</div>
-					<div class={"last-page " + (project.id === bookId ? 'position' : 'shelfMode')} on:click={() => openBook(i)}>	
+					<div class={"last-page " + (project.id === $bookId ? 'position' : 'shelfMode')} on:click={() => openBook(i)}>	
 						<p class="description">{project.description}</p>
 					</div>
-				<div class={"back-cover " + (project.id === bookId ? 'position' : 'shelfMode')}></div>
+				<div class={"back-cover " + (project.id === $bookId ? 'position' : 'shelfMode')}></div>
 			</div>	
 				
 		</div>
@@ -146,7 +151,7 @@
 	color:#f9c851;
 	transform: scale(1.1);
 }
-	section{
+	.fifth-category{
 		/* height: 100vw; */
 		position: absolute;
 		/* width: 100vh; */
@@ -158,6 +163,14 @@
 		width: 1200px;
 		height: 1800px;
 		background-size: contain;
+	}
+
+	.fifth-category.overlay{
+		background:url(../images/cat-bg/bckg05.jpg) no-repeat, rgba(0, 0, 0, 0.8);
+		width: 1028px;
+		height: 1650px;
+		background-size: contain;
+		background-blend-mode: overlay;
 	}
 
 	article{
@@ -249,6 +262,11 @@
 		translate: -130px -50px;
 	}
 
+	.book-spacing:first-child.zindex, .book-spacing:nth-child(2).zindex, .book-spacing:nth-child(3).zindex, .book-spacing:nth-child(4).zindex, .book-spacing:nth-child(5).zindex, .book-spacing:nth-child(6).zindex, .book-spacing:nth-child(7).zindex{
+		position: relative;
+		z-index: 10;
+	}
+
 	.book-spacing{
 		margin: 0 10px;
 	}
@@ -299,6 +317,10 @@
 		transform: perspective(1000px) rotateX(10deg) scale(6.2);
 		transition-duration: 1.4s;
 		z-index: 2;
+	}
+
+	.book.wasClicked .spine1, .book.wasClicked .spine, .book.wasClicked .cover, .book.wasClicked .coverInside, .book.wasClicked .pages, .book.wasClicked .coverPage, .book.wasClicked .page, .book.wasClicked .last-page, .book.wasClicked .back-cover{			
+			translate: 0px -120px;
 	}
 
 	.cover{

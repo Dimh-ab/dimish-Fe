@@ -2,11 +2,11 @@
 
     import { onMount } from "svelte";
 	import axios from "axios";
-	import { amountOfProjects, checkPoint } from "../../stores.js";
+	import { amountOfProjects, checkPoint, projectId, bookId } from "../../stores.js";
 	import InterSectionObserver from "svelte-intersection-observer";
 
 	let isInShelf = true
-	let bookId = ""
+	// let bookId = ""
 	let element
     let intersecting
 	let rootMargin = "-250px"
@@ -32,10 +32,10 @@
 
 	const clickBookSpine = (book, id) => {
 		if(book.id !== id){
-			bookId = ''
+			$bookId = ''
 			isInShelf = isInShelf
 		} else if(book.id === id){
-			bookId = id
+			$bookId = id
 			isInShelf = !isInShelf
 			console.log(bookId, id)
 		}
@@ -45,6 +45,11 @@
 
     const openBook = (i) => {
 		wasClicked = wasClicked === i ? -1 : i 
+		if(i === wasClicked){
+			$projectId = $bookId
+		} else{
+			$projectId = 0
+		}
 		console.log(wasClicked, i)
 	}
 
@@ -59,13 +64,13 @@
 </script>
 
 <InterSectionObserver {element} bind:intersecting {rootMargin}>
-<section id="second-category">
+<section id="second-category" class={"second-category " + ($bookId === $projectId ? "overlay" : "")}>
 	<article  bind:this={element}>
 		<main>
 		{#each $amountOfProjects as project, i (project.id)}
 		{#if project.category === "Ungdomar"}
-		<div class="book-spacing">
-					<button class={"backBtn " + (project.id === bookId ? "visible" : "")} on:click={() => bookId = bookId = ''}>
+		<div class={"book-spacing " + (i === wasClicked ? "zindex" : "")}>
+					<button class={"backBtn " + (project.id === $bookId ? "visible" : "")} on:click={() => $bookId = $bookId = ''}>
 						{'<- ställ tillbaka'}
 					</button>
 			<div
@@ -76,23 +81,23 @@
 			on:keyup|preventDefault={() => handleKeyDown(i)}
 			>
 				<div class="spine1">
-				<div class={"spine " + (project.id === bookId ? 'shelfMode' : 'shake')}></div>
+				<div class={"spine " + (project.id === $bookId ? 'shelfMode' : 'shake')}></div>
 				</div>
-				<div class={"cover " + (project.id === bookId ? 'position' : 'shelfMode')} on:click={() => openBook(i)}>
+				<div class={"cover " + (project.id === $bookId ? 'position' : 'shelfMode')} on:click={() => openBook(i)}>
 					<h3 class="cover-title">
 						{project.title}
 					</h3>
 				</div>
-				<div class={"coverInside " + (project.id === bookId ? 'position' : 'shelfMode')}></div>
+				<div class={"coverInside " + (project.id === $bookId ? 'position' : 'shelfMode')}></div>
 
-				<div class={"pages " + (project.id === bookId ? 'position' : 'shelfMode')}></div>
-				<div class={"pages " + (project.id === bookId ? 'position' : 'shelfMode')}></div>
-				<div class={"pages " + (project.id === bookId ? 'position' : 'shelfMode')}></div>
-				<div class={"pages " + (project.id === bookId ? 'position' : 'shelfMode')}></div>
-				<div class={"pages " + (project.id === bookId ? 'position' : 'shelfMode')}></div>
-				<div class={"coverPage " + (project.id === bookId ? 'position' : 'shelfMode')}></div>
+				<div class={"pages " + (project.id === $bookId ? 'position' : 'shelfMode')}></div>
+				<div class={"pages " + (project.id === $bookId ? 'position' : 'shelfMode')}></div>
+				<div class={"pages " + (project.id === $bookId ? 'position' : 'shelfMode')}></div>
+				<div class={"pages " + (project.id === $bookId ? 'position' : 'shelfMode')}></div>
+				<div class={"pages " + (project.id === $bookId ? 'position' : 'shelfMode')}></div>
+				<div class={"coverPage " + (project.id === $bookId ? 'position' : 'shelfMode')}></div>
 
-				<div class={"page " + (project.id === bookId ? 'position' : 'shelfMode')} on:click={() => openBook(i)}>
+				<div class={"page " + (project.id === $bookId ? 'position' : 'shelfMode')} on:click={() => openBook(i)}>
 					<h2 class="title">{project.title}</h2>
 					<img
 					src={project.image_url}
@@ -103,10 +108,10 @@
 					/>
 					<p class="category">{project.category}</p>
 				</div>
-					<div class={"last-page " + (project.id === bookId ? 'position' : 'shelfMode')} on:click={() => openBook(i)}>	
+					<div class={"last-page " + (project.id === $bookId ? 'position' : 'shelfMode')} on:click={() => openBook(i)}>	
 						<p class="description">{project.description}</p>
 					</div>
-				<div class={"back-cover " + (project.id === bookId ? 'position' : 'shelfMode')}></div>
+				<div class={"back-cover " + (project.id === $bookId ? 'position' : 'shelfMode')}></div>
 			</div>	
 				
 		</div>
@@ -146,7 +151,7 @@
 	color:#f9c851;
 	transform: scale(1.1);
 }
-	section{
+	.second-category{
 		position: absolute;
 		/* width: 100vh; */
 		/* height: 100%; */
@@ -157,6 +162,14 @@
 		width: 928px;
 		height: 1145px;
 		background-size: contain;
+	}
+
+	.second-category.overlay{
+		background:url(../images/bckg02.jpg) no-repeat, rgba(0, 0, 0, 0.8);
+		width: 928px;
+		height: 1145px;
+		background-size: contain;
+		background-blend-mode: overlay;
 	}
 
 	article{
@@ -242,6 +255,11 @@
 		translate: -50px 60px;
 	}
 
+	.book-spacing:first-child.zindex, .book-spacing:nth-child(2).zindex, .book-spacing:nth-child(3).zindex, .book-spacing:nth-child(4).zindex, .book-spacing:nth-child(5).zindex{
+		position: relative;
+		z-index: 10;
+	}
+
 	.book-spacing{
 		margin: 0 10px;
 	}
@@ -256,48 +274,53 @@
 
 
 	.book.wasClicked .cover{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(6.2);
-		transition-duration: 1.4s;
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(7.2);
+		transition-duration: 2.3s;
+		z-index: -15;
 	}
 
 	.book.wasClicked .coverInside{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(6.2);
-		transition-duration: 1.4s;
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(7.2);
+		transition-duration: 2.3s;
 		z-index: 6;
 	}
 
 	.book.wasClicked .coverPage{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(6.2);
-		transition-duration: 1.4s;
-		z-index: 7;
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(7.2);
+		transition-duration: 2.1s;
+		z-index: 8;
 	}
 
 	.book.wasClicked .page{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(6.2);
-		transition-duration: 1.7s;
-		z-index: 9;
+		transform: perspective(1000px) rotateX(10deg) rotateY(-183deg) scale(7.2);
+		transition-duration: 2.5s;
+		z-index: 12;
 	}
 	.book.wasClicked .pages{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(6.2);
-		transition-duration: 1.7s;
-		z-index: 6;
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(7.2);
+		transition-duration: 2.3s;
+		z-index: 10;
 	}
 
 	.book.wasClicked .back-cover{
-		transform: perspective(1000px) rotateX(10deg) scale(6.2);
-		transition-duration: 1.5s;
+		transform: perspective(1000px) rotateX(10deg) scale(7.2);
+		transition-duration: 2.3s;
 	}
 
 	.book.wasClicked .last-page{
-		transform: perspective(1000px) rotateX(10deg) scale(6.2);
-		transition-duration: 1.4s;
+		transform: perspective(1000px) rotateX(10deg) scale(7.2);
+		transition-duration: 2.3s;
 		z-index: 2;
 	}
 
+	.book.wasClicked .spine1, .book.wasClicked .spine, .book.wasClicked .cover, .book.wasClicked .coverInside, .book.wasClicked .pages, .book.wasClicked .coverPage, .book.wasClicked .page, .book.wasClicked .last-page, .book.wasClicked .back-cover{
+			translate: 0px 200px;
+		}
+
 
 	.cover{
-		z-index: 6;
-		transition: all 2s;
+		z-index: 25;
+		transition: all 3s;
 		transform-origin: center left;
 		color: white;
 		text-align: center;
@@ -364,7 +387,7 @@
 		position: absolute;
 		transform: perspective(1000px) rotateX(10deg);
 		transform-origin: center left;
-		transition-duration: 1.5s;
+		transition-duration: 2.5s;
 	}
 
 	/* covers the top cover on the inside so text etc is not visible when opened */
@@ -377,7 +400,7 @@
 		position: absolute;
 		transform: perspective(1000px) rotateX(10deg);
 		transform-origin: center left;
-		transition-duration: 1.5s;
+		transition-duration: 2.5s;
 	}
 
 
@@ -400,7 +423,7 @@
 		position: absolute;
 		text-align: center;
 		font-size: 0.5em;
-		transition-duration: 1.5s;
+		transition-duration: 2.5s;
 		line-height: 0.8em;
 		overflow: hidden;
 	}
@@ -414,8 +437,8 @@
 		border: var(--pages-border);
 		transform: perspective(1000px) rotateX(10deg);
 		transform-origin: center left;
-		z-index: 2;
-		transition-duration: 1.5s;
+		z-index: -2;
+		transition-duration: 2.5s;
 	}
 	.pages{
 		height: 180px;
@@ -427,7 +450,7 @@
 		transform: perspective(1000px) rotateX(10deg);
 		transform-origin: center left;
 		z-index: 5;
-		transition-duration: 1.5s;
+		transition-duration: 3s;
 	}
 
 	.coverPage{
@@ -439,8 +462,8 @@
 		border: none;
 		transform: perspective(1000px) rotateX(10deg);
 		transform-origin: center left;
-		z-index: 5;
-		transition-duration: 1.5s;
+		z-index: 2;
+		transition-duration: 2.5s;
 	}
 
 	.picture, .title, .category{
@@ -454,52 +477,57 @@
 
 
 	.pages:nth-child(8){
-		transition-duration: 1.7s;
+		transition-duration: 1.8s;
 		z-index: 5;
 	}
 	.pages:nth-child(7){
-		transition-duration: 1.7s;
+		transition-duration: 1.8s;
 		z-index: 5;
 	}
 	.pages:nth-child(6){
-		transition-duration: 1.6s;
+		transition-duration: 1.8s;
 		z-index: 5;
 	}
 	.pages:nth-child(5){
-		transition-duration: 1.6s;
+		transition-duration: 1.8s;
 		z-index: 5;
 	}
 	.pages:nth-child(4){
-		transition-duration: 1.5s;
+		transition-duration: 1.8s;
 		z-index: 5;
 	}
 
 	.book.wasClicked .pages:nth-child(8){
-		transition-duration: 1.7s;
+		transition-duration: 3.1s;
 		border-radius: 7px 10px 10px 2px;
+		transform: perspective(1000px) rotateX(10deg) rotateY(-182deg) scale(7.2);
 	}
 	.book.wasClicked .pages:nth-child(7){
-		transition-duration: 1.7s;
+		transition-duration: 2.8s;
 		border-radius: 7px 10px 10px 2px;
+		transform: perspective(1000px) rotateX(10deg) rotateY(-181deg) scale(7.2);
 	}
 	.book.wasClicked .pages:nth-child(6){
-		transition-duration: 1.7;
+		transition-duration: 2.6;
 		border-radius: 6px 10px 10px 2px;
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(7.2);
 	}
 	.book.wasClicked .pages:nth-child(5){
-		transition-duration: 1.6s;
+		transition-duration: 2.4s;
 		border-radius: 5px 10px 10px 2px;
+		transform: perspective(1000px) rotateX(10deg) rotateY(-179deg) scale(7.2);
 	}
 	.book.wasClicked .pages:nth-child(4){
-		transition-duration: 1.5s;
+		transition-duration: 2.2s;
 		border-radius: 4px 10px 10px 2px;
+		transform: perspective(1000px) rotateX(10deg) rotateY(-179deg) scale(7.2);
 	}
 	.book.wasClicked .page{
-		transition-duration: 1.7s;
+		transition-duration: 2.7s;
 		border-radius: 3px 10px 10px 2px;
 	} 
 	.book.wasClicked .coverPage{
-		transition-duration: 1.7s;
+		transition-duration: 2.7s;
 		border-radius: 3px 10px 10px 2px;
 	} 
 
@@ -512,7 +540,7 @@
 	}
 
 	@media only screen and (max-width: 1200px){
-        section{
+        .second-category{
             width: 100%;
 		    height: 200%;
 			top: 4505px;
@@ -530,7 +558,7 @@
 
 	@media only screen and (max-width: 1024px){
 
-		section{
+		.second-category{
 			top: 4225px;
 		}
 
@@ -562,11 +590,11 @@
 		}
 
 		.book.wasClicked .cover, .book.wasClicked .coverPage, .book.wasClicked .coverInside, .book.wasClicked .pages, .book.wasClicked .page{
-			transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(2.7);
+			transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(6.7);
 		}
 
 		.book.wasClicked .back-cover, .book.wasClicked .last-page{
-			transform: perspective(1000px) rotateX(10deg) scale(2.7);
+			transform: perspective(1000px) rotateX(10deg) scale(6.7);
 		}
 
 		.picture{
@@ -588,7 +616,7 @@
 	}
 
 	@media only screen and (max-height: 425px){
-		section{
+		.second-category{
 			top: 2390px;
             width: 1000px;
             height: 800px;
@@ -604,7 +632,7 @@
     }
 
     @media only screen and (max-height: 390px){
-        section{
+        .second-category{
             height: 730px;
 			top: 2200px;
         }
@@ -632,13 +660,13 @@
 		}
     }
     @media only screen and (max-height: 375px){
-        section{
+        .second-category{
             height: 700px;
 			top: 2120px;
         }
     }
     @media only screen and (max-height: 345px){
-        section{
+        .second-category{
             height: 645px;
 			top: 1960px;
         }
@@ -648,7 +676,7 @@
 		}
     }
     @media only screen and (max-height: 325px){
-        section{
+        .second-category{
             height: 605px;
 			top: 1850px;
         }

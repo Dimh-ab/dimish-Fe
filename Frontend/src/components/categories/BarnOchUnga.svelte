@@ -2,14 +2,22 @@
 
     import { onMount } from "svelte";
 	import axios from "axios";
-	import { amountOfProjects, checkPoint } from "../../stores.js";
+	import { amountOfProjects, checkPoint, bookId, projectId } from "../../stores.js";
 	import InterSectionObserver from "svelte-intersection-observer";
 
 	let isInShelf = true
-	let bookId = ""
+	// let bookId = ""
 	let element
     let intersecting
 	let rootMargin = "-250px"
+	// let projectId
+
+	// let x = window.innerWidth / 2;
+	// let y = window.innerHeight / 2;
+	// $: console.log(x, y)
+
+	// const el = document.getElementsByClassName("book.wasClicked .cover").style = "translate(" + x + "px " + y + "px)";
+	// console.log(el)
 
 	// fixes issue with intersection observer on mobile devices
 	if (window.innerHeight < 768) {
@@ -34,19 +42,29 @@
 
 	const clickBookSpine = (book, id) => {
 		if(book.id !== id){
-			bookId = ''
+			$bookId = ''
+			// $projectId = id
+			console.log(projectId)
 			isInShelf = isInShelf
 		} else if(book.id === id){
-			bookId = id
+			$bookId = id
+			// setTimeout(() => {
+			// 	$projectId = id
+			// }, 1500);
 			isInShelf = !isInShelf
-			console.log(bookId, id)
+			console.log($bookId, id, $projectId)
 		}
 	}
 
-	$: console.log(bookId)
+	$: console.log($bookId, $projectId)
 
     const openBook = (i) => {
-		wasClicked = wasClicked === i ? -1 : i 
+		wasClicked = wasClicked === i ? -1 : i
+		if(i === wasClicked){
+			$projectId = $bookId
+		} else{
+			$projectId = 0
+		}
 		console.log(wasClicked, i)
 	}
 
@@ -63,40 +81,40 @@
 </script>
 
 <InterSectionObserver {element} bind:intersecting {rootMargin}>
-<section id="first-category">
+<section id="first-category" class={"first-category " + ($bookId === $projectId ? "overlay" : "")}>
 	<article  bind:this={element}>
 		<main>
 		{#each $amountOfProjects as project, i (project.id)}
 		{#if project.category === "Barn och Unga"}
-		<div class="book-spacing">
-					<button class={"backBtn " + (project.id === bookId ? "visible" : "")} on:click={() => bookId = bookId = ''}>
+		<div class={"book-spacing " + (i === wasClicked ? "zindex" : "")}>
+					<button class={"backBtn " + (project.id === $bookId ? "visible" : "")} on:click={() => $bookId = $bookId = ''}>
 						{'<- ställ tillbaka'}
 					</button>
-			<div
-			tabindex="0" 
-			class={"book " + (i === wasClicked ? 'wasClicked' : '')} 
-			key={project.id}
-			on:click={() => clickBookSpine(project, project.id)}
-			on:keyup|preventDefault={() => handleKeyDown(i)}
-			>
+				<div
+				tabindex="0" 
+				class={"book " + (i === wasClicked ? 'wasClicked' : '')} 
+				key={project.id}
+				on:click={() => clickBookSpine(project, project.id)}
+				on:keyup|preventDefault={() => handleKeyDown(i)}
+				>
 				<div class="spine1">
-				<div class={"spine " + (project.id === bookId ? 'shelfMode' : 'shake')}></div>
+					<div class={"spine " + (project.id === $bookId ? 'shelfMode' : 'shake')}></div>
 				</div>
-				<div class={"cover " + (project.id === bookId ? 'position' : 'shelfMode')} on:click={() => openBook(i)}>
+				<div class={"cover " + (project.id === $bookId ? 'position' : 'shelfMode')} on:click={() => openBook(i)}>
 					<h3 class="cover-title">
 						{project.title}
 					</h3>
 				</div>
-				<div class={"coverInside " + (project.id === bookId ? 'position' : 'shelfMode')}></div>
+				<div class={"coverInside " + (project.id === $bookId ? 'position' : 'shelfMode')}></div>
 
-				<div class={"pages " + (project.id === bookId ? 'position' : 'shelfMode')}></div>
-				<div class={"pages " + (project.id === bookId ? 'position' : 'shelfMode')}></div>
-				<div class={"pages " + (project.id === bookId ? 'position' : 'shelfMode')}></div>
-				<div class={"pages " + (project.id === bookId ? 'position' : 'shelfMode')}></div>
-				<div class={"pages " + (project.id === bookId ? 'position' : 'shelfMode')}></div>
-				<div class={"coverPage " + (project.id === bookId ? 'position' : 'shelfMode')}></div>
+				<div class={"pages " + (project.id === $bookId ? 'position' : 'shelfMode')}></div>
+				<div class={"pages " + (project.id === $bookId ? 'position' : 'shelfMode')}></div>
+				<div class={"pages " + (project.id === $bookId ? 'position' : 'shelfMode')}></div>
+				<div class={"pages " + (project.id === $bookId ? 'position' : 'shelfMode')}></div>
+				<div class={"pages " + (project.id === $bookId ? 'position' : 'shelfMode')}></div>
+				<div class={"coverPage " + (project.id === $bookId ? 'position' : 'shelfMode')}></div>
 
-				<div class={"page " + (project.id === bookId ? 'position' : 'shelfMode')} on:click={() => openBook(i)}>
+				<div class={"page " + (project.id === $bookId ? 'position' : 'shelfMode')} on:click={() => openBook(i)}>
 					<h2 class="title">{project.title}</h2>
 					<img
 					src={project.image_url}
@@ -107,10 +125,10 @@
 					/>
 					<p class="category">{project.category}</p>
 				</div>
-					<div class={"last-page " + (project.id === bookId ? 'position' : 'shelfMode')} on:click={() => openBook(i)}>	
+					<div class={"last-page " + (project.id === $bookId ? 'position' : 'shelfMode')} on:click={() => openBook(i)}>	
 						<p class="description">{project.description}</p>
 					</div>
-				<div class={"back-cover " + (project.id === bookId ? 'position' : 'shelfMode')}></div>
+				<div class={"back-cover " + (project.id === $bookId ? 'position' : 'shelfMode')}></div>
 			</div>	
 		</div>
 		{/if}
@@ -162,7 +180,8 @@
 	color:#f9c851;
 	transform: scale(1.1);
 }
-	section{
+
+	.first-category{
 		position: absolute;
 		/* width: 100vh; */
 		/* height: 100%; */
@@ -175,8 +194,17 @@
 		background-size: contain;
 	}
 
+	.first-category.overlay{
+		background:url(../images/cat-bg/bckg010101.png) no-repeat, rgba(0, 0, 0, 0.8);
+		width: 1028px;
+		height: 1650px;
+		background-size: contain;
+		background-blend-mode: overlay;
+	}
 	article{
 		margin-top: 400px;
+		top: 50%;
+		left: 50%;
 	}
 
     *{
@@ -264,6 +292,11 @@
 		translate: -15px 5px;
 	}
 
+	.book-spacing:first-child.zindex, .book-spacing:nth-child(2).zindex, .book-spacing:nth-child(3).zindex, .book-spacing:nth-child(4).zindex, .book-spacing:nth-child(5).zindex, .book-spacing:nth-child(6).zindex, .book-spacing:nth-child(7).zindex{
+		position: relative;
+		z-index: 10;
+	}
+
 
 	.book-spacing{
 		margin: 0 10px;
@@ -280,43 +313,55 @@
 
 
 	.book.wasClicked .cover{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(6);
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(3);
 		transition-duration: 1.4s;
 	}
 
 	.book.wasClicked .coverInside{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(6);
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(3);
 		transition-duration: 1.4s;
 		z-index: 6;
 	}
 
 	.book.wasClicked .coverPage{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(6);
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(3);
 		transition-duration: 1.4s;
 		z-index: 7;
 	}
 
 	.book.wasClicked .page{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(6);
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(3);
 		transition-duration: 1.7s;
 		z-index: 9;
 	}
 	.book.wasClicked .pages{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(6);
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(3);
 		transition-duration: 1.7s;
 		z-index: 6;
 	}
 
 	.book.wasClicked .back-cover{
-		transform: perspective(1000px) rotateX(10deg) scale(6);
+		transform: perspective(1000px) rotateX(10deg) scale(3);
 		transition-duration: 1.5s;
 	}
 
 	.book.wasClicked .last-page{
-		transform: perspective(1000px) rotateX(10deg) scale(6);
+		transform: perspective(1000px) rotateX(10deg) scale(3);
 		transition-duration: 1.4s;
 		z-index: 2;
 	}
+
+	.book.wasClicked .spine1, .book.wasClicked .spine, .book.wasClicked .cover, .book.wasClicked .coverInside, .book.wasClicked .pages, .book.wasClicked .coverPage, .book.wasClicked .page, .book.wasClicked .last-page, .book.wasClicked .back-cover{			
+			translate: 0px 0px;
+	}
+
+	.book-spacing:nth-child(3) .book.wasClicked .spine1, .book-spacing:nth-child(3) .book.wasClicked .spine, .book-spacing:nth-child(3) .book.wasClicked .cover, .book-spacing:nth-child(3) .book.wasClicked .coverInside, .book-spacing:nth-child(3) .book.wasClicked .pages, .book-spacing:nth-child(3) .book.wasClicked .coverPage, .book-spacing:nth-child(3) .book.wasClicked .page, .book-spacing:nth-child(3) .book.wasClicked .last-page, .book-spacing:nth-child(3) .book.wasClicked .back-cover{
+		translate: 0px 200px;
+	}
+	.book-spacing:nth-child(5) .book.wasClicked .spine1, .book-spacing:nth-child(5) .book.wasClicked .spine, .book-spacing:nth-child(5) .book.wasClicked .cover, .book-spacing:nth-child(5) .book.wasClicked .coverInside, .book-spacing:nth-child(5) .book.wasClicked .pages, .book-spacing:nth-child(5) .book.wasClicked .coverPage, .book-spacing:nth-child(5) .book.wasClicked .page, .book-spacing:nth-child(5) .book.wasClicked .last-page, .book-spacing:nth-child(5) .book.wasClicked .back-cover, .book-spacing:nth-child(6) .book.wasClicked .spine1, .book-spacing:nth-child(6) .book.wasClicked .spine, .book-spacing:nth-child(6) .book.wasClicked .cover, .book-spacing:nth-child(6) .book.wasClicked .coverInside, .book-spacing:nth-child(6) .book.wasClicked .pages, .book-spacing:nth-child(6) .book.wasClicked .coverPage, .book-spacing:nth-child(6) .book.wasClicked .page, .book-spacing:nth-child(6) .book.wasClicked .last-page, .book-spacing:nth-child(6) .book.wasClicked .back-cover, .book-spacing:nth-child(7) .book.wasClicked .spine1, .book-spacing:nth-child(7) .book.wasClicked .spine, .book-spacing:nth-child(7) .book.wasClicked .cover, .book-spacing:nth-child(7) .book.wasClicked .coverInside, .book-spacing:nth-child(7) .book.wasClicked .pages, .book-spacing:nth-child(7) .book.wasClicked .coverPage, .book-spacing:nth-child(7) .book.wasClicked .page, .book-spacing:nth-child(7) .book.wasClicked .last-page, .book-spacing:nth-child(7) .book.wasClicked .back-cover{
+		translate: 0px -300px;
+	}
+
 
 
 	.cover{

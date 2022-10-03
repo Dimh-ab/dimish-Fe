@@ -15,3 +15,6 @@ export const categories = writable(['Barn och Unga', 'Ungdomar', 'Stöd och Rör
 // export const categories = writable(['Younglings', 'Adolescence balance', 'support and mobility', 'primary care', 'Informative']);
 
 export const checkPoint = writable(0);
+
+export const bookId = writable(1)
+export const projectId = writable(0)
