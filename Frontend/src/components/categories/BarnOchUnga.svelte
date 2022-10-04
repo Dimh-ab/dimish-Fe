@@ -135,10 +135,10 @@
 		{/each}
 		</main>
 	</article>
-	<!-- <div class="sign">
+	<div class="sign">
 		<div class="string"></div>
 		<h1>{$_("descendantsTitle")}</h1>
-	</div> -->
+	</div>
 </section>
 </InterSectionObserver>
 
@@ -225,9 +225,10 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
+		translate: 0 -350px
 	}
 
-    /* h1{
+    h1{
         transform: rotate(90deg);
 		font-size: 1.6em;
 		color: var(--title-color);
@@ -235,19 +236,20 @@
 		letter-spacing: 2px;
 		z-index: 0;
 		position: absolute;
-		right: -80px;
+		left: 40%;
 		background-color: #222;
 		padding: 20px 0;
 		border: 10px solid #deb886;
         box-shadow: 3px 3px 30px rgb(0, 0, 0);
-    } */
+    }
 
 	.string{
 		border: 2px solid silver;
 		width: 100px;
 		height: 300px;
 		position: absolute;
-		right: -50px;
+		/* right: -50px; */
+		left: 55%;
 	}
 
 	.cover-title{
@@ -591,6 +593,10 @@
 			left: 0;
         }
 
+		.sign{
+			translate: 270px -550px;
+		}
+
 		article{
 			margin-top: 630px;
 		}
@@ -622,6 +628,10 @@
     }
 
 	@media only screen and (max-width: 1050px){
+
+		.sign{
+			translate: 245px -550px;
+		}
 
 		.first-category{
 			top: 2270px;

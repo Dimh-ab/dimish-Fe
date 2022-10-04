@@ -16,7 +16,7 @@
 <body>
 
     <select on:change={handleLocaleChange} class="language-img">
-        <option value="en"> <img src="static/images/icons8-great-britain-48.png" alt="English" height="20px" width="20px"> 🇬🇧 </option>
+        <option value="en"> <img src="static/images/icons8-great-britain-48.png" alt="English" height="80px" width="80px"> 🇬🇧 </option>
         <option value="sv">🇸🇪</option>
         <option value="hr">🇭🇷</option>
       </select>
