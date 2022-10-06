@@ -10,12 +10,12 @@
     import StödOchRörlighet from "../components/categories/StödOchRörlighet.svelte";
     import Primärvård from "../components/categories/Primärvård.svelte";
     import Informativt from "../components/categories/Informativt.svelte";
-    import {checkPoint, bookId, projectId} from "../stores.js";
-    import Book from '../components/categories/Book.svelte';
+    import {checkPoint, allKidsBooksRead} from "../stores.js";
+    import { fade } from 'svelte/transition';
+    import Girl from '../components/spriteAnimations/Girl.svelte'
     
     // senses if the element is in the viewport
     import InterSectionObserver from "svelte-intersection-observer";
-    import { claim_text } from "svelte/internal";
 
     let element;
     let intersecting;
@@ -30,8 +30,7 @@
     let rightGuide = ''
     let IOSdevice = ''
     let fullscreenGuide = ''
-    // export let bookId
-    // export let projectId
+
 
     // let number = 0
     // let timeOut
@@ -40,7 +39,7 @@
     onMount(() => wrapperElem.focus());
 
 
-    $: console.log($bookId, $projectId)
+    // $: console.log($bookId, $projectId)
 
 
     //controls the buttons you mmove with in mobile/Tablet view, will be changed into a function
@@ -73,485 +72,19 @@
         leftCategory = '#fourth-category'
     }
 
-
-    
-
-    //ver1
-
-    // window.addEventListener("load", () => {
-    //     const canvas = document.getElementById("canvas1");
-    //     console.log(canvas);
-    //     const ctx = canvas.getContext("2d");
-    //     console.log(ctx);
-
-    //     // const CANVAS_WIDTH = ()
-    //     canvas.width = 9306;
-    //     // const CANVAS_HEIGHT = ()
-    //     canvas.height = 1185;
-
-    //     class InputHandler {
-    //         constructor() {
-    //             this.keys = [];
-    //             window.addEventListener("keydown", (e) => {
-    //                 console.log(e.key);
-    //                 if (
-    //                     (e.key === "ArrowDown" ||
-    //                         e.key === "ArrowUp" ||
-    //                         e.key === "ArrowLeft" ||
-    //                         e.key === "ArrowRight") &&
-    //                     this.keys.indexOf(e.key) === -1
-    //                 ) {
-    //                     this.keys.push(e.key);
-    //                 }
-    //                 console.log(e.key, this.keys);
-    //             });
-
-    //             window.addEventListener("keyup", (e) => {
-    //                 console.log(e.key);
-    //                 if (
-    //                     e.key === "ArrowDown" ||
-    //                     e.key === "ArrowUp" ||
-    //                     e.key === "ArrowLeft" ||
-    //                     e.key === "ArrowRight"
-    //                 ) {
-    //                     this.keys.splice(this.keys.indexOf(e.key), 1);
-    //                 }
-    //                 console.log(e.key, this.keys);
-    //             });
-    //
-    //         }
-    //     }
-
-    //     class Player {
-    //         constructor(gameWidth, gameHeight) {
-    //             this.gameWidth = gameWidth;
-    //             this.gameHeight = gameHeight;
-    //             this.width = 550.2;
-    //             this.height = 775;
-    //             this.x = 0;
-    //             this.y = this.gameHeight - this.height;
-    //             this.image = document.getElementById("playerImage");
-    //             this.frameX = 0;
-    //             this.frameY = 0;
-    //             this.fps = 6;
-    //             this.frameTimer = 0;
-    //             this.frameInterval = 1000 / this.fps;
-    //             this.maxFrame = 4;
-    //             this.speed = 0;
-    //             this.vy = 0;
-    //             this.weight = 1;
-    //         }
-    //         draw(context) {
-    //             // context.fillRect(this.x, this.y, this.width, this.height);
-    //             context.drawImage(
-    //                 this.image,
-    //                 this.frameX * this.width,
-    //                 this.frameY * this.height,
-    //                 this.width,
-    //                 this.height,
-    //                 this.x,
-    //                 this.y,
-    //                 this.width,
-    //                 this.height
-    //             );
-    //         }
-    //         update(input, deltaTime) {
-    //             //sprite animation
-
-    //             //controls
-    //             if (input.keys.indexOf("ArrowRight") > -1) {
-    //                 this.speed = 6;
-    //                 if (this.frameTimer > this.frameInterval) {
-    //                     if (this.frameX >= this.maxFrame) this.frameX = 0;
-    //                     else this.frameX++;
-    //                     this.frameTimer = 0;
-    //                 } else {
-    //                     this.frameTimer += deltaTime;
-    //                 }
-    //             } else if (input.keys.indexOf("ArrowLeft") > -1) {
-    //                 this.speed = -5;
-    //                 if (this.frameTimer > this.frameInterval) {
-    //                     if (this.frameX >= this.maxFrame) this.frameX = 0;
-    //                     else this.frameX++;
-    //                     this.frameTimer = 0;
-    //                 } else {
-    //                     this.frameTimer += deltaTime;
-    //                 }
-    //             } else if (
-    //                 input.keys.indexOf("ArrowUp") > -1 &&
-    //                 this.onGround()
-    //             ) {
-    //                 this.vy -= 30;
-    //             } else {
-    //                 this.speed = 0;
-    //             }
-
-    //             //horizontal movement
-    //             this.x += this.speed;
-    //             if (this.x < 0) this.x = 0;
-    //             else if (this.x > this.gameWidth - this.width)
-    //                 this.x = this.gameWidth - this.width;
-    //             //vertical movement
-    //             this.y += this.vy;
-    //             if (!this.onGround()) {
-    //                 this.vy += this.weight;
-    //                 this.maxFrame = 3;
-    //                 this.frame = 2;
-    //             } else {
-    //                 this.vy = 0;
-    //                 this.maxFrame = 5;
-    //                 this.frame = 0;
-    //             }
-    //             if (this.y > this.gameHeight - this.height)
-    //                 this.y = this.gameHeight - this.height;
-    //         }
-    //         onGround() {
-    //             return this.y >= this.gameHeight - this.weight;
-    //         }
-    //     }
-
-    //     class Background {
-    //         constructor(gameWidth, gameHeight) {
-    //             this.gameWidth = gameWidth;
-    //             this.gameHeight = gameHeight;
-    //             this.image = document.getElementById("backgroundImage");
-    //             this.x = 0;
-    //             this.y = 0;
-    //             this.width = 9306;
-    //             this.height = 1185;
-    //             this.speed = 20;
-    //         }
-    //         draw(context) {
-    //             context.drawImage(
-    //                 this.image,
-    //                 this.x,
-    //                 this.y,
-    //                 this.width,
-    //                 this.height
-    //             );
-    //         }
-    //         update() {
-    //             this.x -= this.speed;
-    //             if (this.x < 0 - this.width) this.x = 0;
-    //         }
-    //     }
-
-    //     const input = new InputHandler();
-    //     const player = new Player(canvas.width, canvas.height);
-    //     const background = new Background(canvas.width, canvas.height);
-    //     let lastTime = 0;
-    //     // player.draw(ctx);
-    //     // player.update();
-
-    //     function animate(timeStamp) {
-    //         const deltaTime = timeStamp - lastTime;
-    //         lastTime = timeStamp;
-    //         ctx.clearRect(0, 0, canvas.width, canvas.height);
-    //         background.draw(ctx);
-    //         // background.update();
-    //         player.draw(ctx);
-    //         player.update(input, deltaTime);
-    //         requestAnimationFrame(animate);
-    //     }
-    //     animate(0);
-    // });
-
-    //ver2
-
-    window.addEventListener("load", () => {
-        const canvas = document.getElementById("canvas1");
-        console.log(canvas);
-        const ctx = canvas.getContext("2d");
-        console.log(ctx);
-
-        // const CANVAS_WIDTH = ()
-        canvas.width = 600;
-        // const CANVAS_HEIGHT = ()
-        canvas.height = 800;
-
-        class InputHandler {
-            constructor() {
-                this.keys = [];
-                window.addEventListener("keydown", (e) => {
-                    console.log(e.key);
-                    if (
-                        (e.key === "ArrowDown" ||
-                            e.key === "ArrowUp" ||
-                            e.key === "ArrowLeft" ||
-                            e.key === "ArrowRight") &&
-                        this.keys.indexOf(e.key) === -1
-                    ) {
-                        this.keys.push(e.key);
-                    }
-                    console.log(e.key, this.keys);
-                });
-
-                window.addEventListener("keyup", (e) => {
-                    console.log(e.key);
-                    if (
-                        e.key === "ArrowDown" ||
-                        e.key === "ArrowUp" ||
-                        e.key === "ArrowLeft" ||
-                        e.key === "ArrowRight"
-                    ) {
-                        this.keys.splice(this.keys.indexOf(e.key), 1);
-                    }
-                    console.log(e.key, this.keys);
-                });
-
-                window.addEventListener("wheel", (e) => {
-                    console.log(e);
-                    if (
-                        e.deltaY === 100 ||
-                        (e.deltaY === -100 &&
-                            this.keys.indexOf(e.deltaY) === -1)
-                    ) {
-                        this.keys.push(e.deltaY);
-                    } else {
-                       
-                    }
-                    console.log(e.deltaY, this.keys);
-                });
-            }
-        }
-
-
-
+    //checks what device is being used
     let isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
     if (isIOS) {    
-    console.log('This is a IOS device');
+    // console.log('This is a IOS device');
     fullscreenGuide = `För fullskärm: <br> 1. Vid webbläsarens adressfält finns en ikon 'aA'. <br> 2. Tryck på den och välj 'Göm verktygsfält'. <br> 3. Rotera skärmen.`
     IOSdevice = 'IOSdevice'
     } else {
-    console.log('This is Not a IOS device');
+    // console.log('This is Not a IOS device');
     fullscreenGuide = 'Rotera skärmen'
     IOSdevice = ''
     }
-
-
-        class Player {
-            constructor(gameWidth, gameHeight) {
-                this.gameWidth = gameWidth;
-                this.gameHeight = gameHeight;
-                this.width = 550.2;
-                this.height = 775;
-                this.x = 0;
-                this.y = this.gameHeight - this.height;
-                this.image = document.getElementById("playerImage");
-                this.frameX = 0;
-                this.frameY = 0;
-                this.fps = 6;
-                this.frameTimer = 0;
-                this.frameInterval = 1000 / this.fps;
-                this.maxFrame = 4;
-                this.speed = 0;
-                this.vy = 0;
-                this.weight = 1;
-            }
-            draw(context) {
-                // context.fillRect(this.x, this.y, this.width, this.height);
-                context.drawImage(
-                    this.image,
-                    this.frameX * this.width,
-                    this.frameY * this.height,
-                    this.width,
-                    this.height,
-                    this.x,
-                    this.y,
-                    this.width,
-                    this.height
-                );
-            }
-            update(input, deltaTime) {
-                //sprite animation
-
-                //controls
-                if (
-                    input.keys.indexOf("ArrowDown") > -1 ||
-                    input.keys.indexOf(100) > -1
-                ) {
-                    this.speed = 8;
-                    if (this.frameTimer > this.frameInterval) {
-                        if (this.frameX >= this.maxFrame) this.frameX = 0;
-                        else this.frameX++;
-                        this.frameTimer = 0;
-                    } else {
-                        this.frameTimer += deltaTime;
-                    }
-                } else if (
-                    input.keys.indexOf("ArrowUp") > -1 ||
-                    input.keys.indexOf(-100) > -1
-                ) {
-                    this.speed = -5;
-                    if (this.frameTimer > this.frameInterval) {
-                        if (this.frameX >= this.maxFrame) this.frameX = 0;
-                        else this.frameX++;
-                        this.frameTimer = 0;
-                    } else {
-                        this.frameTimer += deltaTime;
-                    }
-                } else {     
-                    this.speed = 0;
-                    this.frameX = 0;
-                }
-            }
-        }
-
-        const input = new InputHandler();
-        const player = new Player(canvas.width, canvas.height);
-        let lastTime = 0;
-        // player.draw(ctx);
-        // player.update();
-
-        function animate(timeStamp) {
-            const deltaTime = timeStamp - lastTime;
-            lastTime = timeStamp;
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            player.draw(ctx);
-            player.update(input, deltaTime);
-            requestAnimationFrame(animate);
-        }
-        animate(0);
-    });
-
-    //ver3
-
-    //  onMount( () => {
-    // const girlAnimate = () =>
-    // window.addEventListener("load", () => {
-    //     let canvas = document.getElementById("canvas1");
-    //     console.log(canvas);
-    //     const ctx = canvas.getContext("2d");
-    //     console.log(ctx);
-
-    //     const CANVAS_WIDTH = (canvas.width = 600);
-    //     const CANVAS_HEIGHT = (canvas.height = 800);
-
-    //     const playerImage = new Image();
-    //     console.log(playerImage);
-    //     playerImage.src = "../images/spritesheet.png";
-    //     const spriteWidth = 550.2;
-    //     const spriteHeight = 775;
-    //     let playerState = "girl";
-    //     let playerState2= "fairy"
-    //     // let frameX = 0;
-    //     // let frameY = 0;
-    //     let gameFrame = 0;
-    //     const staggerFrames = 12;
-    //     const spriteAnimations = [];
-    //     const animationStates = [
-    //         {
-    //             name: "girl",
-    //             frames: 5,
-    //         },
-    //         {
-    //             name: "fairy",
-    //             frames: 5,
-    //         },
-    //         {
-    //             name: "flyup",
-    //             frames: 4,
-    //         },
-    //         {
-    //             name: "flydown",
-    //             frames: 4,
-    //         },
-    //         {
-    //             name: "fairydust",
-    //             frames: 5,
-    //         },
-    //     ];
-    //     animationStates.forEach((state, index) => {
-    //         let frames = {
-    //             loc: [],
-    //         };
-    //         for (let j = 0; j < state.frames; j++) {
-    //             let positionX = j * spriteWidth;
-    //             let positionY = index * spriteHeight;
-    //             frames.loc.push({ x: positionX, y: positionY });
-    //         }
-    //         spriteAnimations[state.name] = frames;
-    //     });
-
-    //     console.log(spriteAnimations);
-
-    //     class InputHandler {
-    //         constructor() {
-    //             this.keys = [];
-    //             window.addEventListener("keydown", (e) => {
-    //                 console.log(e.key);
-    //                 if (
-    //                     (e.key === "ArrowDown" ||
-    //                         e.key === "ArrowUp" ||
-    //                         e.key === "ArrowLeft" ||
-    //                         e.key === "ArrowRight") &&
-    //                     this.keys.indexOf(e.key) === -1
-    //                 ) {
-    //                     this.keys.push(e.key);
-    //                 }
-    //                 console.log(e.key, this.keys);
-    //             });
-
-    //             window.addEventListener("keyup", (e) => {
-    //                 console.log(e.key);
-    //                 if (
-    //                     e.key === "ArrowDown" ||
-    //                     e.key === "ArrowUp" ||
-    //                     e.key === "ArrowLeft" ||
-    //                     e.key === "ArrowRight"
-    //                 ) {
-    //                     this.keys.splice(this.keys.indexOf(e.key), 1);
-    //                 }
-    //                 console.log(e.key, this.keys);
-    //             });
-
-    //         }
-    //     }
-
-    //     const input = new InputHandler();
-
-    //     function animate() {
-    //         let position;
-    //         let frameX;
-    //         let frameY;
-
-    //         ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-
-    //         if (input.keys.indexOf("ArrowDown") > -1 || input.keys.indexOf("ArrowUp") > -1) {
-    //             position =
-    //             Math.floor(gameFrame / staggerFrames) %
-    //             spriteAnimations[playerState].loc.length;
-    //             frameX = spriteWidth * position;
-    //             frameY = spriteAnimations[playerState].loc[position].y;
-    //         } else {
-    //             position = 0 ;
-    //             frameX = spriteWidth * position;
-    //             frameY = spriteAnimations[playerState].loc[position].y;
-    //         }
-
-    //         ctx.drawImage(
-    //             playerImage,
-    //             frameX,
-    //             frameY,
-    //             spriteWidth,
-    //             spriteHeight,
-    //             0,
-    //             0,
-    //             spriteWidth,
-    //             spriteHeight
-    //         );
-
-    //         /*             if (gameFrame % staggerFrames == 0) {
-    //             if (frameX < 4) frameX++;
-    //                 else frameX = 0;
-    //         } */
-
-    //         gameFrame++;
-    //         requestAnimationFrame(animate);
-    //     }
-    //     animate();
-    // });
+    
 
 
 </script>
@@ -564,12 +97,6 @@
 </div>
 
 <!-- <InterSectionObserver {element} bind:intersecting> -->
-
-    <!-- {#if $bookId === $projectId} -->
-    <!-- <Book /> -->
-    <!-- {/if} -->
-
-    <!-- {:else} -->
    
     <div class="horizontal-scroll-wrapper" >
 
@@ -585,20 +112,15 @@
                     <button id="moveRightBtn">{rightGuide}</button>
                 </a>
 
-                <canvas id="canvas1" />
-                <img
-                    class="forward"
-                    src="../images/spritesheet.png"
-                    alt="player"
-                    id="playerImage"            
-                />
-
+                <Girl />
 
                 <MeetSven />
-        
+                
                 <BarnOchUnga key={key}/>
-        
-                <Ungdomar key={key}/>
+                
+                {#if $allKidsBooksRead === true}
+                    <Ungdomar key={key}/>
+                {/if}
            
                 <StödOchRörlighet key={key}/>
            
@@ -610,6 +132,7 @@
     </div>
 
     <!-- {/if} -->
+    <!-- on:load={avatarSpriteAnimation} -->
 <!-- </InterSectionObserver> -->
 
 <svelte:window
@@ -658,45 +181,6 @@
    #moveRightBtn:active, #moveLeftBtn:active{
     color: gold;
    }
-
-    /* .avatar{
-    .forward {
-        position: absolute;
-        left: 0;
-    }
-
-    /* #canvas1 {
-         border: 5px solid black;  
-        position: sticky;
-        width: 600px;
-        height: 800px;
-        top: 150px;
-         left: -530px; 
-        display: flex;
-        z-index: 3;
-        transform: rotate(90deg) rotateY(0deg);
-    } */
-
-    #canvas1 {
-        /* border: 5px solid black; */
-        position: sticky;
-        width: 200px;
-        height: 400px;
-        /* top: 150px; */
-        left: 80px;
-        bottom: 670px;
-        display: flex;
-        z-index: 3;
-        transform: rotate(90deg) rotateY(0deg);
-    }
-
-    #playerImage {
-        display: none;
-    }
-   
-    /* .category {
-        height: 2380px;
-    } */
 
     * {
         box-sizing: border-box;

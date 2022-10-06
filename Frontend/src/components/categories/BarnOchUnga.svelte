@@ -2,29 +2,25 @@
 	import { _ } from "svelte-i18n"
     import { onMount } from "svelte";
 	import axios from "axios";
-	import { amountOfProjects, checkPoint, bookId, projectId } from "../../stores.js";
+	import { amountOfProjects, checkPoint, bookId, projectId, allKidsBooksRead } from "../../stores.js";
 	import InterSectionObserver from "svelte-intersection-observer";
+
+	$: intersecting ? $checkPoint = $checkPoint = 1 : ''
+	
+	$: console.log('intersecting', intersecting)
 
 	let isInShelf = true
 	// let bookId = ""
+	// let projectId
 	let element
     let intersecting
 	let rootMargin = "-250px"
-	// let projectId
-
-	// let x = window.innerWidth / 2;
-	// let y = window.innerHeight / 2;
-	// $: console.log(x, y)
-
-	// const el = document.getElementsByClassName("book.wasClicked .cover").style = "translate(" + x + "px " + y + "px)";
-	// console.log(el)
+	const bookCopy = {...$amountOfProjects, read: true}
 
 	// fixes issue with intersection observer on mobile devices
 	if (window.innerHeight < 768) {
 		rootMargin = "-150px"
 	}
-
-	// $: console.log(rootMargin, window.innerWidth)
 
 	export let key
     let wasClicked = -1
@@ -35,48 +31,89 @@
 		try {
 			const response = await axios.get(PROJECTS_ENDPOINT);
 			$amountOfProjects = response.data
+			// console.log($amountOfProjects)
 		} catch (error) {
 			console.log(error);
 		}
 	});
 
+		// TODO:
+	// if all have been read, girl transforms into fairy
+
+	// animates the book from spine to cover
 	const clickBookSpine = (book, id) => {
 		if(book.id !== id){
 			$bookId = ''
-			// $projectId = id
 			console.log(projectId)
 			isInShelf = isInShelf
 		} else if(book.id === id){
 			$bookId = id
-			// setTimeout(() => {
-			// 	$projectId = id
-			// }, 1500);
 			isInShelf = !isInShelf
 			console.log($bookId, id, $projectId)
 		}
 	}
 
-	$: console.log($bookId, $projectId)
+
+	// checks if books in this category have been read
+	const checkReadBooks = () => {
+		const newArray = $amountOfProjects.filter(book => book.category === 'Barn och Unga')
+		console.log('FIRST CATEGORY', newArray)
+
+		// BUG: when all are true or all have been read and you want read a book again all become unread or false again. 
+
+		let array = [...newArray]
+		
+		array.forEach((a, i) => {
+			console.log(a.read)
+			if(a.read === false){
+				$allKidsBooksRead = false
+				console.log('have not been read', $allKidsBooksRead)
+			} else{
+				$allKidsBooksRead = true
+				console.log('have been read', $allKidsBooksRead)
+			}
+		})
+	}
+
+	$: console.log('all books have been read = ', $allKidsBooksRead)
+	
+
+	// updates the projects array with updated book
+	const updateBook = (updated) => {
+		const array = [...$amountOfProjects]
+		console.log(array)
+		
+		let hasUpdated = array.map((p) => p.id === updated.id ? updated : p) 
+			if(hasUpdated){
+				$amountOfProjects = hasUpdated
+			}
+	}
 
     const openBook = (i) => {
 		wasClicked = wasClicked === i ? -1 : i
-		if(i === wasClicked){
+
+		$amountOfProjects.forEach(() => {
+			if(i === wasClicked){
 			$projectId = $bookId
-		} else{
-			$projectId = 0
-		}
-		console.log(wasClicked, i)
+			$amountOfProjects[i].read = true
+			updateBook(bookCopy)
+			checkReadBooks()
+			} 
+			// else if( i === wasClicked && $amountOfProjects[i].read !== true){
+			// 	$amountOfProjects[i].read = true
+			// 	updateBook(bookCopy)
+			// }
+		})
+		
 	}
 
+	// function to open books with enter key
 	const handleKeyDown = (i) => {
 		if (key == 'Enter') {
 			openBook(i);
 		}	
   	}
 
-	$: intersecting ? $checkPoint = $checkPoint = 1 : ''
-
-	$: console.log(intersecting)
 
 </script>
 

@@ -1,38 +1,45 @@
 <script>
-     import InterSectionObserver from "svelte-intersection-observer";
-     import {checkPoint} from "../stores"
+
+    // TODO:
+    // - add sven sprite
+    // - talk to sven to be able to continue 
+
+    import InterSectionObserver from "svelte-intersection-observer";
+    import {checkPoint} from "../stores"
 
     let element
     let intersecting
+    let svenSprite = '../images/sven-sprite-01-01.png'
 
-    let chatWithSven = "";
 
-    $: secondsLeft = 10;
+    // let chatWithSven = "";
 
-    const interval = setInterval(() => {
-        svenSaysHello()
-        if(secondsLeft <= 0){
-        clearInterval(interval);
-    }
-  secondsLeft -= 1;
-}, 1000);
+    // $: secondsLeft = 10;
 
-    const svenSaysHello = () => {
-        if(secondsLeft === 9){
-        chatWithSven = "Hello you !"
-        }else if(secondsLeft === 6){
-        chatWithSven = "Scroll to move around."
-        } else if(secondsLeft === 3){
-        chatWithSven = "Click on the books to read."
-        } 
-    };
+    // const interval = setInterval(() => {
+    //     svenSaysHello()
+    //     if(secondsLeft <= 0){
+    //     clearInterval(interval);
+    // }
+    // secondsLeft -= 1;
+    // }, 1000);
 
-    const talkToSvenAgain = () => {
-        secondsLeft = 10;
-        if(secondsLeft === 10){
-            setInterval()
-        }
-    }
+    // const svenSaysHello = () => {
+    //     if(secondsLeft === 9){
+    //     chatWithSven = "Hello you !"
+    //     }else if(secondsLeft === 6){
+    //     chatWithSven = "Scroll to move around."
+    //     } else if(secondsLeft === 3){
+    //     chatWithSven = "Click on the books to read."
+    //     } 
+    // };
+
+    // const talkToSvenAgain = () => {
+    //     secondsLeft = 10;
+    //     if(secondsLeft === 10){
+    //         setInterval()
+    //     }
+    // }
 
     $: console.log('checkpoint', intersecting ? $checkPoint = $checkPoint = 0 : '')
 
@@ -42,17 +49,36 @@
 <section id="lobby">
 <div class="welcome clickSven" >
     <div></div>
-    <!-- svelte-ignore a11y-missing-attribute -->
     <div class="box" bind:this={element}>
         <!-- <p class={(chatWithSven !== "" ? "speech-bubble" : "")} value={secondsLeft}>{chatWithSven}</p> -->
-        <iframe src="https://embed.lottiefiles.com/animation/7249"></iframe>
+        <!-- <iframe src="https://embed.lottiefiles.com/animation/7249"></iframe> -->
         <!-- <button class="clickSven" on:click={() => talkToSvenAgain()}>talk to Sven again</button> -->
+        <!-- <canvas id="svenCanvas" /> -->
+        <img src={svenSprite} alt="sven" id="svenImg" />
     </div>
 </div>
 </section>
 </InterSectionObserver>
 
+<!-- <svelte:window on:load={loadSven} /> -->
+
 <style>
+
+    /* #svenCanvas{
+        position: absolute;
+        width: 120px;
+        height: 140px;
+        z-index: 15;
+        rotate: 90deg;
+        border: 1px solid black;
+    } */
+
+    #svenImg{
+        height: 175px;
+        width: 256px;
+    }
+
+
 
     section{
         position: absolute;
@@ -108,10 +134,10 @@
 } */
 
 
-    iframe{
+    /* iframe{
         border: none;
         margin: 4em 0;
-    }
+    } */
 
     ::-webkit-scrollbar {
     display: none;
