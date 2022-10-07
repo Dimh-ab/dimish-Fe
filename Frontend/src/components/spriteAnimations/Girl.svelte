@@ -2,9 +2,14 @@
 
     import { allKidsBooksRead} from "../../stores";
     import { fade } from 'svelte/transition';
+    import { onMount } from "svelte";
 
     let key = "";
     let girlTransform = 0
+
+    // TODO:
+    // - add smoke sprite animation when transforming character
+    // - girl transforms after placing down last book in category
 
 
      //ver1
@@ -189,6 +194,9 @@
 
     //ver2
 
+    // so it loads the girl the first time you go to library
+    onMount(() => avatarSpriteAnimation())
+
     // instead of window.addEventlistener('load' () => {})
     // the avatarSpriteAnimation function is connected to <svelte:window /> 
     const avatarSpriteAnimation = () => {
@@ -343,11 +351,9 @@
         // TODO:
         // add some glittersmoke animation on top of girl when she transforms
         transformAvatar = true
-        setTimeout(() => {
-            transformAvatar = false
-        }, 2000);
         girlTransform = 1
         setTimeout(() => {
+            transformAvatar = false
             avatarSpriteAnimation()
         }, 2000);
     }
@@ -524,7 +530,7 @@
         border-radius: 200px;
         /* top: 150px; */
         left: 100px;
-        bottom: 870px;
+        bottom: 770px;
         display: flex;
         z-index: 5;
         transform: rotate(90deg) rotateY(0deg);
@@ -582,7 +588,7 @@
         height: 400px;
         /* top: 150px; */
         left: 80px;
-        bottom: 770px;
+        bottom: 670px;
         display: flex;
         z-index: 3;
         transform: rotate(90deg) rotateY(0deg);

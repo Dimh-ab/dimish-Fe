@@ -1,45 +1,49 @@
 <script>
 
     // TODO:
-    // - add sven sprite
-    // - talk to sven to be able to continue 
+    // - talk to Sven to be able to continue 
+    // - first category becomes visible after talking with Sven
+    // - button moves first time before talking to sven, after it is static
+    // - styling
 
+    // BUG: buttons are hard to click because of speech bubble images?
+
+    import Sven from "./spriteAnimations/Sven.svelte"; 
     import InterSectionObserver from "svelte-intersection-observer";
     import {checkPoint} from "../stores"
 
+    let speechBubble = '../images/speech-bubble.png'
+
     let element
     let intersecting
-    let svenSprite = '../images/sven-sprite-01-01.png'
+    let svenChat = ''
+    let girlChat = ''
+    let talkToSven = false
+    let nextChat = 0
+    let btnText = ''
 
+    const handleNext = () => {
+        nextChat += 1;
+        console.log(nextChat)
+    }
 
-    // let chatWithSven = "";
+    $: if(talkToSven){
+        nextChat = 1
+        svenChat = 'Hello there! I am so happy you are here! I seem to have misplaced some books in the library and I need you to help me find them.'
+        btnText = 'next ->'
+    }
 
-    // $: secondsLeft = 10;
-
-    // const interval = setInterval(() => {
-    //     svenSaysHello()
-    //     if(secondsLeft <= 0){
-    //     clearInterval(interval);
-    // }
-    // secondsLeft -= 1;
-    // }, 1000);
-
-    // const svenSaysHello = () => {
-    //     if(secondsLeft === 9){
-    //     chatWithSven = "Hello you !"
-    //     }else if(secondsLeft === 6){
-    //     chatWithSven = "Scroll to move around."
-    //     } else if(secondsLeft === 3){
-    //     chatWithSven = "Click on the books to read."
-    //     } 
-    // };
-
-    // const talkToSvenAgain = () => {
-    //     secondsLeft = 10;
-    //     if(secondsLeft === 10){
-    //         setInterval()
-    //     }
-    // }
+    $: if(nextChat === 2){
+        girlChat = 'I would love to help you!'
+    } else if(nextChat === 3){
+        svenChat = 'I am forever grateful! If you just SCROLL deeper into the library, I am sure you will have no trouble in finding them along the way. If scrolling makes movement too quick for your taste, you are welcome to PRESS DOWN and slow things around.'
+        btnText = 'continue ->'
+    }
+    
+    $: if( nextChat > 3){
+        talkToSven = false
+        nextChat = 0
+    }
 
     $: console.log('checkpoint', intersecting ? $checkPoint = $checkPoint = 0 : '')
 
@@ -48,61 +52,44 @@
 <InterSectionObserver {element} bind:intersecting>
 <section id="lobby">
 <div class="welcome clickSven" >
-    <div></div>
+    {#if !talkToSven}
+    <button on:click={() => (talkToSven = !talkToSven)}>Talk with Sven</button>
+    {:else}
+    {#if nextChat === 2}
+    <div id="girl-speech">
+        <p>{girlChat}</p>
+        <button class="nextBtn" on:click={handleNext}>{'next ->'}</button>
+    </div>
+    {:else}
+    <div id="sven-speech">
+        <p>{svenChat}</p>
+        <button class="nextBtn" on:click={handleNext}>{btnText}</button>
+    </div>
+    {/if}
+    {/if}
     <div class="box" bind:this={element}>
-        <!-- <p class={(chatWithSven !== "" ? "speech-bubble" : "")} value={secondsLeft}>{chatWithSven}</p> -->
-        <!-- <iframe src="https://embed.lottiefiles.com/animation/7249"></iframe> -->
-        <!-- <button class="clickSven" on:click={() => talkToSvenAgain()}>talk to Sven again</button> -->
-        <!-- <canvas id="svenCanvas" /> -->
-        <img src={svenSprite} alt="sven" id="svenImg" />
+        <Sven nextChat={nextChat}/>
     </div>
 </div>
 </section>
 </InterSectionObserver>
 
-<!-- <svelte:window on:load={loadSven} /> -->
-
 <style>
-
-    /* #svenCanvas{
-        position: absolute;
-        width: 120px;
-        height: 140px;
-        z-index: 15;
-        rotate: 90deg;
-        border: 1px solid black;
-    } */
-
-    #svenImg{
-        height: 175px;
-        width: 256px;
-    }
-
-
-
     section{
         position: absolute;
-		/* width: 100vh; */
-		/* height: 100%; */
 		top: 0px;
 		left: 0px;
 		background: url(../images/cat-bg/bckg00-01.jpg) no-repeat;
-		/* background-size: 100%; */
 		width: 1128px;
 		height: 1800px;
-        /* width: 100%; */
-        /* height: 100%; */
 		background-size: contain;
     }
     .welcome{
         background-color: transparent;
         height: 1px;
-        /* display: grid; */
-        /* grid-template-rows: 350px 300px 300px 300px; */
-        /* translate: 0 -2300px; */
         position: absolute;
         top: 40%;
-        left: 20px;
+        left: 40px;
     }
 
     .box{
@@ -117,6 +104,63 @@
         align-items: center;
     }
 
+    button{
+        cursor: pointer;
+        rotate: 90deg;
+        position: absolute;
+        top: 40%;
+        left: 140px;
+        width: 120px;
+        z-index: 10;
+    }
+
+    .nextBtn{
+        cursor: pointer;
+        background: transparent;
+        border: none;
+        margin-top: 30px;
+        text-align: center;
+        rotate: 0deg;
+        color: gold;
+        font-size: 1.3em;
+        z-index: 15;
+    }
+
+    #sven-speech{
+        rotate: 90deg;
+        position: absolute;
+        top: -110px;
+        left: 80px;
+        width: 250px;
+        height: 200px;
+        padding: 40px;
+        background: url('../images/speech-bubble.png') no-repeat;
+        background-size: contain;
+        z-index: 2;
+    }
+
+    #girl-speech{
+        rotate: 90deg;
+        position: absolute;
+        top: -400px;
+        left: 180px;
+        width: 250px;
+        height: 200px;
+        padding: 40px;
+        background: url('../images/speech-bubble-reversed.png') no-repeat;
+        background-size: contain;
+        z-index: 2;
+    }
+
+    p{
+        text-align: center;
+        /* margin: -17px 0px; */
+        width: 270px;
+        font-size: 0.8em;
+        letter-spacing: 1px;
+        
+    }
+
     /* .speech-bubble{
         position: absolute;
         top: 0;
@@ -128,38 +172,20 @@
     } */
 
 
-/* button{
-    cursor: pointer;
-    margin: 0;
-} */
-
-
-    /* iframe{
-        border: none;
-        margin: 4em 0;
+    /* button{
+        cursor: pointer;
+        margin: 0;
     } */
+
 
     ::-webkit-scrollbar {
     display: none;
     }
 
-    /* @media (hover: hover){ */
-
-        /* .welcome{
-            grid-template-rows: 600px 300px 300px 300px;
-        
-        } */
-        /* .box{
-            width: 340px;
-            height: 300px;
-        } */
-    /* } */
-
     @media only screen and (max-width: 1200px){
         section{
             width: 100%;
 		    height: 250%;
-            /* box-shadow: 0px 0 100px 0 rgb(0, 0, 0); */
         }
 
         .welcome{

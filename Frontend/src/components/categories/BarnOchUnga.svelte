@@ -44,12 +44,10 @@
 	const clickBookSpine = (book, id) => {
 		if(book.id !== id){
 			$bookId = ''
-			console.log(projectId)
 			isInShelf = isInShelf
 		} else if(book.id === id){
 			$bookId = id
 			isInShelf = !isInShelf
-			console.log($bookId, id, $projectId)
 		}
 	}
 
