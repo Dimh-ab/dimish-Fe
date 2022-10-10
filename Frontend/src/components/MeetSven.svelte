@@ -1,18 +1,10 @@
 <script>
 
-    // TODO:
-    // - talk to Sven to be able to continue 
-    // - first category becomes visible after talking with Sven
-    // - button moves first time before talking to sven, after it is static
-    // - styling
-
-    // BUG: buttons are hard to click because of speech bubble images?
+    // BUG: buttons are hard to click 
 
     import Sven from "./spriteAnimations/Sven.svelte"; 
     import InterSectionObserver from "svelte-intersection-observer";
-    import {checkPoint} from "../stores"
-
-    let speechBubble = '../images/speech-bubble.png'
+    import {checkPoint, hasTalkedToSven} from "../stores"
 
     let element
     let intersecting
@@ -21,6 +13,13 @@
     let talkToSven = false
     let nextChat = 0
     let btnText = ''
+
+    const talk = () => {
+        talkToSven = !talkToSven
+        if(talkToSven){
+            $hasTalkedToSven += 1
+        }
+    }
 
     const handleNext = () => {
         nextChat += 1;
@@ -53,18 +52,17 @@
 <section id="lobby">
 <div class="welcome clickSven" >
     {#if !talkToSven}
-    <button on:click={() => (talkToSven = !talkToSven)}>Talk with Sven</button>
+    <button class={"talk-to-sven " + ($hasTalkedToSven >= 1 ? 'stopAnimation' : '')} on:click={talk}>Talk to Sven</button>
     {:else}
     {#if nextChat === 2}
-    <div id="girl-speech">
-        <p>{girlChat}</p>
-        <button class="nextBtn" on:click={handleNext}>{'next ->'}</button>
-    </div>
+    <img id="girl-speech" src='../images/speech-bubble-reversed.png' alt="">
+    <!-- <div id="girl-speech"></div> -->
+        <p class="girl-chat">{girlChat}</p>
+        <button id="girl-button" class="nextBtn" on:click={handleNext}>{'next ->'}</button>
     {:else}
-    <div id="sven-speech">
-        <p>{svenChat}</p>
-        <button class="nextBtn" on:click={handleNext}>{btnText}</button>
-    </div>
+    <img id="sven-speech" class={(nextChat === 3 ? 'last' : '')} src="../images/speech-bubble.png" alt="">
+        <p class={"sven-chat " + (nextChat === 3 ? 'last-chat' : '')}>{svenChat}</p>
+        <button id="sven-button" class={"nextBtn " + (nextChat === 3 ? 'continue' : '')} on:click={handleNext}>{btnText}</button>
     {/if}
     {/if}
     <div class="box" bind:this={element}>
@@ -86,7 +84,7 @@
     }
     .welcome{
         background-color: transparent;
-        height: 1px;
+        height: 100px;
         position: absolute;
         top: 40%;
         left: 40px;
@@ -111,10 +109,40 @@
         top: 40%;
         left: 140px;
         width: 120px;
-        z-index: 10;
+        /* z-index: ; */
+    }
+
+    .talk-to-sven{
+        font-family: "Cabin Sketch", cursive;
+        font-size: 1.2em;
+        padding: 10px;
+        background-color: #222;
+        border: 2px solid #fff;
+        /* border-radius: 90px; */
+        color: #fff;
+        width: 105%;
+        animation: jump 0.8s ease-in-out infinite alternate;
+        transition: all 0.4s;
+    }
+
+    .talk-to-sven:hover{
+        scale: 1.1;
+    }
+
+    .talk-to-sven.stopAnimation{
+        animation: none;
+    }
+
+    @keyframes jump {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(5px, 5px) rotate(5deg); }
+    50% { transform: translate(0, 0) rotate(0deg); }
+    75% { transform: translate(-5px, 5px) rotate(-5deg); }
+    100% { transform: translate(0, 0) rotate(0deg); }
     }
 
     .nextBtn{
+        width: 120px;
         cursor: pointer;
         background: transparent;
         border: none;
@@ -126,17 +154,54 @@
         z-index: 15;
     }
 
+    .nextBtn.continue{
+        top: -40px;
+        left: 150px;
+        width: 150px;
+    }
+
     #sven-speech{
         rotate: 90deg;
         position: absolute;
-        top: -110px;
-        left: 80px;
-        width: 250px;
-        height: 200px;
+        top: -150px;
+        left: 50px;
+        width: 320px;
+        height: 270px;
         padding: 40px;
-        background: url('../images/speech-bubble.png') no-repeat;
-        background-size: contain;
         z-index: 2;
+    }
+
+    #sven-speech.last{
+        top: -180px;
+        left: 70px;
+        width: 350px;
+        height: 300px;
+    }
+
+    .sven-chat{
+        rotate: 90deg;
+        position: absolute;
+        top: -30px;
+        left: 140px;
+        font-size: 1.2em;
+    }
+
+    .sven-chat.last-chat{
+        font-size: 1em;
+        top: -65px;
+        left: 180px;
+    }
+
+    #sven-button{
+        rotate: 90deg;
+        position: absolute;
+        top: -10px;
+        left: 140px;
+    }
+
+    #sven-button.continue{
+        left: 150px;
+        top: -40px;
     }
 
     #girl-speech{
@@ -147,9 +212,26 @@
         width: 250px;
         height: 200px;
         padding: 40px;
-        background: url('../images/speech-bubble-reversed.png') no-repeat;
-        background-size: contain;
+        /* background: url('../images/speech-bubble-reversed.png') no-repeat; */
+        /* background-size: contain; */
         z-index: 2;
+    }
+
+    .girl-chat{
+        rotate: 90deg;
+        position: absolute;
+        top: -360px;
+        left: 170px;
+        width: 250px;
+        height: 200px;
+        font-size: 1.7em;
+    }
+
+    #girl-button{
+        rotate: 90deg;
+        position: absolute;
+        top: -260px;
+        left: 255px;
     }
 
     p{
@@ -158,25 +240,8 @@
         width: 270px;
         font-size: 0.8em;
         letter-spacing: 1px;
-        
+        z-index: 5;
     }
-
-    /* .speech-bubble{
-        position: absolute;
-        top: 0;
-        padding: 2em 1em;
-        background-color: white;
-        border-radius: 2em;
-        border: 3px solid black;
-        color: black;
-    } */
-
-
-    /* button{
-        cursor: pointer;
-        margin: 0;
-    } */
-
 
     ::-webkit-scrollbar {
     display: none;

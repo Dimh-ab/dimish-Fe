@@ -10,8 +10,7 @@
     import StödOchRörlighet from "../components/categories/StödOchRörlighet.svelte";
     import Primärvård from "../components/categories/Primärvård.svelte";
     import Informativt from "../components/categories/Informativt.svelte";
-    import {checkPoint, allKidsBooksRead} from "../stores.js";
-    import { fade } from 'svelte/transition';
+    import {checkPoint, allKidsBooksRead, hasTalkedToSven} from "../stores.js";
     import Girl from '../components/spriteAnimations/Girl.svelte'
     
     // senses if the element is in the viewport
@@ -115,8 +114,10 @@
                 <Girl />
 
                 <MeetSven />
-                
+
+                {#if $hasTalkedToSven >= 1}
                 <BarnOchUnga key={key}/>
+                {/if}
                 
                 {#if $allKidsBooksRead === true}
                     <Ungdomar key={key}/>

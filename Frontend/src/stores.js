@@ -20,3 +20,5 @@ export const bookId = writable(1)
 export const projectId = writable(0)
 
 export const allKidsBooksRead = writable(false)
+
+export const hasTalkedToSven = writable(0)

@@ -10,6 +10,7 @@
     // TODO:
     // - add smoke sprite animation when transforming character
     // - girl transforms after placing down last book in category
+    // - save progress in localstorage
 
 
      //ver1
