@@ -206,9 +206,9 @@
         // console.log(ctx);
 
         // const CANVAS_WIDTH = ()
-        canvas.width = 600;
+        canvas.width = 292;
         // const CANVAS_HEIGHT = ()
-        canvas.height = 800;
+        canvas.height = 411;
 
         class InputHandler {
             constructor() {
@@ -260,8 +260,8 @@
             constructor(gameWidth, gameHeight) {
                 this.gameWidth = gameWidth;
                 this.gameHeight = gameHeight;
-                this.width = 550.2;
-                this.height = 775;
+                this.width = 291.6;
+                this.height = 410.7;
                 this.x = 0;
                 this.y = this.gameHeight - this.height;
                 this.image = document.getElementById("playerImage");
@@ -508,7 +508,7 @@
 <canvas id="canvas1" />
 <img
     class="forward"
-    src="../images/spritesheet.png"
+    src="../images/transformation-spritesheet-02-1.png"
     alt="player"
     id="playerImage"            
 />
@@ -584,8 +584,8 @@
     #canvas1 {
         /* border: 5px solid black; */
         position: sticky;
-        width: 200px;
-        height: 400px;
+        width: 292px;
+        height: 411px;
         /* top: 150px; */
         left: 80px;
         bottom: 670px;
