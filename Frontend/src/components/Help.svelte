@@ -19,21 +19,21 @@
             transition:fly={{ y: -20 }}
             alt="Photo by Tim Mossholder on Unsplash"
         >
-            <h3>{$_("helpTitle")}</h3>
+            <h3>{$_("homepage.helpTitle")}</h3>
             <div class="text">
                 <p>
-                    {$_("helpP1")}
+                    {$_("homepage.helpP1")}
                 </p>
                 <br />
                 <p>
-                    {$_("helpP2")}
+                    {$_("homepage.helpP2")}
                 </p>
                 <p>
-                    {$_("helpP3")}
+                    {$_("homepage.helpP3")}
                 </p>
                 <br />
                 <p>
-                    {$_("helpP4")}
+                    {$_("homepage.helpP4")}
                 </p>
             </div>
             <div>
@@ -41,7 +41,7 @@
                 <!-- <iframe src="https://embed.lottiefiles.com/animation/7249"></iframe> -->
                 <button
                     class="continueBTN"
-                    on:click={() => (showDesc = !showDesc)}>{$_("helpContinue")}</button
+                    on:click={() => (showDesc = !showDesc)}>{$_("homepage.helpContinue")}</button
                 >
             </div>
         </article>

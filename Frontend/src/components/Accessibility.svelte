@@ -93,7 +93,7 @@ function decreaseLineSpacing() {
 
     {#if show}
         <aside transition:fly={{ x: 250, opacity: 1 }}>
-            <p>{$_("accTextSize")}</p>
+            <p>{$_("homepage.accTextSize")}</p>
 
             <div class="accessibility-sidebar">
                 <img
@@ -110,7 +110,7 @@ function decreaseLineSpacing() {
                 />
             </div>
 
-            <p>{$_("accLetterSpacing")}</p>
+            <p>{$_("homepage.accLetterSpacing")}</p>
 
             <div class="accessibility-sidebar">
                 <img
@@ -127,7 +127,7 @@ function decreaseLineSpacing() {
                 />
             </div>
 
-            <p>{$_("accWordSpacing")}</p>
+            <p>{$_("homepage.accWordSpacing")}</p>
 
             <div class="accessibility-sidebar">
                 <img
@@ -144,7 +144,7 @@ function decreaseLineSpacing() {
                 />
             </div>
 
-            <p>{$_("accLineHeight")}</p>
+            <p>{$_("homepage.accLineHeight")}</p>
 
             <div class="accessibility-sidebar">
                 <img

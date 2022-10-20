@@ -1,18 +1,4 @@
 {
-    "allProjects": "All projects",
-    "cookies": "This website uses cookies to ensure you get the best experience on our website.",
-    "acceptCookies": "Yum, cookies",
-    "declineCookies": "No, thanks",
-    "accTextSize": "Change text size:",
-    "accLetterSpacing": "Change letter spacing:",
-    "accWordSpacing": "Change word spacing:",
-    "accLineHeight": "Change line height:",
-    "helpTitle": "Welcome to the library!",
-    "helpP1": "To move you can scroll up or down. You can also use the up and down arrow keys!",
-    "helpP2": "When you find a book try clicking on it to read about our awesome projects :)",
-    "helpP3": "Or use the tab button to tab to a book and then push Enter to open and close it. To tab backwards use Shift+Tab.",
-    "helpP4": "If you need any help just click on the ? in the up right corner ;)",
-    "helpContinue": "Continue",
     "descendantsTitle": "Descendants",
     "adolescenceBalanceTitle": "Adolescence Balance",
     "supportandmobilityTitle": "Support and Mobility",
@@ -20,5 +6,45 @@
     "informatoryTitle": "Informatory",
     "libraryForward": "Forward",
     "libraryBackward": "Backward",
-    "closeTheBook": "Put back"
+    "closeTheBook": "Put back",
+    "homepage": {
+        "allProjects": "All projects",
+        "cookies": "This website uses cookies to ensure you get the best experience on our website.",
+        "acceptCookies": "Yum, cookies",
+        "declineCookies": "No, thanks",
+        "accTextSize": "Change text size:",
+        "accLetterSpacing": "Change letter spacing:",
+        "accWordSpacing": "Change word spacing:",
+        "accLineHeight": "Change line height:",
+        "helpTitle": "Welcome to the library!",
+        "helpP1": "To move you can scroll up or down. You can also use the up and down arrow keys!",
+        "helpP2": "When you find a book try clicking on it to read about our awesome projects :)",
+        "helpP3": "Or use the tab button to tab to a book and then push Enter to open and close it. To tab backwards use Shift+Tab.",
+        "helpP4": "If you need any help just click on the ? in the up right corner ;)",
+        "helpContinue": "Continue",
+        "welcomeText": "Welcome to the library! You are one CLICK/ENTER away from crossing the threshold of its magical world…"
+    },
+    "library": {
+        "dialogSven1": "Hello there! I am so happy you are here! I seem to have misplaced some books in the library and I need you to help me find them.",
+        "dialogGirl1": "I would love to help you!",
+        "dialogSven2": "I am forever grateful! If you just SCROLL deeper into the library, I am sure you will have no trouble in finding them along the way. If scrolling makes movement too quick for your taste, you are welcome to PRESS DOWN and slow things around.",
+        "dialogSven3": "I see that you have not only gotten all of my books back to me but have also reached your full potential by becoming a fairy! I am forever in your debt!",
+        "dialogFairy2": "Thank you for sending me on this mission, Sven. It is time for me to go where the real magic happens! https://www.di-mh.com/"
+    },
+    "category1": {
+        "cat1inst1": "It seems you have found some of Sven's books! Best is to check them out to make sure you got the right ones!",
+        "cat2inst2": "It seems reading books makes you get awards like these wings! Maybe you can use them to fly away in search for the rest of the books!"
+    },
+    "category2": {
+        "cat2inst": "WOW - you just got the spell casting ability! Just remember to cast some spells if you will be having trouble with finding Sven's books!"
+    },
+    "category3": {
+        "cat3inst": "You have been turning into quite a little fairy - first wings, then spell casting, and now fairy dust! I wonder if you will need to throw it in the next chapter to find those books!"
+    },
+    "category4": {
+        "cat4inst": "There seems to be some darkness approaching - good that you were awarded with the light. Keep on going and watch your step!"
+    },
+    "category5": {
+        "cat5inst": "You made it! You have found all Sven's books and got the biggest award a fairy could wish for - a magic wand! Let us go and tell Sven about our adventures!"
+    }
 }
