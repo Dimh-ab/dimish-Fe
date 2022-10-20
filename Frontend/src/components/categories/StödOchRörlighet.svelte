@@ -574,7 +574,7 @@
 	}
 
 	@media only screen and (max-width: 1200px){
-        section{
+        .third-category{
             width: 100%;
 		    height: 250%;
 			top: 6030px;
@@ -591,7 +591,7 @@
 
 	@media only screen and (max-width: 1024px){
 
-		section{
+		.third-category{
 			top: 5650px;
 		}
 
@@ -664,7 +664,7 @@
 	@media only screen and (max-height: 425px){
 
 		/* TODO: bokplacering responsivt */
-		section{
+		.third-category{
 			top: 3190px;
             width: 1000px;
             height: 1320px;
@@ -696,7 +696,7 @@
     }
 
 	@media only screen and (max-height: 415px){
-		section{
+		.third-category{
 			height: 1270px;
 		}
 
@@ -721,7 +721,7 @@
 	}
 
     @media only screen and (max-height: 390px){
-        section{
+        .third-category{
             height: 1200px;
 			top: 2920px;
         }
@@ -748,7 +748,7 @@
 		}
     }
     @media only screen and (max-height: 375px){
-        section{
+        .third-category{
             height: 1150px;
 			top: 2820px;
         }
@@ -771,7 +771,7 @@
 		}
     }
     @media only screen and (max-height: 345px){
-        section{
+        .third-category{
             height: 1060px;
 			top: 2605px;
         }
@@ -799,7 +799,7 @@
 		}
     }
     @media only screen and (max-height: 325px){
-        section{
+        .third-category{
             height: 1005px;
 			top: 2450px;
         }

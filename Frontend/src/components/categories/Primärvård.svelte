@@ -559,7 +559,7 @@
 	}
 
 	@media only screen and (max-width: 1200px){
-        section{
+        .fourth-category{
             width: 100%;
 		    height: 250%;
 			top: 8560px;
@@ -573,7 +573,7 @@
 
 	@media only screen and (max-width: 1024px){
 
-		section{
+		.fourth-category{
 			top: 8020px;
 		}
 
@@ -649,7 +649,7 @@
 	}
 
 	@media only screen and (max-height: 425px){
-		section{
+		.fourth-category{
 			top: 4510px;
             width: 1000px;
             height: 1250px;
@@ -661,7 +661,7 @@
     }
 
 	@media only screen and (max-height: 415px){
-		section{
+		.fourth-category{
 			top: 4460px;
 			height: 1200px;
 		}
@@ -672,7 +672,7 @@
 	}
 
     @media only screen and (max-height: 390px){
-        section{
+		.fourth-category{
             height: 1140px;
 			top: 4120px;
         }
@@ -690,7 +690,7 @@
 		}
     }
     @media only screen and (max-height: 375px){
-        section{
+		.fourth-category{
             height: 1090px;
 			top: 3970px;
         }
@@ -700,7 +700,7 @@
 		}
     }
     @media only screen and (max-height: 345px){
-        section{
+		.fourth-category{
             height: 1010px;
 			top: 3665px;
         }
@@ -724,7 +724,7 @@
 		}
     }
     @media only screen and (max-height: 325px){
-        section{
+		.fourth-category{
             height: 955px;
 			top: 3460px;
         }

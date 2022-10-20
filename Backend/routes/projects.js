@@ -7,7 +7,7 @@ const validForm = require('../middleware/validForm');
 //GET ALL PROJECTS
 router.get('/', async (req, res) => {
     try {
-        const project = await client.query("SELECT title, description, category, image_url, id FROM projects") 
+        const project = await client.query("SELECT title, description, category, image_url, id, read FROM projects") 
                                     
         res.json(project.rows);
 
@@ -20,7 +20,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        const project = await client.query("SELECT title, description, category, id, image_url FROM projects WHERE id = $1", [id]);
+        const project = await client.query("SELECT title, description, category, id, image_url, read FROM projects WHERE id = $1", [id]);
 
         res.json(project.rows[0]);
 

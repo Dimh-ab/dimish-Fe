@@ -557,7 +557,7 @@
 	} 
 
 	@media only screen and (max-width: 1200px){
-        section{
+		.fifth-category{
             width: 100%;
 		    height: 250%;
 			top: 10210px;
@@ -575,7 +575,7 @@
 
 	@media only screen and (max-width: 1024px){
 
-		section{
+		.fifth-category{
 			top: 9565px;
 		}
 
@@ -633,7 +633,7 @@
 	}
 
 	@media only screen and (max-height: 425px){
-		section{
+		.fifth-category{
 			top: 5760px;
             width: 1000px;
             height: 950px;
@@ -662,7 +662,7 @@
     }
 
 	@media only screen and (max-height: 415px){
-		section{
+		.fifth-category{
 			top: 5660px;
 			height: 930px;
 		}
@@ -675,7 +675,7 @@
 	
 
     @media only screen and (max-height: 390px){
-        section{
+        .fifth-category{
 			top: 5260px;
             height: 840px;
         }
@@ -685,7 +685,7 @@
 		}
     }
     @media only screen and (max-height: 375px){
-        section{
+        .fifth-category{
 			top: 5060px;
             height: 810px;
         }
@@ -706,7 +706,7 @@
     }
 
     @media only screen and (max-height: 345px){
-        section{
+        .fifth-category{
 			top: 4670px;
             height: 770px;
         }
@@ -716,7 +716,7 @@
 		}
     }
     @media only screen and (max-height: 325px){
-        section{
+        .fifth-category{
 			top: 4410px;
             height: 740px;
         }
