@@ -22,8 +22,6 @@
     }
 
     // TODO
-    // -pull new sprite-sheet from github
-    // -push changes to git 
     // -fix books
     // -fix transformation sprite
 

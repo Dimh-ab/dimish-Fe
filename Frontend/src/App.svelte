@@ -31,7 +31,7 @@
 			<!-- <Link to="/" >Home</Link>
 			<Link to="library">Library</Link>
 			<Link to="dashboard">Dashboard</Link> -->
-			<!-- <Link to="all-projects" class="link"> <h3>{$_("allProjects")}</h3> </Link> -->
+			<!-- <Link to="all-projects" class="link"> <h3>{$_("homepage.allProjects")}</h3> </Link> -->
 		<!-- </nav> -->
 
 		<a href="https://www.di-mh.com/" target="_blank" >dimh</a>

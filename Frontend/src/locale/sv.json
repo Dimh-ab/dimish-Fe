@@ -1,24 +1,51 @@
 {
-  "allProjects": "Alla projekt",
-  "cookies": "Denna webbplats använder cookies för att säkerställa att du får den bästa upplevelsen på vår webbplats.",
-  "acceptCookies": "Mums, cookies",
-  "declineCookies": "Nej, tack",
-  "accTextSize": "Ändra textstorlek:",
-  "accLetterSpacing": "Ändra bokstav avstånd:",
-  "accWordSpacing": "Ändra ordavstånd:",
-  "accLineHeight": "Ändra linjehöjd:",
-  "helpTitle": "Välkommen till biblioteket!",
-  "helpP1": "För att röra dig kan du bläddra uppåt eller nedåt med musen. Du kan också använda upp- och nedpilarna!",
-  "helpP2": "När du hittar en bok, försök att klicka på den för att läsa om våra fantastiska projekt :)",
-  "helpP3": "Eller använd tabbknappen för att gå till en bok och tryck sedan på Enter för att öppna och stänga den. För att tabba bakåt använd Skift+Tabb. ",
-  "helpP4": " Om du behöver hjälp klickar du bara på ? nere i vänstra hörnet ;)",
-  "helpContinue": "Fortsätt",
-  "descendantsTitle": "Barn och Unga",
-  "adolescenceBalanceTitle": "Ungdom och Balans",
+ 
+  "descendantsTitle": "Ättlingar",
+  "adolescenceBalanceTitle": "Adolescens Balans",
   "supportandmobilityTitle": "Stöd och rörlighet",
   "primarycareTitle": "Primärvård",
   "informatoryTitle": "Informativt",
-  "libraryForward": "Framåt",
-  "libraryBackward": "Bakåt"  ,
-  "closeTheBook": "Ställ tillbaka"
+  "libraryForward": "Fram",
+  "libraryBackward": "Bakåt",
+  "closeTheBook": "Ställ tillbaka",
+  "homepage": {
+    "allProjects": "Alla projekt",
+    "cookies": "Denna webbplats använder cookies för att säkerställa att du får den bästa upplevelsen på vår webbplats.",
+    "acceptCookies": "Mums, cookies",
+    "declineCookies": "Nej, tack",
+    "accTextSize": "Ändra textstorlek:",
+    "accLetterSpacing": "Ändra bokstav avstånd:",
+    "accWordSpacing": "Ändra ordavstånd:",
+    "accLineHeight": "Ändra linjehöjd:",
+    "helpTitle": "Välkommen till biblioteket!",
+    "helpP1": "För att flytta kan du bläddra uppåt eller nedåt. Du kan också använda upp- och nedpilarna!",
+    "helpP2": "När du hittar en bok, försök att klicka på den för att läsa om våra fantastiska projekt :)",
+    "helpP3": "Eller använd tabbknappen för att gå till en bok och tryck sedan på Enter för att öppna och stänga den. För att tabb bakåt använd Skift+Tabb. ",
+    "helpP4": " Om du behöver hjälp klickar du bara på ? uppe i högra hörnet ;)",
+    "helpContinue": "Fortsätt",
+    "welcomeText": "Välkommen till biblioteket! Du är ett KLICK/ENTER ifrån att korsa tröskeln till dess magiska värld..."
+  },
+  "library": {
+    "dialogSven1": "Hejsan! Jag är så glad att du är här! Jag verkar ha tappat bort några böcker i biblioteket och jag behöver hjälp med att hitta dem.",
+    "dialogGirl1": "Jag skulle gärna hjälpa dig!",
+    "dialogSven2": "Jag är evigt tacksam! Om du bara SCROLLar djupare in i biblioteket är jag säker på att du inte kommer att ha några problem med att hitta dem längs vägen. Om rullning gör rörelsen för snabb för din smak är du välkommen att TRYCK NED och sakta ner sakerna.",
+    "dialogSven3": "Jag ser att du inte bara har fått tillbaka alla mina böcker utan också nått din fulla potential genom att bli en älva! Jag står dig i skuld för evigt!",
+    "dialogFairy2": "Tack för att du skickade mig på detta uppdrag, Sven. Det är dags för mig att gå dit den verkliga magin händer! https://www.di-mh.com/"
+  },
+  "category1": {
+    "cat1inst1": "Det verkar som om du har hittat några av Svens böcker! Bäst är att kolla upp dem för att se till att du har rätt!",
+    "cat2inst2": "Det verkar som att läsa böcker gör att du får utmärkelser som dessa vingar! Kanske kan du använda dem för att flyga iväg på jakt efter resten av böckerna!"
+  },
+  "category2": {
+    "cat2inst": "WOW - du har precis fått besvärjelseförmågan! Kom bara ihåg att besvärja dig om du har problem med att hitta Svens böcker!"
+  },
+  "category3": {
+    "cat3inst": "Du har förvandlats till en ganska liten älva - först vingar, sedan trollformning och nu älvadamm! Jag undrar om du behöver lägga den i nästa kapitel för att hitta de böckerna!"
+  },
+  "category4": {
+    "cat4inst": "Det verkar vara lite mörker på väg - bra att du belönades med ljuset. Fortsätt gå och se dina steg!"
+  },
+  "category5": {
+    "cat5inst": "Du gjorde det! Du har hittat alla Svens böcker och fått den största utmärkelsen en älva kan önska sig - ett trollspö! Låt oss gå och berätta för Sven om våra äventyr!"
+  }
 }

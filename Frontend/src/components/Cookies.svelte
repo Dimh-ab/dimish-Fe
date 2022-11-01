@@ -72,12 +72,12 @@
                         class="cookies-img"
                     />
                     <p>
-                         {$_("cookies")}  
+                         {$_("homepage.cookies")}  
                         <!-- <a href="https://www.termsfeed.com/">More info</a> -->
                     </p>
-                    <button id="cookies-btn" use:acceptCookie>{$_("acceptCookies")}! 🍪</button>
+                    <button id="cookies-btn" use:acceptCookie>{$_("homepage.acceptCookies")}! 🍪</button>
                     <button id="cookies-decline-btn" use:declineCookie
-                        >{$_("declineCookies")} 😋 </button
+                        >{$_("homepage.declineCookies")} 😋 </button
                     >
                 </div>
             </div>
