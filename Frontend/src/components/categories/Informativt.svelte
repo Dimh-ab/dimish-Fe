@@ -2,14 +2,17 @@
 	import { _ } from "svelte-i18n"
     import { onMount } from "svelte";
 	import axios from "axios";
-	import { amountOfProjects, checkPoint, bookId, projectId } from "../../stores.js";
+	import { amountOfProjects, checkPoint, bookId, projectId, informativeBooksRead, light, gotWand } from "../../stores.js";
 	import InterSectionObserver from "svelte-intersection-observer";
-
+	import Update from '../Update.svelte'
+	
+	let updateBookComponent
 	let isInShelf = true
 	// let bookId = ""
 	let element
     let intersecting
 	let rootMargin = "-250px"
+	const bookCopy = {...$amountOfProjects, read: true}
 
 	// fixes issue with intersection observer on mobile devices
 	if (window.innerHeight < 768) {
@@ -25,6 +28,12 @@
 		try {
 			const response = await axios.get(PROJECTS_ENDPOINT);
 			$amountOfProjects = response.data
+			const infoStorage = localStorage.getItem('info')
+				if(infoStorage !== null){
+					const storage = JSON.parse(infoStorage)
+					$informativeBooksRead = storage
+					console.log($informativeBooksRead)
+				}
 		} catch (error) {
 			console.log(error);
 		}
@@ -41,16 +50,35 @@
 		}
 	}
 
-	$: console.log(bookId)
+	
+		// checks if books in this category have been read
+		const checkReadBooks = () => {
+		const newArray = $amountOfProjects.filter(book => book.category === 'Informativt')
+		let array = [...newArray]
+		let readArray = array.map(r => r.read)
+		if(readArray.every(val => val === true)){
+			$informativeBooksRead = true
+			localStorage.setItem('info', $informativeBooksRead)
+		}
+	}
 
+	// $: if($informativeBooksRead){
+	// 	$gotWand = true
+	// }
+	
     const openBook = (i) => {
 		wasClicked = wasClicked === i ? -1 : i 
-		if(i === wasClicked){
+		$amountOfProjects.forEach(() => {
+			if(i === wasClicked){
 			$projectId = $bookId
-		} else{
+			}
+		if(wasClicked === -1){
 			$projectId = 0
-		}
-		console.log(wasClicked, i)
+			$amountOfProjects[i].read = true
+			updateBookComponent.updateBook(bookCopy)
+			checkReadBooks()
+			}
+		})
 	}
 
 	const handleKeyDown = (i) => {
@@ -59,14 +87,22 @@
 		}	
   	}
 
+	  let darkToLight = 'dark-overlay'
+
+	$: if($light === true){
+		darkToLight = ''
+	}
+
 	$: intersecting ? $checkPoint = $checkPoint = 5 : ''
 
 </script>
 
+<Update bind:this={updateBookComponent} />
+
 <InterSectionObserver {element} bind:intersecting {rootMargin}>
-<section  id="fifth-category" class={"fifth-category " + ($bookId === $projectId ? "overlay" : "")}>
+<section  id="fifth-category" class={"fifth-category " + ($bookId === $projectId ? "overlay" : darkToLight)}>
 	<article  bind:this={element}>
-		<main>
+		<main class={$light === true ? 'showBooks' : ''}>
 		{#each $amountOfProjects as project, i (project.id)}
 		{#if project.category === "Informativt"}
 		<div class={"book-spacing " + (i === wasClicked ? "zindex" : "")}>
@@ -152,23 +188,51 @@
 	transform: scale(1.1);
 }
 	.fifth-category{
-		/* height: 100vw; */
-		position: absolute;
-		/* width: 100vh; */
-		/* height: 100%; */
-		top: 8280px;
-		left: -380px;
-		background: url(../images/cat-bg/bckg05.jpg) no-repeat;
-		/* background-size: 100%; */
-		width: 1200px;
-		height: 1800px;
+		background: url(../images/cat5-final.png) no-repeat;
+		width: 100%;
+		height: 100%;
 		background-size: contain;
 	}
 
+	.fifth-category.dark-overlay{
+		background:url(../images/cat5-final.png) no-repeat, rgba(0, 0, 0, 0.85);
+		width: 100%;
+		height: 100%;
+		background-size: contain;
+		background-blend-mode: overlay;
+		/* transition-delay: 5s; */
+		/* animation: darkness 4s ease-in-out infinite alternate; */
+	}
+
+	@keyframes darkness {
+	0% {
+		scale: 0.5;
+		background: transparent;
+		border-radius: 100%;
+	}
+	/* 50% {
+		background-color: purple;
+	} */
+	100% {
+		scale: 1;
+	}
+
+
+	/* 0% { transform: translate(100px, 100px); }
+	10% { transform: translate(200px, 200px) ; }
+	20% { transform: translate(-300px, 300px) ; }
+	30% { transform: translate(400px, 200px) ; }
+	40% { transform: translate(500px, -100px); }
+	50% { transform: translate(300px, 2px) ; }
+	60% { transform: translate(-3px, 1px) ; }
+	70% { transform: translate(3px, 1px) ; }
+	80% { transform: translate(-1px, -1px) ; }
+	90% { transform: translate(1px, 2px) ; }
+	100% { transform: translate(1px, -2px) ; } */
+	}
+
 	.fifth-category.overlay{
-		background:url(../images/cat-bg/bckg05.jpg) no-repeat, rgba(0, 0, 0, 0.8);
-		width: 1028px;
-		height: 1650px;
+		background:url(../images/cat5-final.png) no-repeat, rgba(0, 0, 0, 0.8);
 		background-size: contain;
 		background-blend-mode: overlay;
 	}
@@ -227,7 +291,7 @@
 	}
 
 	main{
-		translate: 250px 170px;
+		translate: 0px -120px;
 		height: 900px;
 		width: 800px;
 		display: flex;
@@ -237,6 +301,12 @@
 		justify-content: flex-start;
 		background-color:transparent;
 		transform: scale(0.3) rotate(90deg);
+		opacity: 0;
+		transition-duration: 2s;
+	}
+
+	main.showBooks{
+		opacity: 1;
 	}
 
 	.book-spacing:first-child{
@@ -377,7 +447,7 @@
 	}
 
 
-	@keyframes shake {
+	/* @keyframes shake {
   0% { transform: translate(1px, 1px) rotate(0deg); }
   10% { transform: translate(-1px, -2px) rotate(-1deg); }
   20% { transform: translate(-3px, 0px) rotate(1deg); }
@@ -389,7 +459,7 @@
   80% { transform: translate(-1px, -1px) rotate(1deg); }
   90% { transform: translate(1px, 2px) rotate(0deg); }
   100% { transform: translate(1px, -2px) rotate(-1deg); }
-}
+} */
 
 	.cover.shelfMode, .coverInside.shelfMode{
 		transform: perspective(1000px) rotateX(-1deg) rotateY(90deg);
@@ -641,7 +711,7 @@
         }
 
 		main{
-			translate: -50px 30px;
+			translate: -150px 30px;
 		}
 
 		.book-spacing:first-child{
@@ -668,7 +738,7 @@
 		}
 
 		main{
-			translate: -60px 20px;
+			translate: -160px 20px;
 		}
 	}
 
@@ -681,7 +751,7 @@
         }
 
 		main{
-			translate: -100px -50px;
+			translate: -200px -50px;
 		}
     }
     @media only screen and (max-height: 375px){
@@ -691,7 +761,7 @@
         }
 
 		main{
-			translate: -120px -70px;
+			translate: -200px -70px;
 		}
 
 		.book-spacing:nth-child(6){
@@ -712,7 +782,7 @@
         }
 
 		main{
-			translate: -130px -95px;
+			translate: -200px -95px;
 		}
     }
     @media only screen and (max-height: 325px){
@@ -722,7 +792,7 @@
         }
 
 		main{
-			translate: -145px -115px;
+			translate: -235px -115px;
 		}
     }
 

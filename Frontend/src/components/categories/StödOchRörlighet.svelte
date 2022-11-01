@@ -2,14 +2,16 @@
 	import { _ } from "svelte-i18n"
     import { onMount } from "svelte";
 	import axios from "axios";
-	import { amountOfProjects, checkPoint, bookId, projectId  } from "../../stores.js";
+	import { amountOfProjects, checkPoint, bookId, projectId, mobilityBooksRead, spell } from "../../stores.js";
 	import InterSectionObserver from "svelte-intersection-observer";
+	import Update from '../Update.svelte'
+    let updateBookComponent
 
 	let isInShelf = true
-	// let bookId = ""
 	let element
     let intersecting
 	let rootMargin = "-250px"
+	const bookCopy = {...$amountOfProjects, read: true}
 
 	// fixes issue with intersection observer on mobile devices
 	if (window.innerHeight < 768) {
@@ -25,6 +27,13 @@
 		try {
 			const response = await axios.get(PROJECTS_ENDPOINT);
 			$amountOfProjects = response.data
+			
+			const mobilityStorage = localStorage.getItem('mobility')
+				if(mobilityStorage !== null){
+					const storage = JSON.parse(mobilityStorage)
+					$mobilityBooksRead = storage
+					console.log($mobilityBooksRead)
+				}
 		} catch (error) {
 			console.log(error);
 		}
@@ -41,16 +50,32 @@
 		}
 	}
 
-	$: console.log(bookId)
+	// checks if books in this category have been read
+	const checkReadBooks = () => {
+		const newArray = $amountOfProjects.filter(book => book.category === 'Stöd och Rörlighet')
+		let array = [...newArray]
+		let readArray = array.map(r => r.read)
+		if(readArray.every(val => val === true)){
+			$mobilityBooksRead = true
+			localStorage.setItem('mobility', $mobilityBooksRead)
+		}
+	}
 
     const openBook = (i) => {
 		wasClicked = wasClicked === i ? -1 : i 
-		if(i === wasClicked){
+
+		$amountOfProjects.forEach(() => {
+			if(i === wasClicked){
 			$projectId = $bookId
-		} else{
+			}
+		if(wasClicked === -1){
 			$projectId = 0
-		}
-		console.log(wasClicked, i)
+			$amountOfProjects[i].read = true
+			updateBookComponent.updateBook(bookCopy)
+			checkReadBooks()
+			}
+			console.log(wasClicked, $projectId)
+		})
 	}
 
 	const handleKeyDown = (i) => {
@@ -63,10 +88,14 @@
 
 </script>
 
+<!-- imports functions from Update.svelte -->
+<Update bind:this={updateBookComponent} />
+
 <InterSectionObserver {element} bind:intersecting {rootMargin}>
-<section id="third-category" class={"third-category " + ($bookId === $projectId ? "overlay" : "")}>
+<section id="third-category" class={"third-category " + ($bookId === $projectId ? "overlay" : '')}>
 	<article  bind:this={element}>
-		<main>
+			<!-- <div class={'dust ' + (fairyDust ? 'getDust' : '')}></div> -->
+		<main class={$spell === true ? 'showBooks' : ''}>
 		{#each $amountOfProjects as project, i (project.id)}
 		{#if project.category === "Stöd och Rörlighet"}
 		<div class={"book-spacing " + (i === wasClicked ? "zindex" : "")}>
@@ -127,8 +156,6 @@
 </InterSectionObserver>
 
 <style>
-
-
 .backBtn{
 	position: relative;
 	height: 60px;
@@ -152,27 +179,14 @@
 	transform: scale(1.1);
 }
 	.third-category{
-		/* height: 100vw;
-		position: absolute;
-		top: 5000px;
-		left: 0; */
-
-		position: absolute;
-		/* width: 100vh; */
-		/* height: 100%; */
-		top: 4590px;
-		left: 0;
-		background: url(../images/cat-bg/bckg03.jpg) no-repeat;
-		/* background-size: 100%; */
-		/* width: 1028px; */
-		height: 1900px;
+		background: url(../images/cat3-final.png) no-repeat;
+		width: 100%;
+		height: 100%;
 		background-size: contain;
 	}
 
 	.third-category.overlay{
-		background:url(../images/cat-bg/bckg03.jpg) no-repeat, rgba(0, 0, 0, 0.8);
-		/* width: 1028px; */
-		height: 1900px;
+		background:url(../images/cat3-final.png) no-repeat, rgba(0, 0, 0, 0.8);
 		background-size: contain;
 		background-blend-mode: overlay;
 	}
@@ -231,7 +245,7 @@
 	}
 
 	main{
-		translate: -435px -190px;
+		translate: -355px -650px;
 		height: 800px;
 		width: 1600px;
 		display: flex;
@@ -241,6 +255,12 @@
 		justify-content: flex-start;
 		background-color:transparent;
 		transform: scale(0.5) rotate(90deg);
+		opacity: 0;
+		transition-duration: 2s;
+	}
+
+	main.showBooks{
+		opacity: 1;
 	}
 
 	.book-spacing:first-child{
@@ -574,12 +594,12 @@
 	}
 
 	@media only screen and (max-width: 1200px){
-        .third-category{
+        /* .third-category{
             width: 100%;
 		    height: 250%;
 			top: 6030px;
 			left: 0;
-        }
+        } */
 
 		article{
 			margin-top: 1300px;
@@ -591,9 +611,9 @@
 
 	@media only screen and (max-width: 1024px){
 
-		.third-category{
+		/* .third-category{
 			top: 5650px;
-		}
+		} */
 
 	}
 
@@ -664,11 +684,11 @@
 	@media only screen and (max-height: 425px){
 
 		/* TODO: bokplacering responsivt */
-		.third-category{
+		/* .third-category{
 			top: 3190px;
             width: 1000px;
             height: 1320px;
-        }
+        } */
 
 		main{
 			translate: -435px -770px;
@@ -696,9 +716,9 @@
     }
 
 	@media only screen and (max-height: 415px){
-		.third-category{
+		/* .third-category{
 			height: 1270px;
-		}
+		} */
 
 		main{
 			translate: -445px -795px;
@@ -721,10 +741,10 @@
 	}
 
     @media only screen and (max-height: 390px){
-        .third-category{
+        /* .third-category{
             height: 1200px;
 			top: 2920px;
-        }
+        } */
 
 		main{
 			translate: -465px -823px;
@@ -748,10 +768,10 @@
 		}
     }
     @media only screen and (max-height: 375px){
-        .third-category{
+        /* .third-category{
             height: 1150px;
 			top: 2820px;
-        }
+        } */
 
 		main{
 			translate: -465px -863px;
@@ -771,10 +791,10 @@
 		}
     }
     @media only screen and (max-height: 345px){
-        .third-category{
+        /* .third-category{
             height: 1060px;
 			top: 2605px;
-        }
+        } */
 
 		main{
 			scale: 0.8;
@@ -799,10 +819,10 @@
 		}
     }
     @media only screen and (max-height: 325px){
-        .third-category{
+        /* .third-category{
             height: 1005px;
 			top: 2450px;
-        }
+        } */
 
 		main{
 			translate: -510px -1010px;

@@ -2,19 +2,25 @@
 	import { _ } from "svelte-i18n"
     import { onMount } from "svelte";
 	import axios from "axios";
-	import { amountOfProjects, checkPoint, bookId, projectId } from "../../stores.js";
+	import { amountOfProjects, checkPoint, bookId, projectId, primaryBooksRead, tree } from "../../stores.js";
 	import InterSectionObserver from "svelte-intersection-observer";
-
+	import Update from '../Update.svelte'
+    let updateBookComponent
 	let isInShelf = true
-	// let bookId = ""
 	let element
     let intersecting
 	let rootMargin = "-250px"
+
+	const bookCopy = {...$amountOfProjects, read: true}
+
+	// tree = '../images/dead-tree.png'
 
 	// fixes issue with intersection observer on mobile devices
 	if (window.innerHeight < 768) {
 		rootMargin = "-150px"
 	}
+
+	// $: console.log(tree)
 
 	export let key
     let wasClicked = -1
@@ -25,6 +31,12 @@
 		try {
 			const response = await axios.get(PROJECTS_ENDPOINT);
 			$amountOfProjects = response.data
+			const primaryStorage = localStorage.getItem('primary')
+				if(primaryStorage !== null){
+					const storage = JSON.parse(primaryStorage)
+					$primaryBooksRead = storage
+					console.log($primaryBooksRead)
+				}
 		} catch (error) {
 			console.log(error);
 		}
@@ -41,16 +53,31 @@
 		}
 	}
 
-	$: console.log(bookId)
+		// checks if books in this category have been read
+		const checkReadBooks = () => {
+		const newArray = $amountOfProjects.filter(book => book.category === 'Primärvård')
+		let array = [...newArray]
+		let readArray = array.map(r => r.read)
+		if(readArray.every(val => val === true)){
+			$primaryBooksRead = true
+			localStorage.setItem('primary', $primaryBooksRead)
+		}
+	}
+
 
     const openBook = (i) => {
 		wasClicked = wasClicked === i ? -1 : i 
-		if(i === wasClicked){
+		$amountOfProjects.forEach(() => {
+			if(i === wasClicked){
 			$projectId = $bookId
-		} else{
+			}
+		if(wasClicked === -1){
 			$projectId = 0
-		}
-		console.log(wasClicked, i)
+			$amountOfProjects[i].read = true
+			updateBookComponent.updateBook(bookCopy)
+			checkReadBooks()
+			}
+		})
 	}
 
 	const handleKeyDown = (i) => {
@@ -63,10 +90,13 @@
 
 </script>
 
+<Update bind:this={updateBookComponent} />
+
 <InterSectionObserver {element} bind:intersecting {rootMargin}>
-<section id="fourth-category" class={"fourth-category " + ($bookId === $projectId ? "overlay" : "")}>
+	<section id="fourth-category" class={"fourth-category " + ($bookId === $projectId ? "overlay" : "")}>
 	<article  bind:this={element}>
-		<main>
+		<img src={$tree} alt="" class={"tree " + ($tree === '../images/alive-tree-01.png' ? 'alive' : 'finished' )}>
+		<main class={$tree === '../images/alive-tree-01.png' ? 'dusted' : ''}>
 		{#each $amountOfProjects as project, i (project.id)}
 		{#if project.category === "Primärvård"}
 		<div class={"book-spacing " + (i === wasClicked ? "zindex" : "")}>
@@ -127,8 +157,20 @@
 </InterSectionObserver>
 
 <style>
+.tree{
+	position: absolute;
+    height: 400px;
+    translate: -640px 265px;
+	transition-duration: 1s;
+	scale: 0.8;
+	opacity: 0.8;
+}
 
-
+.tree.alive{
+	scale: 1.4;
+	translate: -490px 255px;
+	opacity: 1;
+}
 .backBtn{
 	position: relative;
 	height: 60px;
@@ -152,28 +194,20 @@
 	transform: scale(1.1);
 }
 	.fourth-category{
-		position: absolute;
-		/* width: 100vh; */
-		/* height: 100%; */
-		top: 6487px;
-		left: 0;
-		background: url(../images/cat-bg/bckg04.jpg) no-repeat;
-		/* background-size: 100%; */
-		/* width: 1028px; */
-		height: 1800px;
+		background: url(../images/cat4-final.png) no-repeat;
+		width: 100%;
+		height: 100%;
 		background-size: contain;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
 	}
 
 	.fourth-category.overlay{
-		background:url(../images/cat-bg/bckg04.jpg) no-repeat, rgba(0, 0, 0, 0.8);
-		/* width: 1028px; */
-		height: 1900px;
+		background:url(../images/cat4-final.png) no-repeat, rgba(0, 0, 0, 0.8);
 		background-size: contain;
 		background-blend-mode: overlay;
-	}
-
-	article{
-		margin-top: 700px;
 	}
 
     *{
@@ -226,7 +260,8 @@
 	}
 
 	main{
-		translate: -135px 30px;
+		translate: -175px 30px;
+		/* translate: -135px 30px; */
 		height: 900px;
 		width: 1200px;
 		display: flex;
@@ -236,6 +271,12 @@
 		justify-content: flex-start;
 		background-color:transparent;
 		transform: scale(0.3) rotate(90deg);
+		opacity: 0;
+		transition-duration: 2s;
+	}
+
+	main.dusted{
+		opacity: 1;
 	}
 
 	.book-spacing:first-child{
@@ -379,7 +420,7 @@
 	}
 
 
-	@keyframes shake {
+	/* @keyframes shake {
   0% { transform: translate(1px, 1px) rotate(0deg); }
   10% { transform: translate(-1px, -2px) rotate(-1deg); }
   20% { transform: translate(-3px, 0px) rotate(1deg); }
@@ -391,7 +432,7 @@
   80% { transform: translate(-1px, -1px) rotate(1deg); }
   90% { transform: translate(1px, 2px) rotate(0deg); }
   100% { transform: translate(1px, -2px) rotate(-1deg); }
-}
+} */
 
 	.cover.shelfMode, .coverInside.shelfMode{
 		transform: perspective(1000px) rotateX(-1deg) rotateY(90deg);
@@ -559,34 +600,48 @@
 	}
 
 	@media only screen and (max-width: 1200px){
-        .fourth-category{
+
+		.tree{
+			height: 300px;
+			translate: -460px 305px;
+		}
+
+		.tree.alive{
+			translate: -350px 305px;
+		}
+
+		main{
+			translate: -105px 60px;
+		}
+
+        /* .fourth-category{
             width: 100%;
 		    height: 250%;
 			top: 8560px;
 			left: 0;
-        }
+        } */
 
-		article{
+		/* article{
 			margin-top: 600px;
-		}
+		} */
     }
 
 	@media only screen and (max-width: 1024px){
 
-		.fourth-category{
+		/* .fourth-category{
 			top: 8020px;
-		}
+		} */
 
-		article{
+		/* article{
 			margin-top: 520px;
-		}
+		} */
 
 	}
 
 	@media only screen and (max-width: 1000px){
-		main{
+		/* main{
 			translate: -250px -60px;
-		}
+		} */
 
 		.book-spacing:first-child{
 		margin-left: 200px;
@@ -649,37 +704,37 @@
 	}
 
 	@media only screen and (max-height: 425px){
-		.fourth-category{
+		/* .fourth-category{
 			top: 4510px;
             width: 1000px;
             height: 1250px;
-        }
+        } */
 
-		main{
+		/* main{
 			translate: -250px -90px;
-		}
+		} */
     }
 
 	@media only screen and (max-height: 415px){
-		.fourth-category{
+		/* .fourth-category{
 			top: 4460px;
 			height: 1200px;
-		}
+		} */
 
-		main{
+		/* main{
 			translate: -250px -135px;
-		}
+		} */
 	}
 
     @media only screen and (max-height: 390px){
-		.fourth-category{
+		/* .fourth-category{
             height: 1140px;
 			top: 4120px;
-        }
+        } */
 
-		main{
+		/* main{
 			translate: -280px -180px;
-		}
+		} */
 
 		.book-spacing:nth-child(5){
 			translate: -100px 110px;
@@ -690,24 +745,24 @@
 		}
     }
     @media only screen and (max-height: 375px){
-		.fourth-category{
+		/* .fourth-category{
             height: 1090px;
 			top: 3970px;
-        }
+        } */
 
-		main{
+		/* main{
 			translate: -290px -210px;
-		}
+		} */
     }
     @media only screen and (max-height: 345px){
-		.fourth-category{
+		/* .fourth-category{
             height: 1010px;
 			top: 3665px;
-        }
+        } */
 
-		main{
+		/* main{
 			translate: -315px -240px;
-		}
+		} */
 
 		.book-spacing:first-child{
 			translate: -250px 260px;
@@ -724,14 +779,14 @@
 		}
     }
     @media only screen and (max-height: 325px){
-		.fourth-category{
+		/* .fourth-category{
             height: 955px;
 			top: 3460px;
-        }
+        } */
 
-		main{
+		/* main{
 			translate: -330px -280px;
-		}
+		} */
     }
 
 </style>

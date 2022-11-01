@@ -1,12 +1,26 @@
 <script>
+    import { onMount } from "svelte";
     import { navigate } from "svelte-routing";
-    import { fade } from "svelte/transition";
+    import { fly } from "svelte/transition";
     //let wasClicked = false;
+
+    // Welcome to the library! You are one CLICK/ENTER away from crossing the threshold of its magical world...
 
     let IOSdevice = ''
     let fullscreenGuide = ''
     let key = "";
-    $: console.log(key);
+    let story = ''
+    // $: console.log(key);
+
+    onMount( () => {
+        story = 'Welcome to the library! You are one CLICK/ENTER away from crossing the threshold of its magical world..'
+        // if(story !== ''){
+        //     setTimeout(() => {
+        //         story = ''
+        //     }, 5000);
+        // }
+    })
+    $: console.log(story)
 
     const zoom = (node, scale = 1.5) => {
         node.style.transition = "3s";
@@ -54,12 +68,27 @@
         <p id="rotate-phone-message" class={IOSdevice}>{@html fullscreenGuide}</p>
     </div>
 
+    {#if story !== ''}
+    <p  in:fly="{{ x: 200, duration: 1500 }}" out:fly="{{ x: -200, duration: 1500}}">{story}</p>
+    {/if}
+
 <div tabindex="0" class="sprite" use:zoom={10}>
     <!-- <img class="girl" src="/static/images/girl2.png" alt="girl" /> -->
     <img class="door" src="/static/images/homepage-3-01-01.jpg" alt="book-door" />
 </div>
 
 <style>
+
+    p{
+        position: absolute;
+        top: 0;
+        left: 50%;
+        translate: -50% 0;
+        border-radius: 5px;
+        padding: 1rem;
+        background: #00000099;
+        color: #fff;
+    }
     .sprite {
         display: flex;
         justify-content: center;

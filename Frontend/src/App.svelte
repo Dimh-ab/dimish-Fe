@@ -1,11 +1,13 @@
 <script>
 	import { Router, Route, Link } from "svelte-routing";
+	import {story} from './stores'
 	import Login from "./components/Login.svelte";
 	// import Projects from "./components/Projects.svelte";
 	import Home from "./pages/Home.svelte";
 	import Dashboard from "./pages/Dashboard.svelte";
 	import ProtectedRoute from "./ProtectedRoute.svelte";
 	import Library from "./pages/Library.svelte";
+	import Abilities from "./components/Abilities.svelte";
 	import AllProjects from "./pages/AllProjects.svelte";
 	//import GoogleAnalytics from "./components/GoogleAnalytics.svelte";
 	import Cookies from "./components/Cookies.svelte";
@@ -13,6 +15,7 @@
 	import Help from "./components/Help.svelte";
 	import Language from "./locale/i18n.svelte";
 	import Sound from "./components/Sound.svelte";
+	import Storyline from "./components/Storyline.svelte";
 	import { _ } from "svelte-i18n"
 
 	export let url = "";
@@ -24,14 +27,14 @@
 	<Cookies />
 
 	<Router {url}>
-		<nav>
+		<!-- <nav> -->
 			<!-- <Link to="/" >Home</Link>
 			<Link to="library">Library</Link>
 			<Link to="dashboard">Dashboard</Link> -->
-			<Link to="all-projects" class="link"> <h3>{$_("allProjects")}</h3> </Link>
-		</nav>
+			<!-- <Link to="all-projects" class="link"> <h3>{$_("allProjects")}</h3> </Link> -->
+		<!-- </nav> -->
 
-		<a href="https://www.di-mh.com/" >dimh</a>
+		<a href="https://www.di-mh.com/" target="_blank" >dimh</a>
 
 		<Accessibility />
 
@@ -39,6 +42,12 @@
 		<Sound />
 
 		<Help />
+
+		<Abilities />
+
+		{#if $story !== ''}
+		<Storyline />
+		{/if}
 
 		<Route path="/">
 			<Home />
@@ -53,9 +62,9 @@
 		</Route>
 
 		
-		<Route path="all-projects">
+		<!-- <Route path="all-projects">
 			<AllProjects />
-		</Route>
+		</Route> -->
 
 		<ProtectedRoute path="dashboard" component={Dashboard} />
 	</Router>
@@ -73,7 +82,7 @@
 		margin: 0 1rem;
 	}
 
-	nav > :global(a) {
+	/* nav > :global(a) {
 		text-decoration: none;
 	}
 
@@ -83,6 +92,6 @@
 		bottom: 1.5rem;
 		z-index: 1;
 		color: #ffffff;
-	}
+	} */
 
 </style>

@@ -1,9 +1,10 @@
 <script>
     import {onMount} from 'svelte'
     let svenSprite = '../images/sven-sprite-01-01.png'
-    export let nextChat
+    // export let nextChat
+    import {nextChat} from '../../stores'
 
-    $: console.log(nextChat)
+    $: console.log($nextChat)
 
     onMount(() => svenSpriteAnimation())
 
@@ -34,11 +35,11 @@
                 }
             }
 
-            if( nextChat === 1){
+            if( $nextChat === 1){
                 staggerFrames = 9
-            } else if( nextChat === 2){
+            } else if( $nextChat === 2){
                 staggerFrames = 0
-            } else if ( nextChat === 3){
+            } else if ( $nextChat === 3){
                 staggerFrames = 9
             } else{
                 staggerFrames = 0

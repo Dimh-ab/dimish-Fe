@@ -1,16 +1,17 @@
 <script>
 
-    import { allKidsBooksRead} from "../../stores";
-    import { fade } from 'svelte/transition';
+    import { allKidsBooksRead, adolescenceBooksRead, primaryBooksRead, mobilityBooksRead, informativeBooksRead} from "../../stores";
     import { onMount } from "svelte";
+    import Smoke from './Smoke.svelte'
 
     let key = "";
     let girlTransform = 0
 
     // TODO:
-    // - add smoke sprite animation when transforming character
     // - girl transforms after placing down last book in category
+    // - get award after transforming/storyline
     // - save progress in localstorage
+    // -smoke sprite canvas and girls canvas gets in the way for clicking books
 
 
      //ver1
@@ -348,159 +349,49 @@
 
     let transformAvatar = false
 
-    $: if ($allKidsBooksRead === true){
-        // TODO:
-        // add some glittersmoke animation on top of girl when she transforms
+    $:  if ($allKidsBooksRead === true){
         transformAvatar = true
         girlTransform = 1
         setTimeout(() => {
             transformAvatar = false
             avatarSpriteAnimation()
-        }, 2000);
+        }, 1000);
+    } 
+
+    $: if($adolescenceBooksRead === true){
+        girlTransform = 2
+        transformAvatar = true
+        console.log(girlTransform)
+        setTimeout(() => {
+            transformAvatar = false
+            avatarSpriteAnimation()
+        }, 1000);
     }
 
-    $: console.log(girlTransform)
+    $: if($mobilityBooksRead === true){
+        girlTransform = 3
+        transformAvatar = true
+        console.log(girlTransform)
+        setTimeout(() => {
+            transformAvatar = false
+            avatarSpriteAnimation()
+        }, 1000);
+    }
 
+    $: if($primaryBooksRead === true){
+        girlTransform = 4
+        transformAvatar = true
+        console.log(girlTransform)
+        setTimeout(() => {
+            transformAvatar = false
+            avatarSpriteAnimation()
+        }, 1000);
+    }
 
+    $: console.log(girlTransform, transformAvatar)
 
-    //ver3
-
-    //  onMount( () => {
-    // const girlAnimate = () =>
-    // window.addEventListener("load", () => {
-    //     let canvas = document.getElementById("canvas1");
-    //     console.log(canvas);
-    //     const ctx = canvas.getContext("2d");
-    //     console.log(ctx);
-
-    //     const CANVAS_WIDTH = (canvas.width = 600);
-    //     const CANVAS_HEIGHT = (canvas.height = 800);
-
-    //     const playerImage = new Image();
-    //     console.log(playerImage);
-    //     playerImage.src = "../images/spritesheet.png";
-    //     const spriteWidth = 550.2;
-    //     const spriteHeight = 775;
-    //     let playerState = "girl";
-    //     let playerState2= "fairy"
-    //     // let frameX = 0;
-    //     // let frameY = 0;
-    //     let gameFrame = 0;
-    //     const staggerFrames = 12;
-    //     const spriteAnimations = [];
-    //     const animationStates = [
-    //         {
-    //             name: "girl",
-    //             frames: 5,
-    //         },
-    //         {
-    //             name: "fairy",
-    //             frames: 5,
-    //         },
-    //         {
-    //             name: "flyup",
-    //             frames: 4,
-    //         },
-    //         {
-    //             name: "flydown",
-    //             frames: 4,
-    //         },
-    //         {
-    //             name: "fairydust",
-    //             frames: 5,
-    //         },
-    //     ];
-    //     animationStates.forEach((state, index) => {
-    //         let frames = {
-    //             loc: [],
-    //         };
-    //         for (let j = 0; j < state.frames; j++) {
-    //             let positionX = j * spriteWidth;
-    //             let positionY = index * spriteHeight;
-    //             frames.loc.push({ x: positionX, y: positionY });
-    //         }
-    //         spriteAnimations[state.name] = frames;
-    //     });
-
-    //     console.log(spriteAnimations);
-
-    //     class InputHandler {
-    //         constructor() {
-    //             this.keys = [];
-    //             window.addEventListener("keydown", (e) => {
-    //                 console.log(e.key);
-    //                 if (
-    //                     (e.key === "ArrowDown" ||
-    //                         e.key === "ArrowUp" ||
-    //                         e.key === "ArrowLeft" ||
-    //                         e.key === "ArrowRight") &&
-    //                     this.keys.indexOf(e.key) === -1
-    //                 ) {
-    //                     this.keys.push(e.key);
-    //                 }
-    //                 console.log(e.key, this.keys);
-    //             });
-
-    //             window.addEventListener("keyup", (e) => {
-    //                 console.log(e.key);
-    //                 if (
-    //                     e.key === "ArrowDown" ||
-    //                     e.key === "ArrowUp" ||
-    //                     e.key === "ArrowLeft" ||
-    //                     e.key === "ArrowRight"
-    //                 ) {
-    //                     this.keys.splice(this.keys.indexOf(e.key), 1);
-    //                 }
-    //                 console.log(e.key, this.keys);
-    //             });
-
-    //         }
-    //     }
-
-    //     const input = new InputHandler();
-
-    //     function animate() {
-    //         let position;
-    //         let frameX;
-    //         let frameY;
-
-    //         ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-
-    //         if (input.keys.indexOf("ArrowDown") > -1 || input.keys.indexOf("ArrowUp") > -1) {
-    //             position =
-    //             Math.floor(gameFrame / staggerFrames) %
-    //             spriteAnimations[playerState].loc.length;
-    //             frameX = spriteWidth * position;
-    //             frameY = spriteAnimations[playerState].loc[position].y;
-    //         } else {
-    //             position = 0 ;
-    //             frameX = spriteWidth * position;
-    //             frameY = spriteAnimations[playerState].loc[position].y;
-    //         }
-
-    //         ctx.drawImage(
-    //             playerImage,
-    //             frameX,
-    //             frameY,
-    //             spriteWidth,
-    //             spriteHeight,
-    //             0,
-    //             0,
-    //             spriteWidth,
-    //             spriteHeight
-    //         );
-
-    //         /*             if (gameFrame % staggerFrames == 0) {
-    //             if (frameX < 4) frameX++;
-    //                 else frameX = 0;
-    //         } */
-
-    //         gameFrame++;
-    //         requestAnimationFrame(animate);
-    //     }
-    //     animate();
-    // });
-
+    // add abilities to screen
+    // 
 
         
 </script>
@@ -514,73 +405,13 @@
     id="playerImage"            
 />
 
-<div in:fade out:fade class={"glitter-smoke " + (transformAvatar ? 'visible' : '')} ></div>/> 
-
-
+<Smoke transformAvatar={transformAvatar}/>
 <svelte:window
     on:keydown={(e) => (key = e.key)}
     on:load={avatarSpriteAnimation}
 />
 
 <style>
-    .glitter-smoke{
-        background-color: #6f2dff;
-        position: sticky;
-        width: 200px;
-        height: 200px;
-        border-radius: 200px;
-        /* top: 150px; */
-        left: 100px;
-        bottom: 770px;
-        display: flex;
-        z-index: 5;
-        transform: rotate(90deg) rotateY(0deg);
-        /* display: none; */
-        box-shadow:
-    	0 0 50px 50px #6f2dff,  /* inner  */
-    	0 0 80px 80px #4c00ff9f, /* middle  */
-    	0 0 100px 100px #8800ff90; /* outer */
-        scale: 0;
-        transition: all 1s;
-		/* animation: glow 2s ease-in-out infinite alternate; */
-    }
-
-    .glitter-smoke.visible{
-        display: block;
-        scale: 1.3;
-        transition-duration: 1s;
-        animation: shake 1s;
-		animation-iteration-count: infinite;
-    }
-
-    @keyframes shake {
-  0% { transform: translate(5px, 5px) rotate(0deg); }
-  10% { transform: translate(-5px, -4px) rotate(-1deg); }
-  20% { transform: translate(-7px, 2px) rotate(1deg); }
-  30% { transform: translate(5px, 3px) rotate(0deg); }
-  40% { transform: translate(1px, -1px) rotate(1deg); }
-  50% { transform: translate(-13px, 8px) rotate(-1deg); }
-  60% { transform: translate(-6px, 5px) rotate(0deg); }
-  70% { transform: translate(13px, 5px) rotate(-1deg); }
-  80% { transform: translate(-6px, -4px) rotate(1deg); }
-  90% { transform: translate(5px, 7px) rotate(0deg); }
-  100% { transform: translate(10px, -12px) rotate(-1deg); }
-}
-
-    @keyframes glow {
-		from{
-			box-shadow:
-    		0 0 10px 5px #6f2dff94,  /* inner  */
-    		0 0 30px 15px #4c00ff6d, /* middle  */
-    		0 0 50px 25px #8800ff6f; /* outer */
-		}
-		to{
-			box-shadow:
-    		0 0 40px 20px #6f2dff94,  /* inner  */
-    		0 0 60px 30px #4c00ff6d, /* middle  */
-    		0 0 110px 60px #8800ff6f;; /* outer  */
-		}
-	}
 
     #canvas1 {
         /* border: 5px solid black; */
@@ -589,9 +420,9 @@
         height: 400px;
         /* top: 150px; */
         left: 80px;
-        bottom: 670px;
+        bottom: 60%;
         display: flex;
-        z-index: 3;
+        z-index: 13;
         transform: rotate(90deg) rotateY(0deg);
     }
 

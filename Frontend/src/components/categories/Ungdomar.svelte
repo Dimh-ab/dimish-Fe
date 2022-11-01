@@ -2,14 +2,16 @@
 	import { _ } from "svelte-i18n"
     import { onMount } from "svelte";
 	import axios from "axios";
-	import { amountOfProjects, checkPoint, projectId, bookId } from "../../stores.js";
+	import { amountOfProjects, checkPoint, projectId, bookId, adolescenceBooksRead } from "../../stores.js";
 	import InterSectionObserver from "svelte-intersection-observer";
+	import Update from '../Update.svelte'
+    let updateBookComponent
 
 	let isInShelf = true
-	// let bookId = ""
 	let element
     let intersecting
 	let rootMargin = "-250px"
+	const bookCopy = {...$amountOfProjects, read: true}
 
 	// fixes issue with intersection observer on mobile devices
 	if (window.innerHeight < 768) {
@@ -25,6 +27,12 @@
 		try {
 			const response = await axios.get(PROJECTS_ENDPOINT);
 			$amountOfProjects = response.data
+
+			const adolescenceStorage = localStorage.getItem('adolescence')
+			if(adolescenceStorage !== null){
+				const storage = JSON.parse(adolescenceStorage)
+				$adolescenceBooksRead = storage
+			}
 		} catch (error) {
 			console.log(error);
 		}
@@ -37,20 +45,37 @@
 		} else if(book.id === id){
 			$bookId = id
 			isInShelf = !isInShelf
-			console.log(bookId, id)
 		}
 	}
 
-	$: console.log(bookId)
+		// checks if books in this category have been read
+		const checkReadBooks = () => {
+		const newArray = $amountOfProjects.filter(book => book.category === 'Ungdomar')
+		let array = [...newArray]
+		let readArray = array.map(r => r.read)
+		if(readArray.every(val => val === true)){
+			$adolescenceBooksRead = true
+			localStorage.setItem('adolescence', $adolescenceBooksRead)
+		}
+	}
 
     const openBook = (i) => {
 		wasClicked = wasClicked === i ? -1 : i 
+
+		$amountOfProjects.forEach(() => {
 		if(i === wasClicked){
 			$projectId = $bookId
-		} else{
+		} 
+
+		if(wasClicked === -1){
 			$projectId = 0
-		}
-		console.log(wasClicked, i)
+			$amountOfProjects[i].read = true
+			updateBookComponent.updateBook(bookCopy)
+			// update(bookCopy)
+			checkReadBooks()
+			}
+		console.log(wasClicked, $projectId)
+	})
 	}
 
 	const handleKeyDown = (i) => {
@@ -62,6 +87,8 @@
 	$: intersecting ? $checkPoint = $checkPoint = 2 : ''
 
 </script>
+
+<Update bind:this={updateBookComponent} />
 
 <InterSectionObserver {element} bind:intersecting {rootMargin}>
 <section id="second-category" class={"second-category " + ($bookId === $projectId ? "overlay" : "")}>
@@ -152,22 +179,25 @@
 	transform: scale(1.1);
 }
 	.second-category{
-		position: absolute;
+		/* position: absolute; */
 		/* width: 100vh; */
 		/* height: 100%; */
-		top: 3450px;
-		left: 0;
-		background: url(../images/bckg02.jpg) no-repeat;
+		/* top: 3450px; */
+		/* top: 282%; */
+		/* left: 0; */
+		background: url(../images/cat2-final.png) no-repeat;
+		width: 100%;
+		height: 100%;
 		/* background-size: 100%; */
-		width: 928px;
-		height: 1145px;
+		/* width: 928px; */
+		/* height: 1145px; */
 		background-size: contain;
 	}
 
 	.second-category.overlay{
-		background:url(../images/bckg02.jpg) no-repeat, rgba(0, 0, 0, 0.8);
-		width: 928px;
-		height: 1145px;
+		background:url(../images/cat2-final.png) no-repeat, rgba(0, 0, 0, 0.8);
+		/* width: 928px;
+		height: 1145px; */
 		background-size: contain;
 		background-blend-mode: overlay;
 	}
@@ -540,12 +570,12 @@
 	}
 
 	@media only screen and (max-width: 1200px){
-        .second-category{
+        /* .second-category{
             width: 100%;
 		    height: 200%;
 			top: 4505px;
 			left: 0;
-        }
+        } */
 
 		article{
 			margin-top: 630px;
@@ -558,9 +588,9 @@
 
 	@media only screen and (max-width: 1024px){
 
-		.second-category{
+		/* .second-category{
 			top: 4225px;
-		}
+		} */
 
 		article{
 			margin-top: 600px;
@@ -616,11 +646,11 @@
 	}
 
 	@media only screen and (max-height: 425px){
-		.second-category{
+		/* .second-category{
 			top: 2390px;
             width: 1000px;
             height: 800px;
-        }
+        } */
 
 		article{
 			margin-top: 30px;
@@ -632,10 +662,10 @@
     }
 
     @media only screen and (max-height: 390px){
-        .second-category{
+        /* .second-category{
             height: 730px;
 			top: 2200px;
-        }
+        } */
 
 		article{
 			margin-top: 0px;
@@ -660,26 +690,26 @@
 		}
     }
     @media only screen and (max-height: 375px){
-        .second-category{
+        /* .second-category{
             height: 700px;
 			top: 2120px;
-        }
+        } */
     }
     @media only screen and (max-height: 345px){
-        .second-category{
+        /* .second-category{
             height: 645px;
 			top: 1960px;
-        }
+        } */
 
 		main{
 			translate: -30px -40px;
 		}
     }
     @media only screen and (max-height: 325px){
-        .second-category{
+        /* .second-category{
             height: 605px;
 			top: 1850px;
-        }
+        } */
 
 		main{
 			translate: -50px -40px;

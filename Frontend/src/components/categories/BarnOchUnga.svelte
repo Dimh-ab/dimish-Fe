@@ -2,16 +2,18 @@
 	import { _ } from "svelte-i18n"
     import { onMount } from "svelte";
 	import axios from "axios";
-	import { amountOfProjects, checkPoint, bookId, projectId, allKidsBooksRead } from "../../stores.js";
+	import { amountOfProjects, checkPoint, bookId, projectId, allKidsBooksRead, hasTalkedToSven } from "../../stores.js";
 	import InterSectionObserver from "svelte-intersection-observer";
+	import Update from '../Update.svelte'
+    let updateBookComponent
+
+	// BUG: when all are true or all have been read and you want read a book again all become unread or false again. 
 
 	$: intersecting ? $checkPoint = $checkPoint = 1 : ''
 	
 	$: console.log('intersecting', intersecting)
 
 	let isInShelf = true
-	// let bookId = ""
-	// let projectId
 	let element
     let intersecting
 	let rootMargin = "-250px"
@@ -32,14 +34,19 @@
 			const response = await axios.get(PROJECTS_ENDPOINT);
 			$amountOfProjects = response.data
 			// console.log($amountOfProjects)
+			const kidsStorage = localStorage.getItem('kids')
+				if(kidsStorage !== null){
+					const storage = JSON.parse(kidsStorage)
+					$allKidsBooksRead = storage
+					console.log($allKidsBooksRead)
+				}
+			console.log($allKidsBooksRead)
 		} catch (error) {
 			console.log(error);
 		}
 	});
 
-		// TODO:
-	// if all have been read, girl transforms into fairy
-
+	
 	// animates the book from spine to cover
 	const clickBookSpine = (book, id) => {
 		if(book.id !== id){
@@ -51,56 +58,34 @@
 		}
 	}
 
-
 	// checks if books in this category have been read
 	const checkReadBooks = () => {
 		const newArray = $amountOfProjects.filter(book => book.category === 'Barn och Unga')
-		console.log('FIRST CATEGORY', newArray)
-
-		// BUG: when all are true or all have been read and you want read a book again all become unread or false again. 
-
+		// console.log('FIRST CATEGORY', newArray)
 		let array = [...newArray]
-		
-		array.forEach((a, i) => {
-			console.log(a.read)
-			if(a.read === false){
-				$allKidsBooksRead = false
-				console.log('have not been read', $allKidsBooksRead)
-			} else{
-				$allKidsBooksRead = true
-				console.log('have been read', $allKidsBooksRead)
-			}
-		})
+		let readArray = array.map(r => r.read)
+		if(readArray.every(val => val === true)){
+			$allKidsBooksRead = true
+			localStorage.setItem('kids', $allKidsBooksRead)
+			// get fly award
+		}
 	}
 
-	$: console.log('all books have been read = ', $allKidsBooksRead)
-	
-
-	// updates the projects array with updated book
-	const updateBook = (updated) => {
-		const array = [...$amountOfProjects]
-		console.log(array)
-		
-		let hasUpdated = array.map((p) => p.id === updated.id ? updated : p) 
-			if(hasUpdated){
-				$amountOfProjects = hasUpdated
-			}
-	}
-
+	// opens book, on closing it checks if book has been read and updates array accordingly
     const openBook = (i) => {
 		wasClicked = wasClicked === i ? -1 : i
 
 		$amountOfProjects.forEach(() => {
 			if(i === wasClicked){
 			$projectId = $bookId
+		}
+		if(wasClicked === -1){
+			$projectId = 0
 			$amountOfProjects[i].read = true
-			updateBook(bookCopy)
+			updateBookComponent.updateBook(bookCopy)
 			checkReadBooks()
-			} 
-			// else if( i === wasClicked && $amountOfProjects[i].read !== true){
-			// 	$amountOfProjects[i].read = true
-			// 	updateBook(bookCopy)
-			// }
+			}
+			console.log(wasClicked, $projectId)
 		})
 		
 	}
@@ -115,10 +100,12 @@
 
 </script>
 
+<Update bind:this={updateBookComponent} />
+
 <InterSectionObserver {element} bind:intersecting {rootMargin}>
 <section id="first-category" class={"first-category " + ($bookId === $projectId ? "overlay" : "")}>
 	<article  bind:this={element}>
-		<main>
+		<main class={$hasTalkedToSven >= 1 ? 'visible' : ''}>
 		{#each $amountOfProjects as project, i (project.id)}
 		{#if project.category === "Barn och Unga"}
 		<div class={"book-spacing " + (i === wasClicked ? "zindex" : "")}>
@@ -217,22 +204,25 @@
 }
 
 	.first-category{
-		position: absolute;
+		/* position: absolute; */
 		/* width: 100vh; */
 		/* height: 100%; */
-		top: 1800px;
-		left: -30px;
-		background: url(../images/cat-bg/bckg010101.png) no-repeat;
+		/* top: 1800px; */
+		/* top: 145%;
+		left: 2%; */
+		background: url(../images/final-first.png) no-repeat;
+		width: 100%;
+		height: 100%;
 		/* background-size: 100%; */
-		width: 1028px;
-		height: 1650px;
+		/* width: 1028px; */
+		/* height: 1650px; */
 		background-size: contain;
 	}
 
 	.first-category.overlay{
-		background:url(../images/cat-bg/bckg010101.png) no-repeat, rgba(0, 0, 0, 0.8);
-		width: 1028px;
-		height: 1650px;
+		background:url(../images/final-first.png) no-repeat, rgba(0, 0, 0, 0.8);
+		/* width: 1028px;
+		height: 1650px; */
 		background-size: contain;
 		background-blend-mode: overlay;
 	}
@@ -294,7 +284,7 @@
 	}
 
 	main{
-		translate: 35px 0;
+		translate: 0px -10px;
 		height: 800px;
 		width: 600px;
 		display: flex;
@@ -304,6 +294,11 @@
 		justify-content: flex-start;
 		background-color:transparent;
 		transform: scale(0.7) rotate(90deg);
+		opacity: 0;
+	}
+
+	main.visible{
+		opacity: 1;
 	}
 
 	.book-spacing:first-child{
@@ -621,12 +616,12 @@
 	}
 
 	@media only screen and (max-width: 1200px){
-        .first-category{
+        /* .first-category{
             width: 100%;
 		    height: 200%;
 			top: 2420px;
 			left: 0;
-        }
+        } */
 
 		.sign{
 			translate: 270px -550px;
@@ -668,9 +663,9 @@
 			translate: 245px -550px;
 		}
 
-		.first-category{
+		/* .first-category{
 			top: 2270px;
-		}
+		} */
 
 		article{
 			margin-top: 560px;
@@ -709,18 +704,18 @@
 
 	@media only screen and (max-width: 1000px){
 
-		.first-category{
+		/* .first-category{
 			top: 1215px;
 			width: 920px;
 		    height: 1000px;
-		}
+		} */
 
 		article{
 			margin-top: 75px;
 		}
 
 		main{
-			translate: -10px 0px;
+			translate: -27px 10px;
 			scale: none;
 		}
 		.cover, .back-cover, .coverInside{
@@ -754,12 +749,12 @@
 	}
 
 	@media only screen and (max-height: 425px){
-        .first-category{
+        /* .first-category{
 			top: 1250px;
             width: 1000px;
             height: 1140px;
 			left: -20px;
-        }
+        } */
 
 		article{
 			margin-top: 125px;
@@ -787,10 +782,10 @@
     }
 
     @media only screen and (max-height: 390px){
-        .first-category{
+        /* .first-category{
             height: 1050px;
 			top: 1150px;
-        }
+        } */
 
 		article{
 			margin-top: 75px;
@@ -817,10 +812,10 @@
 		}
     }
     @media only screen and (max-height: 375px){
-        .first-category{
+        /* .first-category{
             height: 1010px;
 			top: 1110px;
-        }
+        } */
 
 		article{
 			margin-top: 55px;
@@ -847,10 +842,10 @@
 		}
     }
     @media only screen and (max-height: 345px){
-        .first-category{
+        /* .first-category{
             height: 940px;
 			top: 1020px;
-        }
+        } */
 
 		article{
 			margin-top: 18px;
@@ -878,10 +873,10 @@
 
     }
     @media only screen and (max-height: 325px){
-        .first-category{
+        /* .first-category{
             height: 890px;
 			top: 960px;
-        }
+        } */
 
 		main{
 			scale: 0.9;

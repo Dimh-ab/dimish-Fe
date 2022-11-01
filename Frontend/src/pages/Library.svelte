@@ -1,16 +1,17 @@
+
 <!-- 
     OBS: everything that is in Library.svelte has a transform: rotate(90deg) in their own components to turn them the correct way.
  -->
 <script>
    	import { onMount } from 'svelte'
+    import Ending from '../components/Ending.svelte'
     import MeetSven from "../components/MeetSven.svelte";
-    // import MeetSven from "../components/MeetSven.svelte";
     import BarnOchUnga from "../components/categories/BarnOchUnga.svelte";
     import Ungdomar from "../components/categories/Ungdomar.svelte";
     import StödOchRörlighet from "../components/categories/StödOchRörlighet.svelte";
     import Primärvård from "../components/categories/Primärvård.svelte";
     import Informativt from "../components/categories/Informativt.svelte";
-    import {checkPoint, allKidsBooksRead, hasTalkedToSven} from "../stores.js";
+    import {checkPoint, allKidsBooksRead, hasTalkedToSven, adolescenceBooksRead, mobilityBooksRead, primaryBooksRead, informativeBooksRead, gotWand, story} from "../stores.js";
     import Girl from '../components/spriteAnimations/Girl.svelte'
     
     // senses if the element is in the viewport
@@ -29,24 +30,39 @@
     let rightGuide = ''
     let IOSdevice = ''
     let fullscreenGuide = ''
-
-
-    // let number = 0
-    // let timeOut
+    // let story = ''
 
     // auto focuses the library so that the keyboard can be used to move around aswell
     onMount(() => wrapperElem.focus());
 
+    // changes storyline according to books being read
+    $: if($allKidsBooksRead){
+        $story = 'It seems reading books makes you get awards like these wings! Maybe you can use them to fly away in search for the rest of the books!'
+    }
+    $: if($adolescenceBooksRead){
+        $story = 'WOW – you just got the spell casting ability! Just remember to cast some spells if you will be having trouble with finding Sven’s books!'
+    }
+    $: if($mobilityBooksRead){
+        $story = 'You have been turning into quite a little fairy – first wings, then spell casting, and now fairy dust! I wonder if you will need to throw it in the next chapter to find those books!'
+    }
+    $: if($primaryBooksRead){
+        $story = 'There seems to be some darkness approaching – good that you were awarded with the light. Keep on going and watch your step!'
+    }
+    $: if($informativeBooksRead){
+        $story = 'You made it! You have found all Sven’s books and got the biggest award a fairy could wish for – a magic wand! Let us go and tell Sven about our adventures!!'
+        setTimeout(() => {
+            $gotWand = true
+        }, 11000);
+    }
 
-    // $: console.log($bookId, $projectId)
-
-
-    //controls the buttons you mmove with in mobile/Tablet view, will be changed into a function
+    //controls the buttons you mmove with in mobile/Tablet view
+    // changes storyline according to checkpoints
     $: if($checkPoint === 0){
         rightCategory = '#first-category'
         rightGuide = 'continue ->'
     } else if($checkPoint === 1){
         rightCategory = '#second-category'
+        $story = 'It seems you have found some of Sven’s books! Best is to check them out to make sure you got the right ones!'
     }else if($checkPoint === 2){
         rightCategory = '#third-category'
     }else if($checkPoint === 3){
@@ -83,7 +99,6 @@
     fullscreenGuide = 'Rotera skärmen'
     IOSdevice = ''
     }
-    
 
 
 </script>
@@ -95,9 +110,14 @@
     <p id="rotate-phone-message" class={IOSdevice}>{@html fullscreenGuide}</p>
 </div>
 
+
 <!-- <InterSectionObserver {element} bind:intersecting> -->
-   
+    
+    {#if $gotWand}
+    <Ending />
+    {/if}
     <div class="horizontal-scroll-wrapper" >
+        <!-- {:else} -->
 
         <!-- wrapper is a button element so that it can be autofocused for accessibility purposes like moving with keyboard -->
         <button class="wrapper" bind:this={wrapperElem} data-point={$checkPoint} alt="Background">
@@ -113,27 +133,46 @@
 
                 <Girl />
 
-                <MeetSven />
+                <div class="imageQue">
 
-                {#if $hasTalkedToSven >= 1}
-                <BarnOchUnga key={key}/>
-                {/if}
-                
-                {#if $allKidsBooksRead === true}
+                    <MeetSven />
+                    
+                        <div class="transition" />
+                    
+                    <!-- {#if $hasTalkedToSven >= 1} -->
+                    <BarnOchUnga key={key}/>
+                    <!-- {/if} -->
+
+                        <div class="transition" />
+                    
+                    {#if $allKidsBooksRead === true}
                     <Ungdomar key={key}/>
-                {/if}
-           
-                <StödOchRörlighet key={key}/>
-           
-                <Primärvård key={key}/>
-           
-                <Informativt key={key}/>   
+                    {/if}
 
+                    <div class="transition" />
+                    
+                    {#if $adolescenceBooksRead === true}
+                    <StödOchRörlighet key={key}/>
+                    {/if}
+
+                        <div class="transition" />
+
+                    {#if $mobilityBooksRead === true}
+                    <Primärvård key={key}/>
+                    {/if}
+
+                        <div class="dark-transition" />
+                    
+                    {#if $primaryBooksRead === true}
+                    <Informativt key={key}/>   
+                    {/if}
+                    
+                </div>
         </button>
+        <!-- {/if} -->
     </div>
 
-    <!-- {/if} -->
-    <!-- on:load={avatarSpriteAnimation} -->
+
 <!-- </InterSectionObserver> -->
 
 <svelte:window
@@ -142,7 +181,39 @@
     on:keydown={(e) => (key = e.key)}
 />
 
+
 <style>
+
+    .imageQue{
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: grid;
+        grid-template-rows: 100vw 98vh 100vw 98vh 100vw 98vh 100vw 98vh 100vw 98vh 100vw;
+        grid-template-columns: 100vw;
+    }
+
+    .transition{
+        background: url(../images/transition.png) no-repeat;
+		width: 100%;
+		height: 100%;
+        background-size: contain;
+    }
+
+    .dark-transition{
+        background: url(../images/transition.png) no-repeat rgba(0, 0, 0, 0.65);
+		width: 100%;
+		height: 100%;
+        background-size: contain;
+        background-blend-mode: overlay;
+    }
+
+    /* .transition1{
+        background: url(../images/transition.png) no-repeat;
+		width: 100%;
+		height: 100%;
+        background-size: contain;
+    } */
 
     .moveButtons{
         z-index: 100;
@@ -204,7 +275,9 @@
     .wrapper {
         /* background: url(../images/wide-2-01.jpg); */
         /* background-size: 100%; */
-        background-color: rgb(255, 255, 255);
+        /* background: linear-gradient(to right, #022B25 55%, #62A7A0 45%); */
+        /* background-color: #022B25; */
+        background-color: #000;
         z-index: -1;
         width: 100vh;
         height: 25000px;
@@ -212,7 +285,7 @@
     }
 
 
-    /* .wrapper[data-point="0"]{
+    /* .wrapper[data-point="0"]{C9BFAA 62A7A0
         background: url(../images/bg4.jpg);        
         background-size: 100%;
     }

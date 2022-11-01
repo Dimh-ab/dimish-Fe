@@ -95,7 +95,7 @@
         border-radius: 90px;
         padding: 3px 14px;
         left: 0;
-        bottom: 3rem;
+        bottom: 0.2rem;
         margin: 15px;
         z-index: 2;
         background-color: rgba(255, 255, 255, 0.7);

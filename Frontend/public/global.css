@@ -2,7 +2,7 @@
 
 html, body {
 	position: relative;
-	background: #222;
+	background: rgb(0, 0, 0);
 	background-size: 100% 100%;	
 	background-repeat: no-repeat;
 }
@@ -65,7 +65,7 @@ input:disabled {
 
 button {
 	color: #333;
-	background-color: #f4f4f4;
+	/* background-color: #f4f4f4; */
 	outline: none;
 }
 
@@ -74,9 +74,9 @@ button:disabled {
 }
 
 button:not(:disabled):active {
-	background-color: #ddd;
+	background-color: none;
 }
 
 button:focus {
-	border-color: #666;
+	border-color: rgb(102, 102, 102);
 }
