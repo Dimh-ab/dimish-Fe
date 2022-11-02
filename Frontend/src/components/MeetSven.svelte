@@ -16,7 +16,7 @@
 <InterSectionObserver {element} bind:intersecting>
 <section id="lobby" class={$bookId === $projectId ? "overlay" : ""}>
     <StartingConvo />
-    <div class="welcome clickSven" >
+    <div class="welcome" >
     <div class="box" bind:this={element}>
         <Sven />
     </div>
