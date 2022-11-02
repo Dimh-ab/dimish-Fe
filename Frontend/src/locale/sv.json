@@ -30,7 +30,11 @@
     "dialogGirl1": "Jag skulle gärna hjälpa dig!",
     "dialogSven2": "Jag är evigt tacksam! Om du bara SCROLLar djupare in i biblioteket är jag säker på att du inte kommer att ha några problem med att hitta dem längs vägen. Om rullning gör rörelsen för snabb för din smak är du välkommen att TRYCK NED och sakta ner sakerna.",
     "dialogSven3": "Jag ser att du inte bara har fått tillbaka alla mina böcker utan också nått din fulla potential genom att bli en älva! Jag står dig i skuld för evigt!",
-    "dialogFairy2": "Tack för att du skickade mig på detta uppdrag, Sven. Det är dags för mig att gå dit den verkliga magin händer! https://www.di-mh.com/"
+    "dialogFairy2": "Tack för att du skickade mig på detta uppdrag, Sven. Det är dags för mig att gå dit den verkliga magin händer! https://www.di-mh.com/",
+    "btnText1": "Näst",
+    "btnText2": "Förtsätta",
+    "talkToSven": "Prata med Sven",
+    "lobby": "Tillbaka till lobbyn"
   },
   "category1": {
     "cat1inst1": "Det verkar som om du har hittat några av Svens böcker! Bäst är att kolla upp dem för att se till att du har rätt!",

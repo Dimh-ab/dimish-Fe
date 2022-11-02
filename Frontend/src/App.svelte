@@ -27,14 +27,16 @@
 	<Cookies />
 
 	<Router {url}>
-		<!-- <nav> -->
+		<nav>
 			<!-- <Link to="/" >Home</Link>
 			<Link to="library">Library</Link>
 			<Link to="dashboard">Dashboard</Link> -->
-			<!-- <Link to="all-projects" class="link"> <h3>{$_("homepage.allProjects")}</h3> </Link> -->
-		<!-- </nav> -->
+			<Link to="all-projects" class="link"> <h3>{$_("homepage.allProjects")}</h3> </Link>
+		</nav>
 
 		<a href="https://www.di-mh.com/" target="_blank" >dimh</a>
+	
+		<!-- <img src="circle-01.png" alt="circle"> -->
 
 		<Accessibility />
 
@@ -61,10 +63,9 @@
 			<Library />
 		</Route>
 
-		
-		<!-- <Route path="all-projects">
+		<Route path="all-projects">
 			<AllProjects />
-		</Route> -->
+		</Route>
 
 		<ProtectedRoute path="dashboard" component={Dashboard} />
 	</Router>
@@ -82,16 +83,16 @@
 		margin: 0 1rem;
 	}
 
-	/* nav > :global(a) {
+	nav > :global(a) {
 		text-decoration: none;
 	}
 
 	:global(a) h3 {
 		position: fixed;
 		left: 1rem;
-		bottom: 1.5rem;
+		bottom: 4.5rem;
 		z-index: 1;
 		color: #ffffff;
-	} */
+	}
 
 </style>

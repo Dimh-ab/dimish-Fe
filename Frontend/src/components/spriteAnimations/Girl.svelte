@@ -327,9 +327,9 @@
 
     #canvas1 {
         position: sticky;
-        width: 240px;
-        height: 380px;
-        left: 80px;
+        width: 380px;
+        height: 520px;
+        left: 30px;
         bottom: 60%;
         display: flex;
         z-index: 13;

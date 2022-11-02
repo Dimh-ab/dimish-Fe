@@ -36,11 +36,11 @@
             }
 
             if( $nextChat === 1){
-                staggerFrames = 9
+                staggerFrames = 15
             } else if( $nextChat === 2){
                 staggerFrames = 0
             } else if ( $nextChat === 3){
-                staggerFrames = 9
+                staggerFrames = 15
             } else{
                 staggerFrames = 0
             }
@@ -67,8 +67,10 @@
 
     #svenCanvas{
         position: absolute;
-        width: 150px;
-        height: 150px;
+        width: 320px;
+        height: 420px;
         z-index: 15;
+        bottom: 30%;
+        right: 70px;
     }
 </style>

@@ -1,4 +1,5 @@
 <script>
+    import { _ } from "svelte-i18n"
     import { onMount } from "svelte";
     import { navigate } from "svelte-routing";
     import { fly } from "svelte/transition";
@@ -13,7 +14,7 @@
     // $: console.log(key);
 
     onMount( () => {
-        story = 'Welcome to the library! You are one CLICK/ENTER away from crossing the threshold of its magical world..'
+        story = $_("homepage.welcomeText")
         // if(story !== ''){
         //     setTimeout(() => {
         //         story = ''

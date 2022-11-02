@@ -1,4 +1,5 @@
 <script>
+    import { _ } from "svelte-i18n"
     import { onMount } from 'svelte';
     import {hasTalkedToSven, nextChat} from '../stores'
     let who = 'Sven: '
@@ -58,15 +59,15 @@ const handleNext = () => {
 
     $: if(talkToSven){
         $nextChat = 1
-        svenChat = 'Hello there! I am so happy you are here! I seem to have misplaced some books in the library and I need you to help me find them.'
-        btnText = 'next ->'
+        svenChat = $_("library.dialogSven1")
+        btnText = $_("library.btnText1")
     }
 
     $: if($nextChat === 2){
-        girlChat = 'I would love to help you!'
+        girlChat = $_("library.dialogGirl1")
     } else if($nextChat === 3){
-        svenChat = 'I am forever grateful! If you just SCROLL deeper into the library, I am sure you will have no trouble in finding them along the way. If scrolling makes movement too quick for your taste, you are welcome to PRESS DOWN and slow things around.'
-        btnText = 'continue ->'
+        svenChat = $_("library.dialogSven2")
+        btnText = $_("library.btnText2")
     }
     
     $: if( $nextChat > 3){
@@ -87,7 +88,7 @@ const handleNext = () => {
         <button class='next' on:click={handleNext}>{btnText}</button>
     </article>
     {:else}
-    <button class={"talk-to-sven " + ($hasTalkedToSven >= 1 ? 'stopAnimation' : '')} on:click={talk}>Talk to Sven</button>
+    <button class={"talk-to-sven " + ($hasTalkedToSven >= 1 ? 'stopAnimation' : '')} on:click={talk}>{$_("library.talkToSven")}</button>
     {/if}
 
 <style>

@@ -1,5 +1,4 @@
 <script>
-
     import { locale } from "svelte-i18n";
 
     const handleLocaleChange = (e) => {
@@ -10,16 +9,14 @@
     const changeLanguage = () => {
         console.log("language clicked");
     };
-    
 </script>
 
 <body>
-
     <select on:change={handleLocaleChange} class="language-img">
-        <option value="en"> <img src="static/images/icons8-great-britain-48.png" alt="English" height="80px" width="80px"> 🇬🇧 </option>
+        <option value="en">🇬🇧</option>
         <option value="sv">🇸🇪</option>
         <option value="hr">🇭🇷</option>
-      </select>
+    </select>
 
     <!-- <img
         on:click={changeLanguage}
@@ -36,18 +33,22 @@
         border: none;
     }
 
+    select option {
+        background-color: #2c2727;
+    }
+
     option {
-        text-align: center;        
+        text-align: center;
     }
 
     .language-img {
         width: 55px;
         height: 40px;
         position: fixed;
-        bottom: .65em;
+        bottom: 0.65em;
         right: 1rem;
         cursor: pointer;
-        color: rgb(255, 6, 6);
+        color: white;
         /* filter: opacity(0.5) drop-shadow(0 0 0 rgb(230, 6, 6)); */
         /* filter: invert(); */
         z-index: 2;

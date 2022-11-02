@@ -1,13 +1,14 @@
 
 <script>
+    import { _ } from "svelte-i18n"
     // import TypeWriter from './TypeWriter.svelte'
     // let typewriterComponent
     import {goHome} from '../stores'
     let visible = false;
     let next = 0
     let who = 'Sven: '
-    let conversation = 'I see that you have not only gotten all of my books back to me but have also reached your full potential by becoming a fairy! I am forever in your debt!'
-    let conversation1 = 'Fairy: Thank you for sending me on this mission, Sven. It is time for me to go where the real magic happens!'
+    let conversation = $_("library.dialogSven3")
+    let conversation1 = $_("library.dialogFairy2")
 
     // let typewriterTransition = TypeWriter.typewriterComponent()
 
@@ -66,7 +67,7 @@ function typewriter(node, { speed = 3 }) {
     </article>
 
     {:else}
-    <button on:click={() => visible = !visible} class={'talkWsven ' + (next > 1 ? 'stop' : '')}>Talk to Sven</button>
+    <button on:click={() => visible = !visible} class={'talkWsven ' + (next > 1 ? 'stop' : '')}>{$_("library.talkToSven")}</button>
 
     {/if}
 
