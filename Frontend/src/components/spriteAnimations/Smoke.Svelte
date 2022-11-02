@@ -82,7 +82,7 @@
         position: sticky;
         width: 400px;
         height: 400px;
-        z-index: 7;
+        z-index: 15;
         left: 60px;
         bottom: 670px;
         translate: -80px -60px;
