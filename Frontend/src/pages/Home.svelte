@@ -3,6 +3,7 @@
     import { onMount } from "svelte";
     import { navigate } from "svelte-routing";
     import { fly } from "svelte/transition";
+    // import HomepageGirl from '../components/spriteAnimations/Homepage-girl.svelte'
     //let wasClicked = false;
 
     // Welcome to the library! You are one CLICK/ENTER away from crossing the threshold of its magical world...
@@ -76,7 +77,10 @@
 <div tabindex="0" class="sprite" use:zoom={10}>
     <!-- <img class="girl" src="/static/images/girl2.png" alt="girl" /> -->
     <img class="door" src="/static/images/homepage-3-01-01.jpg" alt="book-door" />
+
 </div>
+
+<!-- <HomepageGirl /> -->
 
 <style>
 

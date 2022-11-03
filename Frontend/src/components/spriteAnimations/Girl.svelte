@@ -237,7 +237,7 @@
 <canvas id="canvas1" />
 <img
     class="forward"
-    src="../images/girl-sprite-final.png"
+    src="../images/transformation-spritesheet.png"
     alt="player"
     id="playerImage"
 />
@@ -339,4 +339,6 @@
     #playerImage {
         display: none;
     }
+
+
 </style>
