@@ -193,7 +193,7 @@
 
     $:  if ($allKidsBooksRead === true){
         transformAvatar = true
-        girlTransform = 1
+        girlTransform = 2
         setTimeout(() => {
             transformAvatar = false
             avatarSpriteAnimation()
@@ -201,19 +201,19 @@
     } 
 
     $: if($adolescenceBooksRead === true){
-        girlTransform = 2
-        transformAvatar = true
-        console.log(girlTransform)
+        setTimeout(() => {   
+            girlTransform = 1
+            transformAvatar = true
+        }, 3000);
         setTimeout(() => {
             transformAvatar = false
             avatarSpriteAnimation()
-        }, 1000);
+        }, 4000);
     }
 
     $: if($mobilityBooksRead === true){
         girlTransform = 4
         transformAvatar = true
-        console.log(girlTransform)
         setTimeout(() => {
             transformAvatar = false
             avatarSpriteAnimation()
@@ -230,6 +230,11 @@
         }, 1000);
     }
 
+    $: if($informativeBooksRead === true){
+        girlTransform = 5
+        avatarSpriteAnimation()
+    }
+
     $: console.log(girlTransform, transformAvatar)
 
 </script>
@@ -242,7 +247,9 @@
     id="playerImage"
 />
 
+{#if !$informativeBooksRead}
 <Smoke transformAvatar={transformAvatar}/>
+{/if}
 <svelte:window on:keydown={(e) => (key = e.key)} on:load={avatarSpriteAnimation}/>
 
 <style>

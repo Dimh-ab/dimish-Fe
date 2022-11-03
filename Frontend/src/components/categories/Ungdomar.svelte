@@ -56,6 +56,7 @@
 		if(readArray.every(val => val === true)){
 			$adolescenceBooksRead = true
 			localStorage.setItem('adolescence', $adolescenceBooksRead)
+			window.scrollTo({ left: 600, behavior: "smooth" })
 		}
 	}
 
@@ -71,7 +72,6 @@
 			$projectId = 0
 			$amountOfProjects[i].read = true
 			updateBookComponent.updateBook(bookCopy)
-			// update(bookCopy)
 			checkReadBooks()
 			}
 		console.log(wasClicked, $projectId)
@@ -168,6 +168,7 @@
 	background: transparent;
 	color: #fff;
 	font-size: 1.5rem;
+	scale: 1.3;
 }
 
 .backBtn.visible{
@@ -176,28 +177,17 @@
 
 .backBtn:hover{
 	color:#f9c851;
-	transform: scale(1.1);
+	transform: scale(1.4);
 }
 	.second-category{
-		/* position: absolute; */
-		/* width: 100vh; */
-		/* height: 100%; */
-		/* top: 3450px; */
-		/* top: 282%; */
-		/* left: 0; */
 		background: url(../images/cat2-final.png) no-repeat;
 		width: 100%;
 		height: 100%;
-		/* background-size: 100%; */
-		/* width: 928px; */
-		/* height: 1145px; */
 		background-size: contain;
 	}
 
 	.second-category.overlay{
 		background:url(../images/cat2-final.png) no-repeat, rgba(0, 0, 0, 0.8);
-		/* width: 928px;
-		height: 1145px; */
 		background-size: contain;
 		background-blend-mode: overlay;
 	}
@@ -265,7 +255,7 @@
 		align-items: center;
 		justify-content: flex-start;
 		background-color:transparent;
-		transform: scale(0.3) rotate(90deg);
+		transform: scale(0.4) rotate(90deg);
 	}
 
 	.book-spacing:first-child{
@@ -302,46 +292,46 @@
 		position: relative;
 	}
 
-
 	.book.wasClicked .cover{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(7.2);
-		transition-duration: 2.3s;
-		z-index: -15;
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(5.8);
+		transition-duration: 1.4s;
 	}
 
 	.book.wasClicked .coverInside{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(7.2);
-		transition-duration: 2.3s;
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(5.8);
+		transition-duration: 1.4s;
 		z-index: 6;
 	}
 
 	.book.wasClicked .coverPage{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(7.2);
-		transition-duration: 2.1s;
-		z-index: 8;
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(5.8);
+		transition-duration: 1.4s;
+		z-index: 7;
 	}
 
 	.book.wasClicked .page{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-183deg) scale(7.2);
-		transition-duration: 2.5s;
-		z-index: 12;
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(5.8);
+		transition-duration: 1.7s;
+		z-index: 8;
+		/* made changes from */
 	}
 	.book.wasClicked .pages{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(7.2);
-		transition-duration: 2.3s;
-		z-index: 10;
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(5.8);
+		transition-duration: 1.7s;
+		z-index: 6;
 	}
 
 	.book.wasClicked .back-cover{
-		transform: perspective(1000px) rotateX(10deg) scale(7.2);
-		transition-duration: 2.3s;
+		transform: perspective(1000px) rotateX(10deg) scale(5.8);
+		transition-duration: 1.5s;
 	}
 
 	.book.wasClicked .last-page{
-		transform: perspective(1000px) rotateX(10deg) scale(7.2);
-		transition-duration: 2.3s;
+		transform: perspective(1000px) rotateX(10deg) scale(5.8);
+		transition-duration: 1.4s;
 		z-index: 2;
 	}
+
 
 	.book.wasClicked .spine1, .book.wasClicked .spine, .book.wasClicked .cover, .book.wasClicked .coverInside, .book.wasClicked .pages, .book.wasClicked .coverPage, .book.wasClicked .page, .book.wasClicked .last-page, .book.wasClicked .back-cover{
 			translate: 0px 200px;
@@ -349,8 +339,8 @@
 
 
 	.cover{
-		z-index: 25;
-		transition: all 3s;
+		z-index: 6;
+		transition: all 2s;
 		transform-origin: center left;
 		color: white;
 		text-align: center;
@@ -417,7 +407,7 @@
 		position: absolute;
 		transform: perspective(1000px) rotateX(10deg);
 		transform-origin: center left;
-		transition-duration: 2.5s;
+		transition-duration: 1.5s;
 	}
 
 	/* covers the top cover on the inside so text etc is not visible when opened */
@@ -430,7 +420,7 @@
 		position: absolute;
 		transform: perspective(1000px) rotateX(10deg);
 		transform-origin: center left;
-		transition-duration: 2.5s;
+		transition-duration: 1.5s;
 	}
 
 
@@ -453,7 +443,7 @@
 		position: absolute;
 		text-align: center;
 		font-size: 0.5em;
-		transition-duration: 2.5s;
+		transition-duration: 1.5s;
 		line-height: 0.8em;
 		overflow: hidden;
 	}
@@ -467,8 +457,8 @@
 		border: var(--pages-border);
 		transform: perspective(1000px) rotateX(10deg);
 		transform-origin: center left;
-		z-index: -2;
-		transition-duration: 2.5s;
+		z-index: 2;
+		transition-duration: 1.5s;
 	}
 	.pages{
 		height: 180px;
@@ -480,7 +470,7 @@
 		transform: perspective(1000px) rotateX(10deg);
 		transform-origin: center left;
 		z-index: 5;
-		transition-duration: 3s;
+		transition-duration: 1.5s;
 	}
 
 	.coverPage{
@@ -492,8 +482,8 @@
 		border: none;
 		transform: perspective(1000px) rotateX(10deg);
 		transform-origin: center left;
-		z-index: 2;
-		transition-duration: 2.5s;
+		z-index: 4;
+		transition-duration: 1.5s;
 	}
 
 	.picture, .title, .category{
@@ -507,57 +497,57 @@
 
 
 	.pages:nth-child(8){
-		transition-duration: 1.8s;
+		transition-duration: 1.7s;
 		z-index: 5;
 	}
 	.pages:nth-child(7){
-		transition-duration: 1.8s;
+		transition-duration: 1.7s;
 		z-index: 5;
 	}
 	.pages:nth-child(6){
-		transition-duration: 1.8s;
+		transition-duration: 1.6s;
 		z-index: 5;
 	}
 	.pages:nth-child(5){
-		transition-duration: 1.8s;
+		transition-duration: 1.6s;
 		z-index: 5;
 	}
 	.pages:nth-child(4){
-		transition-duration: 1.8s;
+		transition-duration: 1.5s;
 		z-index: 5;
 	}
 
 	.book.wasClicked .pages:nth-child(8){
-		transition-duration: 3.1s;
+		transition-duration: 1.7s;
 		border-radius: 7px 10px 10px 2px;
-		transform: perspective(1000px) rotateX(10deg) rotateY(-182deg) scale(7.2);
+		transform: perspective(1000px) rotateX(10deg) rotateY(-182deg) scale(5.8);
 	}
 	.book.wasClicked .pages:nth-child(7){
-		transition-duration: 2.8s;
+		transition-duration: 1.7s;
 		border-radius: 7px 10px 10px 2px;
-		transform: perspective(1000px) rotateX(10deg) rotateY(-181deg) scale(7.2);
+		transform: perspective(1000px) rotateX(10deg) rotateY(-181deg) scale(5.8);
 	}
 	.book.wasClicked .pages:nth-child(6){
-		transition-duration: 2.6;
+		transition-duration: 1.7;
 		border-radius: 6px 10px 10px 2px;
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(7.2);
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(5.8);
 	}
 	.book.wasClicked .pages:nth-child(5){
-		transition-duration: 2.4s;
+		transition-duration: 1.6s;
 		border-radius: 5px 10px 10px 2px;
-		transform: perspective(1000px) rotateX(10deg) rotateY(-179deg) scale(7.2);
+		transform: perspective(1000px) rotateX(10deg) rotateY(-179deg) scale(5.8);
 	}
 	.book.wasClicked .pages:nth-child(4){
-		transition-duration: 2.2s;
+		transition-duration: 1.5s;
 		border-radius: 4px 10px 10px 2px;
-		transform: perspective(1000px) rotateX(10deg) rotateY(-179deg) scale(7.2);
+		transform: perspective(1000px) rotateX(10deg) rotateY(-179deg) scale(5.8);
 	}
 	.book.wasClicked .page{
-		transition-duration: 2.7s;
+		transition-duration: 1.7s;
 		border-radius: 3px 10px 10px 2px;
 	} 
 	.book.wasClicked .coverPage{
-		transition-duration: 2.7s;
+		transition-duration: 1.7s;
 		border-radius: 3px 10px 10px 2px;
 	} 
 

@@ -12,6 +12,8 @@
 	let element
     let intersecting
 	let rootMargin = "-250px"
+	let darkToLight = 'dark-overlay'
+	let showWand = ''
 	const bookCopy = {...$amountOfProjects, read: true}
 
 	// fixes issue with intersection observer on mobile devices
@@ -87,10 +89,12 @@
 		}	
   	}
 
-	  let darkToLight = 'dark-overlay'
-
 	$: if($light === true){
 		darkToLight = ''
+	}
+
+	$: if($light){
+		showWand = 'showWand'
 	}
 
 	$: intersecting ? $checkPoint = $checkPoint = 5 : ''
@@ -102,6 +106,7 @@
 <InterSectionObserver {element} bind:intersecting {rootMargin}>
 <section  id="fifth-category" class={"fifth-category " + ($bookId === $projectId ? "overlay" : darkToLight)}>
 	<article  bind:this={element}>
+		<img src="../images/icons/wand.png" height="100px" alt="wand" class={"wand " + ( $informativeBooksRead ? '' : showWand )} />
 		<main class={$light === true ? 'showBooks' : ''}>
 		{#each $amountOfProjects as project, i (project.id)}
 		{#if project.category === "Informativt"}
@@ -165,6 +170,18 @@
 <style>
 
 
+.wand{
+	position: absolute;
+    bottom: 245px;
+    left: 380px;
+    rotate: 90deg;
+	opacity: 0;
+	transition-duration: 2s;
+}
+
+.wand.showWand{
+	opacity: 1;
+}
 .backBtn{
 	position: relative;
 	height: 60px;
@@ -177,6 +194,7 @@
 	background: transparent;
 	color: #fff;
 	font-size: 1.5rem;
+	scale: 1.3;
 }
 
 .backBtn.visible{
@@ -185,10 +203,10 @@
 
 .backBtn:hover{
 	color:#f9c851;
-	transform: scale(1.1);
+	transform: scale(1.4);
 }
 	.fifth-category{
-		background: url(../images/cat5-final.png) no-repeat;
+		background: url(../images/cat5-final.png) no-repeat, rgba(0, 0, 0, 0);
 		width: 100%;
 		height: 100%;
 		background-size: contain;
@@ -200,35 +218,6 @@
 		height: 100%;
 		background-size: contain;
 		background-blend-mode: overlay;
-		/* transition-delay: 5s; */
-		/* animation: darkness 4s ease-in-out infinite alternate; */
-	}
-
-	@keyframes darkness {
-	0% {
-		scale: 0.5;
-		background: transparent;
-		border-radius: 100%;
-	}
-	/* 50% {
-		background-color: purple;
-	} */
-	100% {
-		scale: 1;
-	}
-
-
-	/* 0% { transform: translate(100px, 100px); }
-	10% { transform: translate(200px, 200px) ; }
-	20% { transform: translate(-300px, 300px) ; }
-	30% { transform: translate(400px, 200px) ; }
-	40% { transform: translate(500px, -100px); }
-	50% { transform: translate(300px, 2px) ; }
-	60% { transform: translate(-3px, 1px) ; }
-	70% { transform: translate(3px, 1px) ; }
-	80% { transform: translate(-1px, -1px) ; }
-	90% { transform: translate(1px, 2px) ; }
-	100% { transform: translate(1px, -2px) ; } */
 	}
 
 	.fifth-category.overlay{
@@ -300,7 +289,7 @@
 		align-items: center;
 		justify-content: flex-start;
 		background-color:transparent;
-		transform: scale(0.3) rotate(90deg);
+		transform: scale(0.4) rotate(90deg);
 		opacity: 0;
 		transition-duration: 2s;
 	}
@@ -351,47 +340,51 @@
 
 
 	.book.wasClicked .cover{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(6.2);
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(5.2);
 		transition-duration: 1.4s;
 	}
 
 	.book.wasClicked .coverInside{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(6.2);
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(5.2);
 		transition-duration: 1.4s;
 		z-index: 6;
 	}
 
 	.book.wasClicked .coverPage{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(6.2);
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(5.2);
 		transition-duration: 1.4s;
 		z-index: 7;
 	}
 
 	.book.wasClicked .page{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(6.2);
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(5.2);
 		transition-duration: 1.7s;
-		z-index: 9;
+		z-index: 8;
 	}
 	.book.wasClicked .pages{
-		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(6.2);
+		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(5.2);
 		transition-duration: 1.7s;
 		z-index: 6;
 	}
 
 	.book.wasClicked .back-cover{
-		transform: perspective(1000px) rotateX(10deg) scale(6.2);
+		transform: perspective(1000px) rotateX(10deg) scale(5.2);
 		transition-duration: 1.5s;
 	}
 
 	.book.wasClicked .last-page{
-		transform: perspective(1000px) rotateX(10deg) scale(6.2);
+		transform: perspective(1000px) rotateX(10deg) scale(5.2);
 		transition-duration: 1.4s;
 		z-index: 2;
 	}
 
 	.book.wasClicked .spine1, .book.wasClicked .spine, .book.wasClicked .cover, .book.wasClicked .coverInside, .book.wasClicked .pages, .book.wasClicked .coverPage, .book.wasClicked .page, .book.wasClicked .last-page, .book.wasClicked .back-cover{			
-			translate: 0px -120px;
+			translate: 0px 320px;
 	}
+
+	/* 
+	TODO: fix book placement
+	*/
 
 	.cover{
 		z-index: 6;
@@ -554,7 +547,7 @@
 		border: none;
 		transform: perspective(1000px) rotateX(10deg);
 		transform-origin: center left;
-		z-index: 5;
+		z-index: 4;
 		transition-duration: 1.5s;
 	}
 

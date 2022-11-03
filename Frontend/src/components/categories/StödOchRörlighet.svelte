@@ -2,7 +2,7 @@
 	import { _ } from "svelte-i18n"
     import { onMount } from "svelte";
 	import axios from "axios";
-	import { amountOfProjects, checkPoint, bookId, projectId, mobilityBooksRead, spell } from "../../stores.js";
+	import { amountOfProjects, checkPoint, bookId, projectId, mobilityBooksRead, spell, adolescenceBooksRead } from "../../stores.js";
 	import InterSectionObserver from "svelte-intersection-observer";
 	import Update from '../Update.svelte'
     let updateBookComponent
@@ -38,6 +38,10 @@
 			console.log(error);
 		}
 	});
+
+	// $: if($adolescenceBooksRead){
+	// 	document.getElementById('#third-category').scrollIntoView({behavior: "smooth"})
+	// }
 
 	const clickBookSpine = (book, id) => {
 		if(book.id !== id){
@@ -168,6 +172,7 @@
 	background: transparent;
 	color: #fff;
 	font-size: 1.5rem;
+	scale: 1.3;
 }
 
 .backBtn.visible{
@@ -176,7 +181,7 @@
 
 .backBtn:hover{
 	color:#f9c851;
-	transform: scale(1.1);
+	transform: scale(1.4);
 }
 	.third-category{
 		background: url(../images/cat3-final.png) no-repeat;
@@ -327,7 +332,8 @@
 	.book.wasClicked .page{
 		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(3.7);
 		transition-duration: 1.7s;
-		z-index: 9;
+		z-index: 8;
+		/* made changes from */
 	}
 	.book.wasClicked .pages{
 		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(3.7);
@@ -521,7 +527,7 @@
 		border: none;
 		transform: perspective(1000px) rotateX(10deg);
 		transform-origin: center left;
-		z-index: 5;
+		z-index: 4;
 		transition-duration: 1.5s;
 	}
 

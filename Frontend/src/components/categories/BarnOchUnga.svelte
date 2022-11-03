@@ -157,10 +157,10 @@
 		{/each}
 		</main>
 	</article>
-	<div class="sign">
+	<!-- <div class="sign">
 		<div class="string"></div>
 		<h1>{$_("descendantsTitle")}</h1>
-	</div>
+	</div> -->
 </section>
 </InterSectionObserver>
 
@@ -253,7 +253,7 @@
 		translate: 0 -350px
 	}
 
-    h1{
+    /* h1{
         transform: rotate(90deg);
 		font-size: 1.6em;
 		color: var(--title-color);
@@ -266,7 +266,7 @@
 		padding: 20px 0;
 		border: 10px solid #deb886;
         box-shadow: 3px 3px 30px rgb(0, 0, 0);
-    }
+    } */
 
 	.string{
 		border: 2px solid silver;
@@ -364,7 +364,8 @@
 	.book.wasClicked .page{
 		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(3);
 		transition-duration: 1.7s;
-		z-index: 9;
+		z-index: 8;
+		/* made changes from */
 	}
 	.book.wasClicked .pages{
 		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(3);
@@ -539,7 +540,7 @@
 		border: none;
 		transform: perspective(1000px) rotateX(10deg);
 		transform-origin: center left;
-		z-index: 5;
+		z-index: 4;
 		transition-duration: 1.5s;
 	}
 

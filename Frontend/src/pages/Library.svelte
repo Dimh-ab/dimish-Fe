@@ -33,20 +33,37 @@
     // let story = ''
 
     // auto focuses the library so that the keyboard can be used to move around aswell
-    onMount(() => wrapperElem.focus());
+    onMount(() => {
+        wrapperElem.focus()
+        if($adolescenceBooksRead){
+            document.getElementById('moveRightBtn').click()
+        }
+    });
+
+    const girlFly = () => {
+        console.log('clicked')
+        document.getElementById('moveRightBtn').click()
+    }
 
     // changes storyline according to books being read
     $: if($allKidsBooksRead){
         $story = 'It seems reading books makes you get awards like these wings! Maybe you can use them to fly away in search for the rest of the books!'
     }
     $: if($adolescenceBooksRead){
+        document.getElementById('fly-base').scrollIntoView({behavior: "smooth", block: "center", inline: "center"})
+        setTimeout(() => {
         $story = 'WOW – you just got the spell casting ability! Just remember to cast some spells if you will be having trouble with finding Sven’s books!'
+        }, 3000);
     }
     $: if($mobilityBooksRead){
-        $story = 'You have been turning into quite a little fairy – first wings, then spell casting, and now fairy dust! I wonder if you will need to throw it in the next chapter to find those books!'
+        setTimeout(() => {
+            $story = 'You have been turning into quite a little fairy – first wings, then spell casting, and now fairy dust! I wonder if you will need to throw it in the next chapter to find those books!'
+        }, 2000);
     }
     $: if($primaryBooksRead){
-        $story = 'There seems to be some darkness approaching – good that you were awarded with the light. Keep on going and watch your step!'
+        setTimeout(() => {
+            $story = 'There seems to be some darkness approaching – good that you were awarded with the light. Keep on going and watch your step!'
+        }, 2000);
     }
     $: if($informativeBooksRead){
         $story = 'You made it! You have found all Sven’s books and got the biggest award a fairy could wish for – a magic wand! Let us go and tell Sven about our adventures!!'
@@ -149,7 +166,7 @@
                     <Ungdomar key={key}/>
                     {/if}
 
-                    <div class="transition" />
+                    <div class={"transition " + ($adolescenceBooksRead ? 'fly-to' : '')} id="fly-base"/>
                     
                     {#if $adolescenceBooksRead === true}
                     <StödOchRörlighet key={key}/>
@@ -191,6 +208,7 @@
         display: grid;
         grid-template-rows: 100vw 98vh 100vw 98vh 100vw 98vh 100vw 98vh 100vw 98vh 100vw;
         grid-template-columns: 100vw;
+        scroll-behavior: smooth;
     }
 
     .transition{
@@ -199,6 +217,10 @@
 		height: 100%;
         background-size: contain;
     }
+
+    /* .transition.fly-to{
+        sc
+    } */
 
     .dark-transition{
         background: url(../images/transition.png) no-repeat rgba(0, 0, 0, 0.65);

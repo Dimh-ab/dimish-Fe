@@ -183,6 +183,7 @@
 	background: transparent;
 	color: #fff;
 	font-size: 1.5rem;
+	scale: 1.7;
 }
 
 .backBtn.visible{
@@ -190,8 +191,8 @@
 }
 
 .backBtn:hover{
-	color:#f9c851;
-	transform: scale(1.1);
+	color:#c03621;
+	scale: 1.8;
 }
 	.fourth-category{
 		background: url(../images/cat4-final.png) no-repeat;
@@ -343,7 +344,7 @@
 	.book.wasClicked .page{
 		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(6.2);
 		transition-duration: 1.7s;
-		z-index: 9;
+		z-index: 8;
 	}
 	.book.wasClicked .pages{
 		transform: perspective(1000px) rotateX(10deg) rotateY(-180deg) scale(6.2);
@@ -527,7 +528,7 @@
 		border: none;
 		transform: perspective(1000px) rotateX(10deg);
 		transform-origin: center left;
-		z-index: 5;
+		z-index: 4;
 		transition-duration: 1.5s;
 	}
 

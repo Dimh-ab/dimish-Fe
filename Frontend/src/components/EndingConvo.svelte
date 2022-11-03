@@ -22,8 +22,9 @@
     }
 
     // TODO
-    // -fix books
+    // -fix books placement
     // -fix transformation sprite
+    // if time, fix creators page
 
     $: console.log(next)
 
@@ -87,6 +88,7 @@ function typewriter(node, { speed = 3 }) {
         /* width: 105%; */
         animation: jump 0.8s ease-in-out infinite alternate;
         transition: all 0.4s;
+        cursor: pointer;
     }
 
     .talkWsven.stop{

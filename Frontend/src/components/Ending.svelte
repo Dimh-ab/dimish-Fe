@@ -40,19 +40,19 @@
 
     .girl{
         rotate: -90deg;
-        translate: 0px 130px;
+        translate: -210px 270px;
     }
 
     .sven{
-        translate: -180px 230px;
+        translate: -80px 230px;
     }
 
     @media only screen and (max-width: 1200px){
         .girl{
-            translate: 0px 30px;
+            translate: -210px 150px;
         }
         .sven{
-            translate: -180px 130px;
+            translate: -80px 130px;
         }
     }
 </style>

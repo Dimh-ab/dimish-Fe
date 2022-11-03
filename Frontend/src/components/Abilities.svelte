@@ -1,13 +1,25 @@
  <script>
     import {allKidsBooksRead, primaryBooksRead, mobilityBooksRead, adolescenceBooksRead, informativeBooksRead, tree, spell, light, gotWand, goHome } from '../stores.js'
     import { fly } from 'svelte/transition';
+    import { onMount } from 'svelte';
     let show = false
     let showHide = 'open'
     let dimh = ''
     let wand = ''
 
-    $: if($allKidsBooksRead || $adolescenceBooksRead || $mobilityBooksRead || $primaryBooksRead || $informativeBooksRead)
-    { showHideAbilities() }
+    // $: if($allKidsBooksRead || $adolescenceBooksRead || $mobilityBooksRead || $primaryBooksRead || $informativeBooksRead)
+    // { showHideAbilities() }
+
+    onMount(() => {
+            if(location.pathname === '/library'){
+                    show = true
+                    showHide = 'close'
+            }
+    })
+
+
+    $: console.log(location.pathname)
+
 
     $: if($informativeBooksRead){
         wand = 'wand '
@@ -51,13 +63,15 @@
     <button class={"show-hide " + (!show ? 'scaleBtn' : '')} on:click={showHideAbilities}>{showHide}</button>
     {#if show}
     <article in:fly="{{ y: 200, duration: 800 }}" out:fly="{{ y: 200, duration: 1500}}">
-        <button disabled={$allKidsBooksRead ? false : true} class={$allKidsBooksRead ? 'fly' : ''}>fly</button>
+        <button 
+        disabled={$allKidsBooksRead ? false : true} 
+        class={$allKidsBooksRead ? 'fly' : ''}>
+        </button>
         <button 
         disabled={$adolescenceBooksRead ? false : true} 
         class={$adolescenceBooksRead ? 'spells' : ''}
         on:click={useSpell}
         >
-        spells
         </button>
 
         <button 
@@ -65,7 +79,6 @@
         class={$mobilityBooksRead ? 'dust' : ''}
         on:click={useFairyDust}
         >
-        fairy dust
         </button>
 
         <button 
@@ -73,7 +86,6 @@
         class={$primaryBooksRead ? 'light' : ''}
         on:click={useLight}
         >
-        light
         </button>
         
         <a href={dimh}>
@@ -156,27 +168,35 @@
     }
 
     .fly{
-        background: linear-gradient(180deg, #702DFF 14.58%, #50D5FF 83.85%);
+        background: url(../images/icons/wings-icon.png) no-repeat, linear-gradient(180deg, #702DFF 14.58%, #50D5FF 83.85%);
+        background-size: contain;
+        background-position: center;
         cursor: pointer;
         border: none;
     }
     .spells{
-        background: linear-gradient(180deg, #b52dff 14.58%, #5f50ff 83.85%);
+        background: url(../images/icons/spell-icon.png) no-repeat, linear-gradient(180deg, #b52dff 14.58%, #5f50ff 83.85%);
+        background-size: contain;
+        background-position: center;
         cursor: pointer;
         border: none;
     }
     .dust{
-        background: linear-gradient(180deg, #f8ff2d 14.58%, #c81b1b 83.85%);
+        background: url(../images/icons/dust-icon.png) no-repeat, linear-gradient(180deg, #f8ff2d 14.58%, #c81b1b 83.85%);
+        background-size: contain;
+        background-position: center;
         cursor: pointer;
         border: none;
     }
     .light{
-        background: linear-gradient(180deg, #2dff3e 14.58%, #0939e4 83.85%);
+        background: url(../images/icons/torch-icon.png) no-repeat, linear-gradient(180deg, #2dff3e 14.58%, #0939e4 83.85%);
+        background-size: contain;
+        background-position: center;
         cursor: pointer;
         border: none;
     }
     .wand{
-        background: url(../images/wand.png) no-repeat, linear-gradient(180deg, #682dff 14.58%, rgb(210, 152, 255) 83.85%);
+        background: url(../images/icons/wand.png) no-repeat, linear-gradient(180deg, #682dff 14.58%, rgb(210, 152, 255) 83.85%);
         background-size: contain;
         background-position: center;
         cursor: pointer;

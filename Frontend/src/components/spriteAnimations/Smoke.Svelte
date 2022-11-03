@@ -71,21 +71,32 @@
 
 </script>
 
-<canvas id="smokeCanvas" />
+<div class="canvas-pos">    
+    <canvas id="smokeCanvas" />
+</div>
 <svelte:window on:load={smokeSpriteAnimation}/>
 
 
 <style>
 
+    .canvas-pos{
+        position: sticky;
+        bottom: 58%;
+        left: 0;
+        z-index: 14;
+    }
+
     #smokeCanvas{
         /* rotate: 90; */
-        position: sticky;
-        width: 400px;
-        height: 400px;
+        position: absolute;
+        bottom: 0;
+        left: 0;
         z-index: 15;
-        left: 60px;
+        /* width: 400px;
+        height: 400px; */
+        /* left: 60px;
         bottom: 670px;
-        translate: -80px -60px;
+        translate: -80px -60px; */
         /* border: 1px solid black; */
     }
 </style>
