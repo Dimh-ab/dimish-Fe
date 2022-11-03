@@ -65,7 +65,9 @@ const handleNext = () => {
 
     $: if($nextChat === 2){
         girlChat = $_("library.dialogGirl1")
+        who = 'Girl:'
     } else if($nextChat === 3){
+        who = 'Sven:'
         svenChat = $_("library.dialogSven2")
         btnText = $_("library.btnText2")
     }
