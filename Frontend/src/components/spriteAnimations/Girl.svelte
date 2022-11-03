@@ -1,6 +1,6 @@
 <script>
 
-    import { allKidsBooksRead, adolescenceBooksRead, primaryBooksRead, mobilityBooksRead, informativeBooksRead} from "../../stores";
+    import { allKidsBooksRead, adolescenceBooksRead, primaryBooksRead, mobilityBooksRead, informativeBooksRead, gotWand} from "../../stores";
     import { fade } from "svelte/transition";
     import { onMount } from "svelte";
     import Smoke from './Smoke.svelte'
@@ -223,7 +223,7 @@
     $: if($primaryBooksRead === true){
         girlTransform = 3
         transformAvatar = true
-        console.log(girlTransform)
+        // console.log(girlTransform)
         setTimeout(() => {
             transformAvatar = false
             avatarSpriteAnimation()
@@ -231,18 +231,27 @@
     }
 
     $: if($informativeBooksRead === true){
+        // setTimeout(() => {
+            
+            girlTransform = 5
+            avatarSpriteAnimation()
+            console.log(girlTransform)
+        // }, 30000);
+    }
+
+    $: if($gotWand === true){
         girlTransform = 5
         avatarSpriteAnimation()
     }
 
-    $: console.log(girlTransform, transformAvatar)
+    // $: console.log(girlTransform, transformAvatar)
 
 </script>
 
 <canvas id="canvas1" />
 <img
     class="forward"
-    src="../images/girl-sprite-final.png"
+    src="../images/transformation-spritesheet.png"
     alt="player"
     id="playerImage"
 />
@@ -334,10 +343,10 @@
 
     #canvas1 {
         position: sticky;
-        width: 240px;
-        height: 380px;
-        left: 80px;
-        bottom: 60%;
+        width: 360px;
+        height: 500px;
+        left: 30px;
+        bottom: 65%;
         display: flex;
         z-index: 13;
         transform: rotate(90deg) rotateY(0deg);
@@ -346,4 +355,6 @@
     #playerImage {
         display: none;
     }
+
+
 </style>

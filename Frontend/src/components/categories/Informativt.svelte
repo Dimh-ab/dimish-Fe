@@ -382,9 +382,12 @@
 			translate: 0px 320px;
 	}
 
-	/* 
-	TODO: fix book placement
-	*/
+	.book-spacing:first-child .book.wasClicked .spine1, .book-spacing:first-child .book.wasClicked .spine, .book-spacing:first-child .book.wasClicked .cover, .book-spacing:first-child .book.wasClicked .coverInside, .book-spacing:first-child .book.wasClicked .pages, .book-spacing:first-child .book.wasClicked .coverPage, .book-spacing:first-child .book.wasClicked .page, .book-spacing:first-child .book.wasClicked .last-page, .book-spacing:first-child .book.wasClicked .back-cover, .book-spacing:nth-child(2) .book.wasClicked .spine1, .book-spacing:nth-child(2) .book.wasClicked .spine, .book-spacing:nth-child(2) .book.wasClicked .cover, .book-spacing:nth-child(2) .book.wasClicked .coverInside, .book-spacing:nth-child(2) .book.wasClicked .pages, .book-spacing:nth-child(2) .book.wasClicked .coverPage, .book-spacing:nth-child(2) .book.wasClicked .page, .book-spacing:nth-child(2) .book.wasClicked .last-page, .book-spacing:nth-child(2) .book.wasClicked .back-cover{
+		translate: -400px 400px;
+	}
+	.book-spacing:nth-child(5) .book.wasClicked .spine1, .book-spacing:nth-child(5) .book.wasClicked .spine, .book-spacing:nth-child(5) .book.wasClicked .cover, .book-spacing:nth-child(5) .book.wasClicked .coverInside, .book-spacing:nth-child(5) .book.wasClicked .pages, .book-spacing:nth-child(5) .book.wasClicked .coverPage, .book-spacing:nth-child(5) .book.wasClicked .page, .book-spacing:nth-child(5) .book.wasClicked .last-page, .book-spacing:nth-child(5) .book.wasClicked .back-cover, .book-spacing:nth-child(6) .book.wasClicked .spine1, .book-spacing:nth-child(6) .book.wasClicked .spine, .book-spacing:nth-child(6) .book.wasClicked .cover, .book-spacing:nth-child(6) .book.wasClicked .coverInside, .book-spacing:nth-child(6) .book.wasClicked .pages, .book-spacing:nth-child(6) .book.wasClicked .coverPage, .book-spacing:nth-child(6) .book.wasClicked .page, .book-spacing:nth-child(6) .book.wasClicked .last-page, .book-spacing:nth-child(6) .book.wasClicked .back-cover, .book-spacing:nth-child(7) .book.wasClicked .spine1, .book-spacing:nth-child(7) .book.wasClicked .spine, .book-spacing:nth-child(7) .book.wasClicked .cover, .book-spacing:nth-child(7) .book.wasClicked .coverInside, .book-spacing:nth-child(7) .book.wasClicked .pages, .book-spacing:nth-child(7) .book.wasClicked .coverPage, .book-spacing:nth-child(7) .book.wasClicked .page, .book-spacing:nth-child(7) .book.wasClicked .last-page, .book-spacing:nth-child(7) .book.wasClicked .back-cover{
+		translate: -400px -100px;
+	}
 
 	.cover{
 		z-index: 6;

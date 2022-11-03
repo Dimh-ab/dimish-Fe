@@ -29,7 +29,11 @@
         "dialogGirl1": "I would love to help you!",
         "dialogSven2": "I am forever grateful! If you just SCROLL deeper into the library, I am sure you will have no trouble in finding them along the way. If scrolling makes movement too quick for your taste, you are welcome to PRESS DOWN and slow things around.",
         "dialogSven3": "I see that you have not only gotten all of my books back to me but have also reached your full potential by becoming a fairy! I am forever in your debt!",
-        "dialogFairy2": "Thank you for sending me on this mission, Sven. It is time for me to go where the real magic happens! https://www.di-mh.com/"
+        "dialogFairy2": "Thank you for sending me on this mission, Sven. It is time for me to go where the real magic happens!",
+        "btnText1": "Next",
+        "btnText2": "Continue",
+        "talkToSven": "Talk to Sven",
+        "lobby": "Back to lobby"
     },
     "category1": {
         "cat1inst1": "It seems you have found some of Sven's books! Best is to check them out to make sure you got the right ones!",

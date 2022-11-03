@@ -81,7 +81,7 @@
 
     .canvas-pos{
         position: sticky;
-        bottom: 58%;
+        bottom: 64%;
         left: 0;
         z-index: 14;
     }
@@ -90,8 +90,10 @@
         /* rotate: 90; */
         position: absolute;
         bottom: 0;
-        left: 0;
+        left: 10%;
         z-index: 15;
+        width: 390px;
+        height: 390px;
         /* width: 400px;
         height: 400px; */
         /* left: 60px;

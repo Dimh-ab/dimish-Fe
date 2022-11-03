@@ -29,7 +29,11 @@
     "dialogGirl1": "Rado ću ti pomoći!",
     "dialogSven2": "Zauvijek sam zahvalan! Ako samo SCROLLaš dublje u knjižnicu, siguran sam da ih nećeš imati problema naći negdje usput. Ako skrolanje čini pokret prebrz za tvoj ukus, pritisni prema DOLJE i uspori cijelu stvar.",
     "dialogSven3": "Vidim da, ne samo da si mi vratila sve moje knjige, već si i dosegla svoj puni potencijal postavši vila! Zauvijek sam ti dužan!",
-    "dialogFairy2": "Hvala ti što si me poslao na ovu misiju, Svene. Vrijeme je da odem tamo gdje se prava magija događa! https://www.di-mh.com/"
+    "dialogFairy2": "Hvala ti što si me poslao na ovu misiju, Svene. Vrijeme je da odem tamo gdje se prava magija događa! https://www.di-mh.com/",
+    "btnText1": "Dalje",
+    "btnText2": "Nastavi",
+    "talkToSven": "Pričaj sa Svenom",
+    "lobby": "Natrag u predsoblje"
   },
   "category1": {
     "cat1inst1": "Čini se da si pronašao/la neke od Svenovih knjiga! Najbolje je da ih provjeriš kako bi bio/la siguran/sigurna da imaš one prave!",

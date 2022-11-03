@@ -3,6 +3,7 @@
     OBS: everything that is in Library.svelte has a transform: rotate(90deg) in their own components to turn them the correct way.
  -->
 <script>
+    import { _ } from "svelte-i18n"
    	import { onMount } from 'svelte'
     import Ending from '../components/Ending.svelte'
     import MeetSven from "../components/MeetSven.svelte";
@@ -40,33 +41,29 @@
         }
     });
 
-    const girlFly = () => {
-        console.log('clicked')
-        document.getElementById('moveRightBtn').click()
-    }
 
     // changes storyline according to books being read
     $: if($allKidsBooksRead){
-        $story = 'It seems reading books makes you get awards like these wings! Maybe you can use them to fly away in search for the rest of the books!'
+        $story = $_("category1.cat2inst2")
     }
     $: if($adolescenceBooksRead){
         document.getElementById('fly-base').scrollIntoView({behavior: "smooth", block: "center", inline: "center"})
         setTimeout(() => {
-        $story = 'WOW – you just got the spell casting ability! Just remember to cast some spells if you will be having trouble with finding Sven’s books!'
+            $story = $_("category2.cat2inst")
         }, 3000);
     }
     $: if($mobilityBooksRead){
         setTimeout(() => {
-            $story = 'You have been turning into quite a little fairy – first wings, then spell casting, and now fairy dust! I wonder if you will need to throw it in the next chapter to find those books!'
+            $story = $_("category3.cat3inst")
         }, 2000);
     }
     $: if($primaryBooksRead){
         setTimeout(() => {
-            $story = 'There seems to be some darkness approaching – good that you were awarded with the light. Keep on going and watch your step!'
+            $story = $_("category4.cat4inst")
         }, 2000);
     }
     $: if($informativeBooksRead){
-        $story = 'You made it! You have found all Sven’s books and got the biggest award a fairy could wish for – a magic wand! Let us go and tell Sven about our adventures!!'
+        $story = $_("category5.cat5inst")
         setTimeout(() => {
             $gotWand = true
         }, 11000);
@@ -76,10 +73,10 @@
     // changes storyline according to checkpoints
     $: if($checkPoint === 0){
         rightCategory = '#first-category'
-        rightGuide = 'continue ->'
+        rightGuide = $_("library.btnText2")
     } else if($checkPoint === 1){
         rightCategory = '#second-category'
-        $story = 'It seems you have found some of Sven’s books! Best is to check them out to make sure you got the right ones!'
+        $story = $_("category1.cat1inst1")
     }else if($checkPoint === 2){
         rightCategory = '#third-category'
     }else if($checkPoint === 3){
@@ -93,7 +90,7 @@
         leftGuide = ''
     }else if($checkPoint === 1){
         leftCategory = '#lobby'
-        leftGuide = '<- back to lobby'
+        leftGuide = $_("library.lobby")
     } else if($checkPoint === 2){
         leftCategory = '#first-category'
     }else if($checkPoint === 3){

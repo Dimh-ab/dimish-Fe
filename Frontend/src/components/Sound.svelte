@@ -52,8 +52,8 @@
         bottom: 1.1rem;
         right: 4.5rem;
         cursor: pointer;
-        /* filter: opacity(0.5) drop-shadow(0 0 0 rgb(230, 6, 6)); */
-        /* filter: invert(); */
+        filter: opacity(0.8) drop-shadow(0 0 0 rgb(253, 253, 253));
+        filter: invert(1);
         z-index: 2;
     }
 

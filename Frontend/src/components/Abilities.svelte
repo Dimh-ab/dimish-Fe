@@ -42,6 +42,7 @@
     }
 
     const useWand = () => {
+        // $gotWand = true
         if($goHome === true){
             dimh = 'https://www.di-mh.com/'
         }

@@ -336,6 +336,9 @@
 	.book.wasClicked .spine1, .book.wasClicked .spine, .book.wasClicked .cover, .book.wasClicked .coverInside, .book.wasClicked .pages, .book.wasClicked .coverPage, .book.wasClicked .page, .book.wasClicked .last-page, .book.wasClicked .back-cover{
 			translate: 0px 200px;
 		}
+	.book-spacing:nth-child(5) .book.wasClicked .spine1, .book-spacing:nth-child(5) .book.wasClicked .spine, .book-spacing:nth-child(5) .book.wasClicked .cover, .book-spacing:nth-child(5) .book.wasClicked .coverInside, .book-spacing:nth-child(5) .book.wasClicked .pages, .book-spacing:nth-child(5) .book.wasClicked .coverPage, .book-spacing:nth-child(5) .book.wasClicked .page, .book-spacing:nth-child(5) .book.wasClicked .last-page, .book-spacing:nth-child(5) .book.wasClicked .back-cover{
+			translate: 0px -200px;
+		}
 
 
 	.cover{
