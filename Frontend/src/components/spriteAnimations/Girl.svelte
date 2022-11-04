@@ -80,8 +80,8 @@
                                 callback();
                             }, 150);
                             if (
-                                e.deltaY === 100 ||
-                                (e.deltaY === -100 &&
+                                e.deltaY === 150 ||
+                                (e.deltaY === -150 &&
                                     this.keys.indexOf(e.deltaY) === -1)
                             ) {
                                 this.keys.push(e.deltaY);
@@ -139,7 +139,7 @@
                 //controls
                 if (
                     input.keys.indexOf("ArrowDown") > -1 ||
-                    input.keys.indexOf(100) > -1
+                    input.keys.indexOf(150) > -1
                 ) {
                     this.speed = 8;
                     if (this.frameTimer > this.frameInterval) {
@@ -151,7 +151,7 @@
                     }
                 } else if (
                     input.keys.indexOf("ArrowUp") > -1 ||
-                    input.keys.indexOf(-100) > -1
+                    input.keys.indexOf(-150) > -1
                 ) {
                     this.speed = -5;
                     if (this.frameTimer > this.frameInterval) {
@@ -346,7 +346,7 @@
         width: 360px;
         height: 500px;
         left: 30px;
-        bottom: 65%;
+        bottom: 69%;
         display: flex;
         z-index: 13;
         transform: rotate(90deg) rotateY(0deg);

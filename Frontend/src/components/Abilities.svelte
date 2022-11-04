@@ -57,12 +57,13 @@
         }
     }
 
+    // class={!show ? 'hidden' : ''}
 
  </script>
 
-<section class={!show ? 'hidden' : ''}>
-    <button class={"show-hide " + (!show ? 'scaleBtn' : '')} on:click={showHideAbilities}>{showHide}</button>
-    {#if show}
+<section >
+    <!-- <button class={"show-hide " + (!show ? 'scaleBtn' : '')} on:click={showHideAbilities}>{showHide}</button>
+    {#if show} -->
     <article in:fly="{{ y: 200, duration: 800 }}" out:fly="{{ y: 200, duration: 1500}}">
         <button 
         disabled={$allKidsBooksRead ? false : true} 
@@ -91,14 +92,14 @@
         
         <a href={dimh}>
                 <button 
-                disabled={$informativeBooksRead ? false : true} 
+                disabled={$goHome ? false : true} 
                 class={wand + ($goHome ? 'wandAnimation' : '')}
                 on:click={useWand}
                 >
                 </button>
         </a>
     </article>
-    {/if}
+    <!-- {/if} -->
 </section>
 
  <style>
@@ -113,8 +114,8 @@
         justify-content: center;
         align-items: center; */
         width: 300px;
-        height: 95px;
-        border-radius: 60px 60px 0 0;
+        height: 65px;
+        border-radius: 5px 5px 0 0;
         padding: 0 0.4rem;
         background-color: #00000070;
         transition-duration: 500ms;

@@ -81,7 +81,7 @@
 
     .canvas-pos{
         position: sticky;
-        bottom: 64%;
+        bottom: 69%;
         left: 0;
         z-index: 14;
     }
